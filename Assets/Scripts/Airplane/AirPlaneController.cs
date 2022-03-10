@@ -6,7 +6,7 @@ public class AirPlaneController : MonoBehaviour
 {
     [Header("이동 가능 구간 지정")]
     [SerializeField] Vector2 XpositionRange;
-    [SerializeField] Vector2 YpositionRange;
+    [SerializeField] Vector2 ZpositionRange;
 
     [Header("캐릭터 회전 정도")]
     [SerializeField] [Range(0, 10)] private float Horizontal_RotateDegree;
@@ -17,6 +17,7 @@ public class AirPlaneController : MonoBehaviour
 
     private float HorizontalInput;
     private float VerticalInput;
+    private float angle = 0;
 
     void Start()
     {
@@ -31,91 +32,58 @@ public class AirPlaneController : MonoBehaviour
 
     private void Update()
     {
-        RotatePerFrame();
-        SetRotation();
-        //StoppingEvent();
+        Character_Move();
+        Character_RotatePerFrame();
+    }
+
+    private void Character_Move()
+    {
+        if(Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            Speed *= 2;
+        }
+        if(Input.GetKeyUp(KeyCode.LeftShift))
+        {
+            Speed /= 2;
+        }
+
+        Vector3 TargetPlusPosition = transform.position + new Vector3(HorizontalInput, 0, VerticalInput);
+        if (TargetPlusPosition.x >= XpositionRange.x && TargetPlusPosition.x <= XpositionRange.y)
+        {
+            transform.position += (new Vector3(HorizontalInput, 0, 0) * Speed);
+        }
+        if (TargetPlusPosition.z >= ZpositionRange.x && TargetPlusPosition.z <= ZpositionRange.y)
+        {
+            transform.position += (new Vector3(0, 0, VerticalInput) * Speed);
+        }
     }
 
     // 프레임마다 회전할 각도가 있다면 회전하기
-    private void RotatePerFrame()
+    private void Character_RotatePerFrame()
     {
-        transform.eulerAngles += new Vector3(-VerticalInput * Vertical_RotateDegree / 2, 0, -HorizontalInput * Horizontal_RotateDegree / 2);
-    }
-
-    private void SetRotation()
-    {
-        if (Input.GetKey(KeyCode.Q))
+        transform.rotation = Quaternion.Slerp(transform.rotation,
+        Quaternion.Euler(0, 0, Mathf.Clamp(angle, -30f, 30f)), Time.deltaTime * Horizontal_RotateDegree);
+        if (HorizontalInput != 0)
         {
-            transform.eulerAngles += new Vector3(0, 0, 1 * Horizontal_RotateDegree);
+            Debug.Log(-Horizontal_RotateDegree * HorizontalInput);
+            angle += -Horizontal_RotateDegree * HorizontalInput;
         }
-        if (Input.GetKey(KeyCode.E))
+        else
         {
-            transform.eulerAngles += new Vector3(0, 0, -1 * Horizontal_RotateDegree);
-        }
-    }
-
-    // 플레이어가 정지해있을 때 실행되는 이벤트
-    private void StoppingEvent()
-    {
-        if (HorizontalInput == 0 && VerticalInput == 0)
-        {
-            StopConfirm();
-        }
-    }
-
-    // 플레이어가 정지해있는지 확인하는 검사
-    private void StopConfirm()
-    {
-        if (transform.eulerAngles != Vector3.zero)
-        {
-            ResetRotation();
-            ReturnRotation();
-        }
-    }
-
-    // 각도가 1 미만이면 0으로 초기화해주기
-    private void ResetRotation()
-    {
-        if (Mathf.Abs(transform.eulerAngles.x) < 1)
-        {
-            transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, transform.eulerAngles.z);
-        }
-        if (Mathf.Abs(transform.eulerAngles.y) < 1)
-        {
-            transform.eulerAngles = new Vector3(transform.eulerAngles.x, 0, transform.eulerAngles.z);
-        }
-        if (Mathf.Abs(transform.eulerAngles.z) < 1)
-        {
-            transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, 0);
-        }
-    }
-
-    // 각도가 1 이상이면 각도를 부드럽게 0으로 만들기
-    private void ReturnRotation()
-    {
-        if (transform.eulerAngles.x != 0)
-        {
-            transform.eulerAngles += new Vector3(transform.rotation.x > 0 ? -0.1f : 0.1f, 0, 0);
-        }
-        if (transform.eulerAngles.y != 0)
-        {
-            transform.eulerAngles += new Vector3(transform.rotation.y > 0 ? -0.1f : 0.1f, 0, 0);
-        }
-        if (transform.eulerAngles.z != 0)
-        {
-            transform.eulerAngles += new Vector3(transform.rotation.z > 0 ? -0.1f : 0.1f, 0, 0);
+            angle = 0;
         }
     }
 
     void FixedUpdate()
     {
-        HorizontalInput = Input.GetAxis("Horizontal");
-        VerticalInput = Input.GetAxis("Vertical");
-        Vector3 TargetPlusPosition = transform.position + new Vector3(HorizontalInput, VerticalInput, 0);
-        if (TargetPlusPosition.x >= XpositionRange.x && TargetPlusPosition.x <= XpositionRange.y &&
-            TargetPlusPosition.y >= YpositionRange.x && TargetPlusPosition.y <= YpositionRange.y)
+        if (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.D))
         {
-            transform.position += (new Vector3(HorizontalInput, 0, VerticalInput) * Speed);
+            HorizontalInput = 0;
         }
+        else
+        {
+            HorizontalInput = Input.GetAxis("Horizontal");
+        }
+        VerticalInput = Input.GetAxis("Vertical");
     }
 }
