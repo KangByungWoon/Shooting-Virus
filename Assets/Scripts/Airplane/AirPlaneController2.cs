@@ -32,8 +32,6 @@ public class AirPlaneController2 : MonoBehaviour
         Quaternion.Euler(Mathf.Clamp(xAngel, -15, 15), 0, Mathf.Clamp(zAngle, -15f, 15f)), Time.deltaTime * 5);
 
         transform.position = Vector3.Lerp(transform.position, TargetPoint, Time.deltaTime * 5);
-        //main_camera.transform.position = Vector3.Lerp(main_camera.transform.position, main_camera.transform.position +
-            //new Vector3(xPos,0,0), Time.deltaTime);
 
         if (HorizontalInput != 0)
         {
