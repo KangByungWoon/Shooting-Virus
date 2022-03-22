@@ -36,7 +36,7 @@ public class AirPlaneController2 : MonoBehaviour
         if (HorizontalInput != 0)
         {
             zAngle += -HorizontalInput * Horizontal_RotPower;
-            xPos += HorizontalInput * Time.deltaTime * 5;
+            xPos += HorizontalInput * Time.deltaTime * 10;
             TargetPoint = StartPosition + new Vector3(xPos, 0, 0);
         }
         else
