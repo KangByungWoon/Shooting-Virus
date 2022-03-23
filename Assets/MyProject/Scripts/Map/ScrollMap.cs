@@ -15,8 +15,6 @@ public class ScrollMap : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log(ScrollMapObj[0].transform.position);
-        Debug.Log(ScrollMapObj[1].transform.position);
     }
 
     void Update()
@@ -26,7 +24,6 @@ public class ScrollMap : MonoBehaviour
             obj.transform.position += Vector3.back * Map_MoveSpeed;
             if (obj.transform.position.z <= EndPosition)
             {
-                Debug.Log(obj.transform.position.z);
                 obj.transform.position = new Vector3(obj.transform.position.x, obj.transform.position.y, ResetPosition);
             }
         }
