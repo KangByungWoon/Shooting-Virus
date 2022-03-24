@@ -11,7 +11,23 @@ public class Enemy : MonoBehaviour
     [SerializeField] protected GameObject ERocket;
     [SerializeField] protected GameObject XMark;
 
-    public virtual void Start()
+    public void SetFirstMovePoint()
+    {
+        bezier.P1 = gameObject.transform.position;
+        bezier.P2 = new Vector3(Random.Range(-30, 30), Random.Range(10, 30), Random.Range(15, 100));
+        bezier.P3 = new Vector3(Random.Range(-30, 30), Random.Range(10, 30), Random.Range(15, 100));
+        bezier.P4 = new Vector3(Random.Range(-30, 30), Random.Range(10, 30), Random.Range(15, 100));
+        Move();
+    }
+
+    void Shooting()
+    {
+        GameObject rocket = Instantiate(ERocket);
+        rocket.transform.position = transform.position;
+        rocket.GetComponent<ERocket>().Target = GameManager.Instance.Player.transform.position;
+    }
+
+    private void Move()
     {
         StartCoroutine(MoveBezier());
     }
@@ -33,6 +49,7 @@ public class Enemy : MonoBehaviour
             }
             yield return new WaitForSeconds(0.01f);
         }
+        Shooting();
     }
 
     public virtual void Die()

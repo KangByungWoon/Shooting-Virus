@@ -4,12 +4,8 @@ using UnityEngine;
 
 public class NormalEnemy : Enemy
 {
-    public override void Start()
+    public void Start()
     {
-        base.Start();
-        GameObject rocket = Instantiate(ERocket);
-        rocket.transform.position = transform.position;
-        rocket.GetComponent<ERocket>().Target = GameManager.Instance.Player.transform.position;
     }
 
     void Update()

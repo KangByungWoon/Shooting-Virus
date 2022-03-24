@@ -40,6 +40,7 @@ public class ERocket : MonoBehaviour
             ex.transform.position = gameObject.transform.position;
             Destroy(gameObject);
             Destroy(ex, 2f);
+            Camera.main.GetComponent<CameraSystem>().CameraShake(0.25f, 0.1f);
         }
     }
 }

@@ -13,7 +13,7 @@ public class EnemySpawnSystem : MonoBehaviour
 
     void Update()
     {
-        
+
     }
 
     IEnumerator Spawn()
@@ -21,9 +21,10 @@ public class EnemySpawnSystem : MonoBehaviour
         while (true)
         {
             GameObject enemy = Instantiate(Enemy);
-            enemy.transform.position = new Vector3(Random.Range(-30, 30), Random.Range(10, 30), Random.Range(10, 60));
+            enemy.transform.position = new Vector3(Random.Range(-30, 30), Random.Range(10, 30), -10);
+            enemy.GetComponent<Enemy>().SetFirstMovePoint();
 
-            yield return new WaitForSeconds(Random.Range(0.2f, 0.5f));
+            yield return new WaitForSeconds(Random.Range(0.2f, 3f));
         }
     }
 }
