@@ -9,10 +9,16 @@ public class Enemy : MonoBehaviour
     [SerializeField] protected BezierCurve bezier;
     [SerializeField] protected float MoveSpeed;
     [SerializeField] protected GameObject ERocket;
+    [SerializeField] protected GameObject XMark;
 
     public virtual void Start()
     {
         StartCoroutine(MoveBezier());
+    }
+
+    public void OnMark()
+    {
+        XMark.SetActive(true);
     }
 
     public IEnumerator MoveBezier()

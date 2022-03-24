@@ -124,6 +124,7 @@ public class AirPlaneController : MonoBehaviour
                         rocket.transform.position = transform.position + new Vector3(Random.Range(-10, 10), 5, -10);
                         rocket.GetComponent<Rocket>().Target = hit.transform.gameObject.transform;
                         hit.transform.gameObject.GetComponentInParent<Enemy>().isTarget = true;
+                        hit.transform.gameObject.GetComponentInParent<Enemy>().OnMark();
                     }
                 }
             }

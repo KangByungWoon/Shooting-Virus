@@ -15,7 +15,8 @@ public class Rocket : MonoBehaviour
     {
         try
         {
-            transform.position = Vector3.Lerp(transform.position, Target.position, Time.deltaTime * Speed);
+            transform.position = Vector3.Slerp(transform.position, Target.position, Time.deltaTime * Speed);
+            transform.LookAt(Target.position);
         }
         catch (MissingReferenceException)
         {

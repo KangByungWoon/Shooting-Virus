@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 400000}
   - component: {fileID: 19900000}
   - component: {fileID: 19800000}
-  m_Layer: 8
+  m_Layer: 6
   m_Name: Glow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -181,8 +181,8 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.75
-      minScalar: 0.49999997
+      scalar: 0.2
+      minScalar: 0.25
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -270,7 +270,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0, g: 0.5125196, b: 1, a: 1}
+      maxColor: {r: 1, g: 0, b: 0, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -332,8 +332,8 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 6
-      minScalar: 4
+      scalar: 3
+      minScalar: 2
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -4772,7 +4772,7 @@ GameObject:
   m_Component:
   - component: {fileID: 400002}
   - component: {fileID: 14600000}
-  m_Layer: 8
+  m_Layer: 6
   m_Name: WheelFront
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4833,7 +4833,7 @@ GameObject:
   m_Component:
   - component: {fileID: 400004}
   - component: {fileID: 14600002}
-  m_Layer: 8
+  m_Layer: 6
   m_Name: WheelRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4894,7 +4894,7 @@ GameObject:
   m_Component:
   - component: {fileID: 400006}
   - component: {fileID: 14600004}
-  m_Layer: 8
+  m_Layer: 6
   m_Name: WheelLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4954,7 +4954,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 400008}
-  m_Layer: 8
+  m_Layer: 6
   m_Name: Colliders
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5000,10 +5000,11 @@ GameObject:
   - component: {fileID: 400010}
   - component: {fileID: 5400000}
   - component: {fileID: 9500000}
-  - component: {fileID: 451516096}
-  m_Layer: 8
-  m_Name: AircraftJet
-  m_TagString: Player
+  - component: {fileID: 1427322704}
+  - component: {fileID: 1427322705}
+  m_Layer: 6
+  m_Name: Enemy
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5025,6 +5026,7 @@ Transform:
   - {fileID: 400092}
   - {fileID: 400072}
   - {fileID: 182404375}
+  - {fileID: 4672884293720146356}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5063,7 +5065,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &451516096
+--- !u!114 &1427322704
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5072,12 +5074,33 @@ MonoBehaviour:
   m_GameObject: {fileID: 100010}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37e95d31fecfbc643b2c87447048282b, type: 3}
+  m_Script: {fileID: 11500000, guid: 6eaf711d4491f17499841a739518cc1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Horizontal_RotPower: 2
-  Vertical_RotPower: 2
-  main_camera: {fileID: 0}
+  isTarget: 0
+  Explosion: {fileID: 100010, guid: 645413a00f7bd0242bbd6d0e5eb6f439, type: 3}
+  bezier: {fileID: 1427322705}
+  MoveSpeed: 0.005
+  ERocket: {fileID: 7484472348557045696, guid: 1a7e191c088fb1d428cdc97a82e0376c, type: 3}
+  XMark: {fileID: 3422486042054269982}
+--- !u!114 &1427322705
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100010}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2cf80023c8adfe9479a783ac30666071, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Object: {fileID: 100010}
+  P1: {x: -5, y: 20, z: -5}
+  P2: {x: -10, y: 20, z: 20}
+  P3: {x: 5, y: 20, z: 20}
+  P4: {x: 5, y: 20, z: 10}
+  Value: 0
 --- !u!1 &100012
 GameObject:
   m_ObjectHideFlags: 0
@@ -5089,7 +5112,7 @@ GameObject:
   - component: {fileID: 400012}
   - component: {fileID: 3300002}
   - component: {fileID: 6500000}
-  m_Layer: 8
+  m_Layer: 6
   m_Name: TailfinRightBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5141,7 +5164,7 @@ GameObject:
   m_Component:
   - component: {fileID: 400014}
   - component: {fileID: 13600000}
-  m_Layer: 8
+  m_Layer: 6
   m_Name: BodyCentreCapsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5187,7 +5210,7 @@ GameObject:
   - component: {fileID: 400016}
   - component: {fileID: 3300006}
   - component: {fileID: 6500004}
-  m_Layer: 8
+  m_Layer: 6
   m_Name: AileronLeftBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5239,7 +5262,7 @@ GameObject:
   m_Component:
   - component: {fileID: 400018}
   - component: {fileID: 9600000}
-  m_Layer: 8
+  m_Layer: 6
   m_Name: Trail Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5377,7 +5400,7 @@ GameObject:
   m_Component:
   - component: {fileID: 400020}
   - component: {fileID: 9600002}
-  m_Layer: 8
+  m_Layer: 6
   m_Name: Trail Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5516,7 +5539,7 @@ GameObject:
   - component: {fileID: 400022}
   - component: {fileID: 19800002}
   - component: {fileID: 19900002}
-  m_Layer: 8
+  m_Layer: 6
   m_Name: VapourTrailSystem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10321,7 +10344,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 400024}
-  m_Layer: 8
+  m_Layer: 6
   m_Name: Trails
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10355,7 +10378,7 @@ GameObject:
   - component: {fileID: 400026}
   - component: {fileID: 3300004}
   - component: {fileID: 2300002}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: AircraftWingsJetWing
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10434,7 +10457,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 400028}
-  m_Layer: 8
+  m_Layer: 6
   m_Name: Particles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10469,7 +10492,7 @@ GameObject:
   - component: {fileID: 400030}
   - component: {fileID: 3300012}
   - component: {fileID: 2300008}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: AircraftWingsJetSlatRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10550,7 +10573,7 @@ GameObject:
   - component: {fileID: 400032}
   - component: {fileID: 3300036}
   - component: {fileID: 2300028}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: AircraftWingsJetSlatLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10631,7 +10654,7 @@ GameObject:
   - component: {fileID: 400034}
   - component: {fileID: 3300016}
   - component: {fileID: 2300012}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: AircraftWingsJetGearWheelRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10712,7 +10735,7 @@ GameObject:
   - component: {fileID: 400036}
   - component: {fileID: 3300038}
   - component: {fileID: 2300030}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: AircraftWingsJetGearWheelLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10792,7 +10815,7 @@ GameObject:
   m_Component:
   - component: {fileID: 400038}
   - component: {fileID: 13500000}
-  m_Layer: 8
+  m_Layer: 6
   m_Name: NoseSphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10837,7 +10860,7 @@ GameObject:
   - component: {fileID: 400040}
   - component: {fileID: 3300032}
   - component: {fileID: 2300024}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: AircraftWingsJetGearWheelFront
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10918,7 +10941,7 @@ GameObject:
   - component: {fileID: 400042}
   - component: {fileID: 3300020}
   - component: {fileID: 2300014}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: AircraftWingsJetGearRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11000,7 +11023,7 @@ GameObject:
   - component: {fileID: 400044}
   - component: {fileID: 3300018}
   - component: {fileID: 6500002}
-  m_Layer: 8
+  m_Layer: 6
   m_Name: WingRightBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11053,7 +11076,7 @@ GameObject:
   - component: {fileID: 400046}
   - component: {fileID: 3300000}
   - component: {fileID: 2300000}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: AircraftWingsJetGearLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11135,7 +11158,7 @@ GameObject:
   - component: {fileID: 400048}
   - component: {fileID: 3300014}
   - component: {fileID: 2300010}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: AircraftWingsJetGearFront
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11217,7 +11240,7 @@ GameObject:
   - component: {fileID: 400050}
   - component: {fileID: 3300034}
   - component: {fileID: 2300026}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: AircraftWingsJetFlapRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11297,7 +11320,7 @@ GameObject:
   m_Component:
   - component: {fileID: 400052}
   - component: {fileID: 13600002}
-  m_Layer: 8
+  m_Layer: 6
   m_Name: BodyLeftCapsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11342,7 +11365,7 @@ GameObject:
   m_Component:
   - component: {fileID: 400054}
   - component: {fileID: 13600004}
-  m_Layer: 8
+  m_Layer: 6
   m_Name: BodyRightCapsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11388,7 +11411,7 @@ GameObject:
   - component: {fileID: 400056}
   - component: {fileID: 3300026}
   - component: {fileID: 6500006}
-  m_Layer: 8
+  m_Layer: 6
   m_Name: WingLeftBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11441,7 +11464,7 @@ GameObject:
   - component: {fileID: 400058}
   - component: {fileID: 3300024}
   - component: {fileID: 2300018}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: AircraftWingsJetFlapLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11522,7 +11545,7 @@ GameObject:
   - component: {fileID: 400060}
   - component: {fileID: 3300008}
   - component: {fileID: 2300004}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: AircraftWingsJetDoorRightRear
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11603,7 +11626,7 @@ GameObject:
   - component: {fileID: 400062}
   - component: {fileID: 3300010}
   - component: {fileID: 2300006}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: AircraftWingsJetDoorRightFront
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11684,7 +11707,7 @@ GameObject:
   - component: {fileID: 400064}
   - component: {fileID: 3300022}
   - component: {fileID: 2300016}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: AircraftWingsJetDoorLeftRear
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11765,7 +11788,7 @@ GameObject:
   - component: {fileID: 400066}
   - component: {fileID: 3300040}
   - component: {fileID: 2300032}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: AircraftWingsJetDoorLeftFront
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11846,7 +11869,7 @@ GameObject:
   - component: {fileID: 400068}
   - component: {fileID: 3300028}
   - component: {fileID: 2300020}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: AircraftWingsJetAileronRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11927,7 +11950,7 @@ GameObject:
   - component: {fileID: 400070}
   - component: {fileID: 3300030}
   - component: {fileID: 2300022}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: AircraftWingsJetAileronLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12006,7 +12029,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 400072}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: AircraftWingsJet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12051,7 +12074,7 @@ GameObject:
   m_Component:
   - component: {fileID: 400074}
   - component: {fileID: 13600006}
-  m_Layer: 8
+  m_Layer: 6
   m_Name: NoseCapsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12097,7 +12120,7 @@ GameObject:
   - component: {fileID: 400076}
   - component: {fileID: 3300042}
   - component: {fileID: 6500008}
-  m_Layer: 8
+  m_Layer: 6
   m_Name: WingRightBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12150,7 +12173,7 @@ GameObject:
   - component: {fileID: 400078}
   - component: {fileID: 3300044}
   - component: {fileID: 6500010}
-  m_Layer: 8
+  m_Layer: 6
   m_Name: TailfinLeftBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12203,7 +12226,7 @@ GameObject:
   - component: {fileID: 400080}
   - component: {fileID: 3300054}
   - component: {fileID: 2300042}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: AircraftFuselageRudderRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12284,7 +12307,7 @@ GameObject:
   - component: {fileID: 400082}
   - component: {fileID: 3300046}
   - component: {fileID: 2300034}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: AircraftFuselageRudderLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12365,7 +12388,7 @@ GameObject:
   - component: {fileID: 400084}
   - component: {fileID: 3300052}
   - component: {fileID: 2300040}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: AircraftFuselageGearDoorRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12446,7 +12469,7 @@ GameObject:
   - component: {fileID: 400086}
   - component: {fileID: 19900004}
   - component: {fileID: 19800004}
-  m_Layer: 8
+  m_Layer: 6
   m_Name: AfterburnerRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12617,7 +12640,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.3
+      scalar: 0.1
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -12724,7 +12747,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0, g: 0.58155894, b: 1, a: 1}
+      maxColor: {r: 1, g: 0, b: 0, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -12786,8 +12809,8 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 1.4
-      minScalar: 1.2
+      scalar: 0.7
+      minScalar: 0.6
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -17236,7 +17259,7 @@ GameObject:
   - component: {fileID: 400088}
   - component: {fileID: 3300050}
   - component: {fileID: 2300038}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: AircraftFuselageGearDoorLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17317,7 +17340,7 @@ GameObject:
   - component: {fileID: 400090}
   - component: {fileID: 3300048}
   - component: {fileID: 2300036}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: AircraftFuselageBody
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17396,7 +17419,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 400092}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: AircraftFuselage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17433,7 +17456,7 @@ GameObject:
   - component: {fileID: 400100}
   - component: {fileID: 19900006}
   - component: {fileID: 19800006}
-  m_Layer: 8
+  m_Layer: 6
   m_Name: AfterburnerLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17604,7 +17627,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.3
+      scalar: 0.1
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -17711,7 +17734,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0, g: 0.58155894, b: 1, a: 1}
+      maxColor: {r: 1, g: 0, b: 0, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -17773,8 +17796,8 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 1.4
-      minScalar: 1.2
+      scalar: 0.7
+      minScalar: 0.6
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -22223,7 +22246,7 @@ GameObject:
   - component: {fileID: 400102}
   - component: {fileID: 19900008}
   - component: {fileID: 19800008}
-  m_Layer: 8
+  m_Layer: 6
   m_Name: Glow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -22393,8 +22416,8 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.75
-      minScalar: 0.49999997
+      scalar: 0.2
+      minScalar: 0.25
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -22482,7 +22505,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0, g: 0.5125196, b: 1, a: 1}
+      maxColor: {r: 1, g: 0, b: 0, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -22544,8 +22567,8 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 6
-      minScalar: 4
+      scalar: 3
+      minScalar: 2
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -26983,7 +27006,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 182404375}
-  m_Layer: 8
+  m_Layer: 6
   m_Name: Camtag
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27004,3 +27027,227 @@ Transform:
   m_Father: {fileID: 400010}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3422486042054269982
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4672884293720146356}
+  m_Layer: 6
+  m_Name: XMarking
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &4672884293720146356
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3422486042054269982}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 6790892010558689333}
+  - {fileID: 4627356744061852420}
+  m_Father: {fileID: 400010}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4195014032888438233
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6790892010558689333}
+  - component: {fileID: 5380430978583300910}
+  - component: {fileID: 5631077389755111620}
+  - component: {fileID: 911243112160146953}
+  m_Layer: 6
+  m_Name: Capsule
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6790892010558689333
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4195014032888438233}
+  m_LocalRotation: {x: 0, y: 0, z: -0.38268343, w: 0.92387956}
+  m_LocalPosition: {x: 0, y: 3.35, z: -8.84}
+  m_LocalScale: {x: 1, y: 4, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4672884293720146356}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -45}
+--- !u!33 &5380430978583300910
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4195014032888438233}
+  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &5631077389755111620
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4195014032888438233}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!136 &911243112160146953
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4195014032888438233}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &4846501573658297406
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4627356744061852420}
+  - component: {fileID: 8114425384358180732}
+  - component: {fileID: 7078960200007498547}
+  - component: {fileID: 6181606475171813508}
+  m_Layer: 6
+  m_Name: Capsule (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4627356744061852420
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4846501573658297406}
+  m_LocalRotation: {x: 0, y: 0, z: 0.38268343, w: 0.92387956}
+  m_LocalPosition: {x: 0, y: 3.35, z: -8.84}
+  m_LocalScale: {x: 1, y: 4, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4672884293720146356}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 45}
+--- !u!33 &8114425384358180732
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4846501573658297406}
+  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &7078960200007498547
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4846501573658297406}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!136 &6181606475171813508
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4846501573658297406}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}

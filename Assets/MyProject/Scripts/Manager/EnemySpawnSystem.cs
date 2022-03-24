@@ -21,7 +21,7 @@ public class EnemySpawnSystem : MonoBehaviour
         while (true)
         {
             GameObject enemy = Instantiate(Enemy);
-            enemy.transform.position = new Vector3(Random.Range(-30, 30), Random.Range(10, 30), Random.Range(10, 30));
+            enemy.transform.position = new Vector3(Random.Range(-30, 30), Random.Range(10, 30), Random.Range(10, 60));
 
             yield return new WaitForSeconds(Random.Range(0.2f, 0.5f));
         }
