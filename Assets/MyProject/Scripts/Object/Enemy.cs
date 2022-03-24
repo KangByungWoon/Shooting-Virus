@@ -5,9 +5,10 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     public bool isTarget;
-    public GameObject Explosion;
-    public BezierCurve bezier;
-    public float MoveSpeed;
+    [SerializeField] protected GameObject Explosion;
+    [SerializeField] protected BezierCurve bezier;
+    [SerializeField] protected float MoveSpeed;
+    [SerializeField] protected GameObject ERocket;
 
     public virtual void Start()
     {

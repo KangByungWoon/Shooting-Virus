@@ -111,16 +111,20 @@ public class AirPlaneController : MonoBehaviour
 
         //LockOn.anchoredPosition = Camera.main.ScreenToWorldPoint(new Vector3(0, transform.position.y - StartPosition.y, 0));
 
-        for (int i = -300; i <= 300; i++)
+        for (float i = -3; i <= 3; i += 0.1f)
         {
-            if (Physics.Raycast(transform.position + new Vector3(0 + i, 0.5f + i, 0), transform.forward, out var hit, Mathf.Infinity, 1 << LayerMask.NameToLayer("Enemy")))
+            for (float j = -2; j <= 2; j += 0.1f)
             {
-                if (!hit.transform.gameObject.GetComponentInParent<Enemy>().isTarget)
+                //Debug.DrawRay(transform.position + new Vector3(i, 0.5f + j, 0), transform.forward, Color.blue, 1);
+                if (Physics.Raycast(transform.position + new Vector3(i, 0.5f + j, 0), transform.forward, out var hit, Mathf.Infinity, 1 << LayerMask.NameToLayer("Enemy")))
                 {
-                    GameObject rocket = Instantiate(RocketPrefab);
-                    rocket.transform.position = transform.position + new Vector3(Random.Range(-10, 10), 5, -10);
-                    rocket.GetComponent<Rocket>().Target = hit.transform.gameObject.transform;
-                    hit.transform.gameObject.GetComponentInParent<Enemy>().isTarget = true;
+                    if (!hit.transform.gameObject.GetComponentInParent<Enemy>().isTarget)
+                    {
+                        GameObject rocket = Instantiate(RocketPrefab);
+                        rocket.transform.position = transform.position + new Vector3(Random.Range(-10, 10), 5, -10);
+                        rocket.GetComponent<Rocket>().Target = hit.transform.gameObject.transform;
+                        hit.transform.gameObject.GetComponentInParent<Enemy>().isTarget = true;
+                    }
                 }
             }
         }

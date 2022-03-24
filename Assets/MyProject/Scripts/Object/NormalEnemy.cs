@@ -15,8 +15,10 @@ public class NormalEnemy : Enemy
 
     private void OnTriggerEnter(Collider other)
     {
-        base.Die();
-        Destroy(other.gameObject);
-        Debug.Log("스코어 추가");
+        if (other.gameObject.tag == "PRocket")
+        {
+            base.Die();
+            Debug.Log("스코어 추가");
+        }
     }
 }
