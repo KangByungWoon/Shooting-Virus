@@ -105,12 +105,6 @@ public class AirPlaneController : MonoBehaviour
 
     private void LockOnSystem()
     {
-        //Ray ray;
-        //ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        //Vector3 tp = (Input.mousePosition);
-
-        //LockOn.anchoredPosition = Camera.main.ScreenToWorldPoint(new Vector3(0, transform.position.y - StartPosition.y, 0));
-
         for (float i = -3; i <= 3; i += 0.1f)
         {
             for (float j = -2; j <= 2; j += 0.1f)

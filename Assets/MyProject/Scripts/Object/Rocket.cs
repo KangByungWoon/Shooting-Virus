@@ -26,7 +26,7 @@ public class Rocket : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag=="Enemy")
+        if (other.gameObject.tag == Target.gameObject.tag)
         {
             Destroy(gameObject);
         }

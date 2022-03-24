@@ -14,6 +14,13 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        
+        if(Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            Time.timeScale = 1.4f;
+        }
+        if(Input.GetKeyUp(KeyCode.LeftShift))
+        {
+            Time.timeScale = 1;
+        }
     }
 }

@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class NormalEnemy : Enemy
 {
-    public void Start()
+    public override void Start()
     {
+        base.Start();
     }
 
     void Update()

@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class ScrollMap : MonoBehaviour
 {
-    // z : -90이 되면 z : 90으로 이동
     [Header("ScrollMap Object")]
     [SerializeField] private GameObject[] ScrollMapObj = new GameObject[2];
 
@@ -21,7 +20,7 @@ public class ScrollMap : MonoBehaviour
     {
         foreach (GameObject obj in ScrollMapObj)
         {
-            obj.transform.position += Vector3.back * Map_MoveSpeed;
+            obj.transform.position += Vector3.back * Map_MoveSpeed * Time.timeScale;
             if (obj.transform.position.z <= EndPosition)
             {
                 obj.transform.position = new Vector3(obj.transform.position.x, obj.transform.position.y, ResetPosition);

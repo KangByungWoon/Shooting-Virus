@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class ERocket : MonoBehaviour
 {
-    public Vector3 Target;
+    public Transform Target;
+    public Vector3 TargetPosition;
     [SerializeField] protected GameObject Explosion;
     [SerializeField] protected float Speed;
     private bool isComplete = false;
@@ -13,15 +14,18 @@ public class ERocket : MonoBehaviour
     {
         try
         {
-            transform.position = Vector3.MoveTowards(transform.position, Target + new Vector3(0,0,0), Time.deltaTime * Speed);
-            transform.LookAt(Target);
-            if(transform.position.z <= Target.z + 0.1f && !isComplete)
+            if(!isComplete)
             {
-                transform.position = Target;
-                Target += new Vector3(0, 0, -5f);
+                TargetPosition = Target.transform.position;
+            }
+            transform.position = Vector3.MoveTowards(transform.position, TargetPosition, Time.deltaTime * Speed);
+            transform.LookAt(TargetPosition);
+            if (transform.position.z <= TargetPosition.z + 5f && !isComplete)
+            {
+                TargetPosition += transform.forward * 5;
                 isComplete = true;
             }
-            else if(transform.position.z <= Target.z + 0.1f && isComplete)
+            else if (transform.position == TargetPosition && isComplete)
             {
                 Destroy(gameObject);
             }
