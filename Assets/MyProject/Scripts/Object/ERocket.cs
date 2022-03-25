@@ -14,7 +14,7 @@ public class ERocket : MonoBehaviour
     {
         try
         {
-            if(!isComplete)
+            if (!isComplete)
             {
                 TargetPosition = Target.transform.position;
             }
@@ -27,12 +27,12 @@ public class ERocket : MonoBehaviour
             }
             else if (transform.position == TargetPosition && isComplete)
             {
-                Destroy(gameObject);
+                ObjectPool.Instance.ReleaseObject(ObjectPool.Instance.ERockets, gameObject);
             }
         }
         catch (MissingReferenceException)
         {
-            Destroy(gameObject);
+            ObjectPool.Instance.ReleaseObject(ObjectPool.Instance.ERockets, gameObject);
         }
     }
 
@@ -40,11 +40,10 @@ public class ERocket : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            GameObject ex = Instantiate(Explosion);
-            ex.transform.position = gameObject.transform.position;
-            Destroy(gameObject);
-            Destroy(ex, 2f);
-            Camera.main.GetComponent<CameraSystem>().CameraShake(0.25f, 0.1f);
+            ObjectPool.Instance.ReleaseObject(ObjectPool.Instance.ERockets, gameObject);
+            GameObject ex = ObjectPool.Instance.GetObject(ObjectPool.Instance.Particles, gameObject.transform.position);
+            ObjectPool.Instance.ReleaseObject(ObjectPool.Instance.Particles, ex, 2f);
+            Camera.main.GetComponent<CameraSystem>().CameraShake(0.25f, 0.3f);
         }
     }
 }

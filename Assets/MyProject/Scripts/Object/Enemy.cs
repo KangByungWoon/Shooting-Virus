@@ -65,8 +65,7 @@ public class Enemy : MonoBehaviour
 
     public void Shooting()
     {
-        GameObject rocket = Instantiate(ERocket);
-        rocket.transform.position = transform.position;
+        GameObject rocket = ObjectPool.Instance.GetObject(ObjectPool.Instance.ERockets, transform.position);
         rocket.GetComponent<ERocket>().Target = GameManager.Instance.Player.transform;
     }
 
@@ -74,7 +73,7 @@ public class Enemy : MonoBehaviour
     {
         while (true)
         {
-            bezier.Value += MoveSpeed;
+            bezier.Value += Exit ? MoveSpeed * 2 :  MoveSpeed;
             if (bezier.Value >= 1)
             {
                 bezier.Value = 1;
@@ -93,10 +92,9 @@ public class Enemy : MonoBehaviour
 
     public virtual void Die()
     {
-        GameObject ex = Instantiate(Explosion);
-        ex.transform.position = gameObject.transform.position;
-        Destroy(gameObject);
-        Destroy(ex, 2f);
+        ObjectPool.Instance.ReleaseObject(ObjectPool.Instance.Bacterias, gameObject);
+        GameObject ex =  ObjectPool.Instance.GetObject(ObjectPool.Instance.Particles, gameObject.transform.position);
+        ObjectPool.Instance.ReleaseObject(ObjectPool.Instance.Particles, ex, 2f);
         Debug.Log("Die Callback");
     }
 }
@@ -135,7 +133,7 @@ public class AttackState : IState
 {
     public IEnumerator Activity(Context ctx, Enemy enemy)
     {
-        enemy.Shooting();
+        //enemy.Shooting();
 
         yield return new WaitForSeconds(Random.Range(5f, 8f));
 

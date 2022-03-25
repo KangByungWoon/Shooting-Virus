@@ -20,7 +20,7 @@ public class Rocket : MonoBehaviour
         }
         catch (MissingReferenceException)
         {
-            Destroy(gameObject);
+            ObjectPool.Instance.ReleaseObject(ObjectPool.Instance.PRockets, gameObject);
         }
     }
 
@@ -28,7 +28,7 @@ public class Rocket : MonoBehaviour
     {
         if (other.gameObject.tag == Target.gameObject.tag)
         {
-            Destroy(gameObject);
+            ObjectPool.Instance.ReleaseObject(ObjectPool.Instance.PRockets, gameObject);
         }
     }
 }
