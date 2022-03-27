@@ -9,6 +9,15 @@ public class ERocket : MonoBehaviour
     [SerializeField] protected GameObject Explosion;
     [SerializeField] protected float Speed;
     private bool isComplete = false;
+    public ObjectPool.PoolType rocketType;
+    public int Damage;
+    bool isAttack = false;
+
+    private void OnEnable()
+    {
+        isComplete = false;
+        isAttack = false;
+    }
 
     void Update()
     {
@@ -27,23 +36,45 @@ public class ERocket : MonoBehaviour
             }
             else if (transform.position == TargetPosition && isComplete)
             {
-                ObjectPool.Instance.ReleaseObject(ObjectPool.Instance.ERockets, gameObject);
+                RocketRelease();
             }
         }
         catch (MissingReferenceException)
         {
-            ObjectPool.Instance.ReleaseObject(ObjectPool.Instance.ERockets, gameObject);
+            RocketRelease();
         }
     }
 
+
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player")
+        if (other.tag == "Player" && !isAttack)
         {
-            ObjectPool.Instance.ReleaseObject(ObjectPool.Instance.ERockets, gameObject);
+            isAttack = true;
+            RocketRelease();
+            other.GetComponentInParent<AirPlaneController>().InvinActive(Damage);
             GameObject ex = ObjectPool.Instance.GetObject(ObjectPool.Instance.Particles, gameObject.transform.position);
             ObjectPool.Instance.ReleaseObject(ObjectPool.Instance.Particles, ex, 2f);
             Camera.main.GetComponent<CameraSystem>().CameraShake(0.25f, 0.3f);
+        }
+    }
+
+    private void RocketRelease()
+    {
+        switch (rocketType)
+        {
+            case ObjectPool.PoolType.Bacteria:
+                ObjectPool.Instance.ReleaseObject(ObjectPool.Instance.BacteriaRockets, gameObject);
+                break;
+            case ObjectPool.PoolType.Germ:
+                ObjectPool.Instance.ReleaseObject(ObjectPool.Instance.GermRockets, gameObject);
+                break;
+            case ObjectPool.PoolType.Virus:
+                ObjectPool.Instance.ReleaseObject(ObjectPool.Instance.VirusRockets, gameObject);
+                break;
+            case ObjectPool.PoolType.Cancer_Cells:
+                ObjectPool.Instance.ReleaseObject(ObjectPool.Instance.Cancer_CellsRockets, gameObject);
+                break;
         }
     }
 }

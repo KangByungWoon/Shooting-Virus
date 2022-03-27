@@ -43,9 +43,13 @@ public class AirPlaneController : MonoBehaviour
 
     Vector3 StartPosition;
     [SerializeField] Vector3 TargetPoint;
+    [SerializeField] MeshRenderer invinmat;
+
+    public bool isInvin;
 
     void Start()
     {
+        invinmat.material.mainTextureScale = new Vector2(0, 1);
         Setting();
     }
 
@@ -109,20 +113,56 @@ public class AirPlaneController : MonoBehaviour
         {
             for (float j = -2; j <= 2; j += 0.1f)
             {
-                //Debug.DrawRay(transform.position + new Vector3(i, 0.5f + j, 0), transform.forward, Color.blue, 1);
                 if (Physics.Raycast(transform.position + new Vector3(i, 0.5f + j, 0), transform.forward, out var hit, Mathf.Infinity, 1 << LayerMask.NameToLayer("Enemy")))
                 {
-                    if (!hit.transform.gameObject.GetComponentInParent<Enemy>().isTarget)
+                    if (!hit.transform.gameObject.GetComponent<Enemy>().isTarget)
                     {
                         GameObject rocket = ObjectPool.Instance.GetObject(ObjectPool.Instance.PRockets, transform.position + new Vector3(Random.Range(-10, 10), 5, -10));
                         rocket.GetComponent<Rocket>().Target = hit.transform.gameObject.transform;
-                        hit.transform.gameObject.GetComponentInParent<Enemy>().isTarget = true;
-                        hit.transform.gameObject.GetComponentInParent<Enemy>().OnMark();
+
+                        Enemy enemy = hit.transform.gameObject.GetComponent<Enemy>();
+                        enemy.isTarget = true;
+                        enemy.RocketObj = rocket;
+                        enemy.OnMark();
+
+                        enemy.TargetSetting();
                     }
                 }
             }
         }
     }
+
+    public void InvinActive(int damage, float waitTime = 1f)
+    {
+        if (isInvin == false)
+        {
+            GameManager.Instance.Hp -= damage;
+            isInvin = true;
+            StartCoroutine(InvinCoroutine(waitTime));
+        }
+    }
+
+    private IEnumerator InvinCoroutine(float waitTime)
+    {
+        invinmat.material.mainTextureScale = new Vector2(20, 1);
+
+        for (int i = 0; i < 100; i++)
+        {
+            invinmat.material.mainTextureScale -= new Vector2(0.2f, 0);
+            yield return new WaitForSeconds(waitTime / 100);
+        }
+        yield return new WaitForSeconds(0.5f);
+        isInvin = false;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.tag=="Item")
+        {
+            Debug.Log("IteGet");
+        }
+    }
+
 
     private void FixedUpdate()
     {

@@ -33,33 +33,32 @@ public class BezierCurve : MonoBehaviour
         return F;
     }
 }
+//[CanEditMultipleObjects]
+//[CustomEditor(typeof(BezierCurve))]
+//public class BezierCurveEditor : Editor
+//{
+//    private void OnSceneGUI()
+//    {
+//        BezierCurve Generator = (BezierCurve)target;
 
-[CanEditMultipleObjects]
-[CustomEditor(typeof(BezierCurve))]
-public class BezierCurveEditor : Editor
-{
-    private void OnSceneGUI()
-    {
-        BezierCurve Generator = (BezierCurve)target;
+//        Generator.P1 = Handles.PositionHandle(Generator.P1, Quaternion.identity);
+//        Generator.P2 = Handles.PositionHandle(Generator.P2, Quaternion.identity);
+//        Generator.P3 = Handles.PositionHandle(Generator.P3, Quaternion.identity);
+//        Generator.P4 = Handles.PositionHandle(Generator.P4, Quaternion.identity);
 
-        Generator.P1 = Handles.PositionHandle(Generator.P1, Quaternion.identity);
-        Generator.P2 = Handles.PositionHandle(Generator.P2, Quaternion.identity);
-        Generator.P3 = Handles.PositionHandle(Generator.P3, Quaternion.identity);
-        Generator.P4 = Handles.PositionHandle(Generator.P4, Quaternion.identity);
+//        Handles.DrawLine(Generator.P1, Generator.P2);
+//        Handles.DrawLine(Generator.P3, Generator.P4);
 
-        Handles.DrawLine(Generator.P1, Generator.P2);
-        Handles.DrawLine(Generator.P3, Generator.P4);
+//        int Count = 50;
+//        for (float i = 0; i < Count; i++)
+//        {
+//            float value_Before = i / Count;
+//            Vector3 Before = Generator.BezierCurveFunc(Generator.P1, Generator.P2, Generator.P3, Generator.P4, value_Before);
 
-        int Count = 50;
-        for (float i = 0; i < Count; i++)
-        {
-            float value_Before = i / Count;
-            Vector3 Before = Generator.BezierCurveFunc(Generator.P1, Generator.P2, Generator.P3, Generator.P4, value_Before);
+//            float value_After = (i + 1) / Count;
+//            Vector3 After = Generator.BezierCurveFunc(Generator.P1, Generator.P2, Generator.P3, Generator.P4, value_After);
 
-            float value_After = (i + 1) / Count;
-            Vector3 After = Generator.BezierCurveFunc(Generator.P1, Generator.P2, Generator.P3, Generator.P4, value_After);
-
-            Handles.DrawLine(Before, After);
-        }
-    }
-}
+//            Handles.DrawLine(Before, After);
+//        }
+//    }
+//}

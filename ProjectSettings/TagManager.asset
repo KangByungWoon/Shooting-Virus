@@ -7,6 +7,8 @@ TagManager:
   - Enemy
   - PRocket
   - ERocket
+  - Item
+  - SEnemy
   layers:
   - Default
   - TransparentFX
