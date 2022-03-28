@@ -15,6 +15,7 @@ public class ObjectPool : MonoBehaviour
         Leukocyte,
         RedBlood_Cells,
         PRocket,
+        PBullet,
         Particle
     };
 
@@ -26,6 +27,8 @@ public class ObjectPool : MonoBehaviour
     public Queue<GameObject> Cancer_Cellses = new Queue<GameObject>();
     public Queue<GameObject> Leukocytes = new Queue<GameObject>();
     public Queue<GameObject> RedBlood_Cellses = new Queue<GameObject>();
+
+    public Queue<GameObject> PBullets = new Queue<GameObject>();
 
     public Queue<GameObject> BacteriaRockets = new Queue<GameObject>();
     public Queue<GameObject> GermRockets = new Queue<GameObject>();
@@ -44,6 +47,8 @@ public class ObjectPool : MonoBehaviour
     [SerializeField] private GameObject Leukocyte;
     [SerializeField] private GameObject RedBlood_Cells;
 
+    [SerializeField] private GameObject PBullet;
+
     [SerializeField] private GameObject BacteriaRocket;
     [SerializeField] private GameObject GermRocket;
     [SerializeField] private GameObject VirusRocket;
@@ -60,6 +65,8 @@ public class ObjectPool : MonoBehaviour
     [SerializeField] private Transform Cancer_CellsPool;
     [SerializeField] private Transform LeukocytePool;
     [SerializeField] private Transform RedBlood_CellsPool;
+
+    [SerializeField] private Transform PBulletPool;
 
     [SerializeField] private Transform BacteriaRocketPool;
     [SerializeField] private Transform GermRocketPool;
@@ -83,11 +90,15 @@ public class ObjectPool : MonoBehaviour
         AddObject(Cancer_Cells, Cancer_Cellses, Cancer_CellsPool);
         AddObject(Leukocyte, Leukocytes, LeukocytePool, 25);
         AddObject(RedBlood_Cells, RedBlood_Cellses, RedBlood_CellsPool, 25);
+
+        AddObject(PBullet, PBullets, PBulletPool);
+
         AddObject(BacteriaRocket, BacteriaRockets, BacteriaRocketPool);
         AddObject(GermRocket, GermRockets, GermRocketPool);
         AddObject(VirusRocket, VirusRockets, VirusRocketPool);
         AddObject(Cancer_CellsRocket, Cancer_CellsRockets, Cancer_CellsRocketPool);
         AddObject(PRocket, PRockets, PRocketPool, 1000);
+
         AddObject(Particle, Particles, ParticlePool, 500);
     }
 

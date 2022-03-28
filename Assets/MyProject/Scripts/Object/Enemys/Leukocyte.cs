@@ -27,7 +27,7 @@ public class Leukocyte : Enemy
                 }
             }
 
-            if (other.gameObject.tag == "Player")
+            if (other.gameObject.tag == "Player" || other.gameObject.tag == "PBullet")
             {
                 GameObject item = Instantiate(Item);
                 item.transform.position = transform.position;

@@ -12,9 +12,11 @@ public class Enemy : MonoBehaviour
     [SerializeField] protected GameObject ERocket;
     [SerializeField] protected GameObject XMark;
     public int Damage;
+    public int Hp;
     public ObjectPool.PoolType EnemyType;
     public int GiveScore;
     protected bool isDie = false;
+    public float GiveExp;
 
     Context context;
 
@@ -182,6 +184,19 @@ public class Enemy : MonoBehaviour
                 {
                     Die();
                     GameManager.Instance.Score += GiveScore;
+                    GameManager.Instance.Player.GetComponent<AirPlaneController>()._Exp += GiveExp;
+                    isDie = true;
+                }
+            }
+
+            if(other.gameObject.tag == "PBullet")
+            {
+                Hp -= other.gameObject.GetComponent<PBullet>().Damage;
+                if(Hp <= 0)
+                {
+                    Die();
+                    GameManager.Instance.Score += GiveScore;
+                    GameManager.Instance.Player.GetComponent<AirPlaneController>()._Exp += GiveExp;
                     isDie = true;
                 }
             }

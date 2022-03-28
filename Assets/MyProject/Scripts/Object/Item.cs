@@ -13,19 +13,42 @@ public class Item : MonoBehaviour
         HideChar,
         HpUp,
         PainDown,
-        AllKill
+        AllKill,
+        LevelUp
     }
 
     public ItemType Type;
 
     void Start()
     {
+        int randomType = Random.Range(0, 6);
 
+        switch(randomType)
+        {
+            case 0:
+                Type = ItemType.UpgradeWeapon;
+                break;
+            case 1:
+                Type = ItemType.HideChar;
+                break;
+            case 2:
+                Type = ItemType.HpUp;
+                break;
+            case 3:
+                Type = ItemType.PainDown;
+                break;
+            case 4:
+                Type = ItemType.AllKill;
+                break;
+            case 5:
+                Type = ItemType.LevelUp;
+                break;
+        }
     }
 
     void Update()
     {
-        transform.Rotate(new Vector3(0,5,0));
+        transform.Rotate(new Vector3(0,5,0) * Time.deltaTime * 10);
 
         transform.position += Vector3.back * Time.deltaTime * Speed;
 
@@ -44,6 +67,7 @@ public class Item : MonoBehaviour
             switch (Type)
             {
                 case ItemType.UpgradeWeapon:
+                    other.GetComponent<AirPlaneController>().WeaponUpgrade();
                     break;
                 case ItemType.HideChar:
                     GameManager.Instance.Player.GetComponent<AirPlaneController>().InvinActive(0, 2.5f, true);
@@ -70,6 +94,9 @@ public class Item : MonoBehaviour
                             enes.TargetSetting();
                         }
                     }
+                    break;
+                case ItemType.LevelUp:
+                    GameManager.Instance.Player.GetComponent<AirPlaneController>()._Level++;
                     break;
             }
         }

@@ -4879,9 +4879,10 @@ MonoBehaviour:
   ERocket: {fileID: 7484472348557045696, guid: 6709e9e21c131b7458380c2d8d277ce3, type: 3}
   XMark: {fileID: 3422486042054269982}
   Damage: 3
+  Hp: 10
   EnemyType: 1
-  Item: {fileID: 0}
   GiveScore: 50000
+  GiveExp: 10
 --- !u!114 &1427322705
 MonoBehaviour:
   m_ObjectHideFlags: 0

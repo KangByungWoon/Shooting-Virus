@@ -1,21 +1,97 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AirPlaneController : MonoBehaviour
 {
     [SerializeField] float Horizontal_RotPower;
     [SerializeField] float Vertical_RotPower;
+
     [SerializeField] GameObject Mini1;
     [SerializeField] GameObject Mini2;
 
+    [SerializeField] Text LvText;
+    [SerializeField] Text ExpText;
+    [SerializeField] Image LvBar;
+
     [SerializeField] RectTransform LockOn;
 
-    [SerializeField] GameObject RocketPrefab;
+    [SerializeField] Vector3 TargetPoint;
+    [SerializeField] MeshRenderer invinmat;
 
-    private int WeaponLevel = 1;
+    public bool isInvin;
+
+    public float BulletAttackSpeed = 0.5f;
+    public float BulletMoveSpeed;
+    public int BulletDamage;
+    public int AttackPlace;
+
+    public int Level;
+    public int _Level
+    {
+        get { return Level; }
+        set
+        {
+            if (Level != MaxLevel)
+            {
+                Level++;
+                BulletDamage += 5;
+                BulletMoveSpeed += 5;
+                BulletAttackSpeed -= 0.03f;
+
+                if(Level == 3)
+                {
+                    Mini1.SetActive(true);
+                    Mini1.gameObject.GetComponent<Mini>().StartFire();
+                }
+                else if(Level==6)
+                {
+                    Mini2.SetActive(true);
+                    Mini2.gameObject.GetComponent<Mini>().StartFire();
+                }
+                else if(Level==10)
+                {
+                    Mini1.gameObject.GetComponent<Mini>().WeaponLevel = 2;
+                    Mini2.gameObject.GetComponent<Mini>().WeaponLevel = 2;
+                }
+
+                LvText.text = "LV." + Level.ToString();
+            }
+            else
+            {
+                LvText.text = "LV.MAX";
+            }
+
+        }
+    }
+    public int MaxLevel;
+    public float Exp;
+    public float _Exp
+    {
+        get { return Exp; }
+        set
+        {
+            if (value >= MaxExp)
+            {
+                Exp = 0;
+                MaxExp += 100;
+                _Level++;
+            }
+            else if (value < MaxExp && Level < MaxLevel)
+            {
+                Exp = value;
+            }
+            LvBar.fillAmount = Exp / MaxExp;
+            ExpText.text = ((Exp / MaxExp) * 100).ToString() + "%";
+        }
+    }
+    public float MaxExp;
 
     private IEnumerator InvinCorou;
+    private IEnumerator AttackCorou;
+
+    private Vector3 StartPosition;
 
     private float HorizontalInput = 0;
     private float VerticalInput = 0;
@@ -47,15 +123,13 @@ public class AirPlaneController : MonoBehaviour
         }
     }
 
-    Vector3 StartPosition;
-    [SerializeField] Vector3 TargetPoint;
-    [SerializeField] MeshRenderer invinmat;
-
-    public bool isInvin;
+    private int WeaponLevel = 1;
 
     void Start()
     {
         invinmat.material.mainTextureScale = new Vector2(0, 1);
+        AttackCorou = FireBullet(false);
+        StartCoroutine(AttackCorou);
         Setting();
     }
 
@@ -67,6 +141,11 @@ public class AirPlaneController : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            WeaponUpgrade();
+        }
+
         transformRotate();
         Move();
         HorizontalEvent();
@@ -116,28 +195,42 @@ public class AirPlaneController : MonoBehaviour
         }
     }
 
+    IEnumerator FireBullet(bool isTarget)
+    {
+        while (true)
+        {
+            GameObject bullet = ObjectPool.Instance.GetObject(ObjectPool.Instance.PBullets, transform.position + new Vector3(0, 0.1f, 1));
+            bullet.GetComponent<PBullet>().Speed = BulletMoveSpeed;
+            bullet.GetComponent<PBullet>().Damage = BulletDamage;
+            if (isTarget)
+            {
+                var hitObjs = Physics.BoxCastAll(transform.position + new Vector3(0, 0.5f, 0), new Vector3(AttackPlace, AttackPlace, AttackPlace), transform.forward, transform.rotation, Mathf.Infinity, 1 << LayerMask.NameToLayer("Enemy"));
+                foreach (var hit in hitObjs)
+                {
+                    bullet.GetComponent<PBullet>().target = hit.transform.gameObject.transform;
+                    bullet.GetComponent<PBullet>().isTarget = true;
+                }
+            }
+            yield return new WaitForSeconds(BulletAttackSpeed);
+        }
+    }
+
     private void LockOnSystem()
     {
-        for (float i = -3; i <= 3; i += 0.1f)
+        var hitObjs = Physics.BoxCastAll(transform.position + new Vector3(0, 0.5f, 0), new Vector3(AttackPlace, AttackPlace, AttackPlace), transform.forward, transform.rotation, Mathf.Infinity, 1 << LayerMask.NameToLayer("Enemy"));
+        foreach (var hit in hitObjs)
         {
-            for (float j = -2; j <= 2; j += 0.1f)
+            if (!hit.transform.gameObject.GetComponent<Enemy>().isTarget)
             {
-                Debug.DrawRay(transform.position + new Vector3(i, 0.5f + j, 0), transform.forward);
-                if (Physics.Raycast(transform.position + new Vector3(i, 0.5f + j, 0), transform.forward, out var hit, Mathf.Infinity, 1 << LayerMask.NameToLayer("Enemy")))
-                {
-                    if (!hit.transform.gameObject.GetComponent<Enemy>().isTarget)
-                    {
-                        GameObject rocket = ObjectPool.Instance.GetObject(ObjectPool.Instance.PRockets, transform.position + new Vector3(Random.Range(-10, 10), 5, -10));
-                        rocket.GetComponent<Rocket>().Target = hit.transform.gameObject.transform;
+                GameObject rocket = ObjectPool.Instance.GetObject(ObjectPool.Instance.PRockets, transform.position + new Vector3(Random.Range(-10, 10), 5, -10));
+                rocket.GetComponent<Rocket>().Target = hit.transform.gameObject.transform;
 
-                        Enemy enemy = hit.transform.gameObject.GetComponent<Enemy>();
-                        enemy.isTarget = true;
-                        enemy.RocketObj = rocket;
-                        enemy.OnMark();
+                Enemy enemy = hit.transform.gameObject.GetComponent<Enemy>();
+                enemy.isTarget = true;
+                enemy.RocketObj = rocket;
+                enemy.OnMark();
 
-                        enemy.TargetSetting();
-                    }
-                }
+                enemy.TargetSetting();
             }
         }
     }
@@ -177,15 +270,19 @@ public class AirPlaneController : MonoBehaviour
             WeaponLevel++;
             switch (WeaponLevel)
             {
+                case 2:
+                    StopCoroutine(AttackCorou);
+                    AttackCorou = FireBullet(true);
+                    StartCoroutine(AttackCorou);
+                    break;
                 case 3:
-                    Mini1.SetActive(true);
+                    AttackPlace += 3;
+                    LockOn.localScale += new Vector3(3, 3, 0);
                     break;
                 case 4:
-                    Mini2.SetActive(true);
+                    StopCoroutine(AttackCorou);
                     break;
                 case 5:
-                    Mini1.GetComponent<Mini>().WeaponLevel = 2;
-                    Mini2.GetComponent<Mini>().WeaponLevel = 2;
                     break;
             }
         }

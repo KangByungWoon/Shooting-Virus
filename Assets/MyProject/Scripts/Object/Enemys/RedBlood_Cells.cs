@@ -26,7 +26,7 @@ public class RedBlood_Cells : Enemy
                 }
             }
 
-            if (other.gameObject.tag == "Player")
+            if (other.gameObject.tag == "Player" || other.gameObject.tag == "PBullet")
             {
                 GameManager.Instance.Gp += GPDamage;
             }

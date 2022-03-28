@@ -20,7 +20,8 @@ public class EnemySpawnSystem : MonoBehaviour
     {
         while (true)
         {
-            for (int i = 0; i < 4; i++)
+            int randomspawn = Random.Range(0, 4);
+            for (int i = 0; i < randomspawn; i++)
             {
                 int random = Random.Range(0, 4);
                 switch (random)
@@ -40,7 +41,7 @@ public class EnemySpawnSystem : MonoBehaviour
                 }
 
             }
-            yield return new WaitForSeconds(Random.Range(0.4f, 1.2f));
+            yield return new WaitForSeconds(Random.Range(0.4f, 2f));
         }
     }
 }

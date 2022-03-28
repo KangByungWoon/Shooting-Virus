@@ -9,6 +9,7 @@ TagManager:
   - ERocket
   - Item
   - SEnemy
+  - PBullet
   layers:
   - Default
   - TransparentFX
