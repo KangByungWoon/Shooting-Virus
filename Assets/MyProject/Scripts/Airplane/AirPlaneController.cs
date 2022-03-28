@@ -11,6 +11,8 @@ public class AirPlaneController : MonoBehaviour
 
     [SerializeField] GameObject RocketPrefab;
 
+    private IEnumerator InvinCorou;
+
     private float HorizontalInput = 0;
     private float VerticalInput = 0;
 
@@ -113,6 +115,7 @@ public class AirPlaneController : MonoBehaviour
         {
             for (float j = -2; j <= 2; j += 0.1f)
             {
+                Debug.DrawRay(transform.position + new Vector3(i, 0.5f + j, 0), transform.forward);
                 if (Physics.Raycast(transform.position + new Vector3(i, 0.5f + j, 0), transform.forward, out var hit, Mathf.Infinity, 1 << LayerMask.NameToLayer("Enemy")))
                 {
                     if (!hit.transform.gameObject.GetComponent<Enemy>().isTarget)
@@ -132,13 +135,18 @@ public class AirPlaneController : MonoBehaviour
         }
     }
 
-    public void InvinActive(int damage, float waitTime = 1f)
+    public void InvinActive(int damage, float waitTime = 1f, bool isItem = false)
     {
-        if (isInvin == false)
+        if (isInvin == false || isItem==true)
         {
             GameManager.Instance.Hp -= damage;
             isInvin = true;
-            StartCoroutine(InvinCoroutine(waitTime));
+            if(InvinCorou != null)
+            {
+                StopCoroutine(InvinCorou);
+            }
+            InvinCorou = InvinCoroutine(waitTime);
+            StartCoroutine(InvinCorou);
         }
     }
 

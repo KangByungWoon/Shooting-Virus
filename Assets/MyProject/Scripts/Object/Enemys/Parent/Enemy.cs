@@ -124,7 +124,7 @@ public class Enemy : MonoBehaviour
         if (EnemyType != ObjectPool.PoolType.Leukocyte && EnemyType != ObjectPool.PoolType.RedBlood_Cells)
         {
             int random = Random.Range(0, 100);
-            if (random < 5)
+            if (random < 50)
             {
                 random = Random.Range(0, 100);
                 if (random < 50)
