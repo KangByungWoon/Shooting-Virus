@@ -6,10 +6,14 @@ public class AirPlaneController : MonoBehaviour
 {
     [SerializeField] float Horizontal_RotPower;
     [SerializeField] float Vertical_RotPower;
+    [SerializeField] GameObject Mini1;
+    [SerializeField] GameObject Mini2;
 
     [SerializeField] RectTransform LockOn;
 
     [SerializeField] GameObject RocketPrefab;
+
+    private int WeaponLevel = 1;
 
     private IEnumerator InvinCorou;
 
@@ -67,7 +71,10 @@ public class AirPlaneController : MonoBehaviour
         Move();
         HorizontalEvent();
         VerticalEvent();
-        LockOnSystem();
+        if (WeaponLevel == 5)
+        {
+            LockOnSystem();
+        }
     }
 
     private void transformRotate()
@@ -137,11 +144,11 @@ public class AirPlaneController : MonoBehaviour
 
     public void InvinActive(int damage, float waitTime = 1f, bool isItem = false)
     {
-        if (isInvin == false || isItem==true)
+        if (isInvin == false || isItem == true)
         {
             GameManager.Instance.Hp -= damage;
             isInvin = true;
-            if(InvinCorou != null)
+            if (InvinCorou != null)
             {
                 StopCoroutine(InvinCorou);
             }
@@ -163,9 +170,30 @@ public class AirPlaneController : MonoBehaviour
         isInvin = false;
     }
 
+    public void WeaponUpgrade()
+    {
+        if (WeaponLevel < 5)
+        {
+            WeaponLevel++;
+            switch (WeaponLevel)
+            {
+                case 3:
+                    Mini1.SetActive(true);
+                    break;
+                case 4:
+                    Mini2.SetActive(true);
+                    break;
+                case 5:
+                    Mini1.GetComponent<Mini>().WeaponLevel = 2;
+                    Mini2.GetComponent<Mini>().WeaponLevel = 2;
+                    break;
+            }
+        }
+    }
+
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag=="Item")
+        if (other.gameObject.tag == "Item")
         {
             Debug.Log("IteGet");
         }
