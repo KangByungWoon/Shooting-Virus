@@ -109,6 +109,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Speed: 20
-  HPP: 0
-  GPM: 0
+  HPP: 15
+  GPM: 10
   Type: 4

@@ -29,6 +29,7 @@ public class ObjectPool : MonoBehaviour
     public Queue<GameObject> RedBlood_Cellses = new Queue<GameObject>();
 
     public Queue<GameObject> PBullets = new Queue<GameObject>();
+    public Queue<GameObject> Raises = new Queue<GameObject>();
 
     public Queue<GameObject> BacteriaRockets = new Queue<GameObject>();
     public Queue<GameObject> GermRockets = new Queue<GameObject>();
@@ -48,6 +49,7 @@ public class ObjectPool : MonoBehaviour
     [SerializeField] private GameObject RedBlood_Cells;
 
     [SerializeField] private GameObject PBullet;
+    [SerializeField] private GameObject Raise;
 
     [SerializeField] private GameObject BacteriaRocket;
     [SerializeField] private GameObject GermRocket;
@@ -67,6 +69,7 @@ public class ObjectPool : MonoBehaviour
     [SerializeField] private Transform RedBlood_CellsPool;
 
     [SerializeField] private Transform PBulletPool;
+    [SerializeField] private Transform RaisePool;
 
     [SerializeField] private Transform BacteriaRocketPool;
     [SerializeField] private Transform GermRocketPool;
@@ -92,6 +95,7 @@ public class ObjectPool : MonoBehaviour
         AddObject(RedBlood_Cells, RedBlood_Cellses, RedBlood_CellsPool, 25);
 
         AddObject(PBullet, PBullets, PBulletPool);
+        AddObject(Raise, Raises, RaisePool);
 
         AddObject(BacteriaRocket, BacteriaRockets, BacteriaRocketPool);
         AddObject(GermRocket, GermRockets, GermRocketPool);
@@ -99,7 +103,7 @@ public class ObjectPool : MonoBehaviour
         AddObject(Cancer_CellsRocket, Cancer_CellsRockets, Cancer_CellsRocketPool);
         AddObject(PRocket, PRockets, PRocketPool, 1000);
 
-        AddObject(Particle, Particles, ParticlePool, 500);
+        AddObject(Particle, Particles, ParticlePool, 1000);
     }
 
     private void AddObject(GameObject obj, Queue<GameObject> objectPool, Transform pool_parent, int addValue = 200)
@@ -117,6 +121,7 @@ public class ObjectPool : MonoBehaviour
         GameObject obj = objectPool.Dequeue();
         obj.transform.position = pos;
         obj.SetActive(true);
+
         return obj;
     }
 

@@ -8,6 +8,13 @@ public class PBullet : MonoBehaviour
     public int Damage;
     public bool isTarget;
     public Transform target;
+    public bool isRaise = false;
+    public bool isDie = false;
+
+    private void OnEnable()
+    {
+        isDie = false;
+    }
 
     void Update()
     {
@@ -17,14 +24,21 @@ public class PBullet : MonoBehaviour
 
             if (transform.position.z > 200)
             {
-                ObjectPool.Instance.ReleaseObject(ObjectPool.Instance.PBullets, gameObject);
+                if (isRaise)
+                {
+                    ObjectPool.Instance.ReleaseObject(ObjectPool.Instance.Raises, gameObject);
+                }
+                else
+                {
+                    ObjectPool.Instance.ReleaseObject(ObjectPool.Instance.PBullets, gameObject);
+                }
             }
         }
         else
         {
-            transform.position = Vector3.Lerp(transform.position, target.position, Time.deltaTime * Speed/10);
+            transform.position = Vector3.Lerp(transform.position, target.position, Time.deltaTime * Speed / 20);
 
-            if(target.gameObject.activeSelf==false)
+            if (target.gameObject.activeSelf == false)
             {
                 Die();
             }
@@ -33,11 +47,23 @@ public class PBullet : MonoBehaviour
 
     private void Die()
     {
-        ObjectPool.Instance.ReleaseObject(ObjectPool.Instance.PBullets, gameObject);
-        isTarget = false;
-        target = null;
-        GameObject ex = ObjectPool.Instance.GetObject(ObjectPool.Instance.Particles, gameObject.transform.position);
-        ObjectPool.Instance.ReleaseObject(ObjectPool.Instance.Particles, ex, 2f);
+        if (!isDie)
+        {
+            isDie = true;
+            if (isRaise)
+            {
+                ObjectPool.Instance.ReleaseObject(ObjectPool.Instance.Raises, gameObject);
+            }
+            else
+            {
+                ObjectPool.Instance.ReleaseObject(ObjectPool.Instance.PBullets, gameObject);
+            }
+
+            isTarget = false;
+            target = null;
+            GameObject ex = ObjectPool.Instance.GetObject(ObjectPool.Instance.Particles, gameObject.transform.position);
+            ObjectPool.Instance.ReleaseObject(ObjectPool.Instance.Particles, ex, 2f);
+        }
     }
 
     private void OnTriggerEnter(Collider other)

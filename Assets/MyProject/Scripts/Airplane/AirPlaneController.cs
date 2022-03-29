@@ -27,6 +27,13 @@ public class AirPlaneController : MonoBehaviour
     public int BulletDamage;
     public int AttackPlace;
 
+    public GameObject LevelUpEffect;
+    public GameObject ShiledEffect;
+    public GameObject HpUpEffect;
+    public GameObject PPDownEffect;
+    public GameObject WeaponUpEffect;
+    public GameObject InvinEffect;
+
     public int Level;
     public int _Level
     {
@@ -36,21 +43,21 @@ public class AirPlaneController : MonoBehaviour
             if (Level != MaxLevel)
             {
                 Level++;
-                BulletDamage += 5;
-                BulletMoveSpeed += 5;
+                BulletDamage += 1;
+                BulletMoveSpeed += 1;
                 BulletAttackSpeed -= 0.03f;
 
-                if(Level == 3)
+                if (Level == 3)
                 {
                     Mini1.SetActive(true);
                     Mini1.gameObject.GetComponent<Mini>().StartFire();
                 }
-                else if(Level==6)
+                else if (Level == 6)
                 {
                     Mini2.SetActive(true);
                     Mini2.gameObject.GetComponent<Mini>().StartFire();
                 }
-                else if(Level==10)
+                else if (Level == 10)
                 {
                     Mini1.gameObject.GetComponent<Mini>().WeaponLevel = 2;
                     Mini2.gameObject.GetComponent<Mini>().WeaponLevel = 2;
@@ -77,13 +84,14 @@ public class AirPlaneController : MonoBehaviour
                 Exp = 0;
                 MaxExp += 100;
                 _Level++;
+                Destroy(GameObject.Instantiate(LevelUpEffect, gameObject.transform), 2f);
             }
             else if (value < MaxExp && Level < MaxLevel)
             {
                 Exp = value;
             }
             LvBar.fillAmount = Exp / MaxExp;
-            ExpText.text = ((Exp / MaxExp) * 100).ToString() + "%";
+            ExpText.text = Mathf.Round((Exp / MaxExp) * 100).ToString() + "%";
         }
     }
     public float MaxExp;
@@ -195,22 +203,38 @@ public class AirPlaneController : MonoBehaviour
         }
     }
 
-    IEnumerator FireBullet(bool isTarget)
+    IEnumerator FireBullet(bool isTarget, bool Raise = false)
     {
         while (true)
         {
-            GameObject bullet = ObjectPool.Instance.GetObject(ObjectPool.Instance.PBullets, transform.position + new Vector3(0, 0.1f, 1));
-            bullet.GetComponent<PBullet>().Speed = BulletMoveSpeed;
-            bullet.GetComponent<PBullet>().Damage = BulletDamage;
+            GameObject bullet = null;
+            var p_bullet = bullet.GetComponent<PBullet>();
+            if (!Raise)
+            {
+                bullet = ObjectPool.Instance.GetObject(ObjectPool.Instance.PBullets, transform.position + new Vector3(0, 0.1f, 1));
+                p_bullet.Speed = BulletMoveSpeed;
+                p_bullet.Damage = BulletDamage;
+            }
+            else
+            {
+                bullet = ObjectPool.Instance.GetObject(ObjectPool.Instance.Raises, transform.position + new Vector3(0, 0.1f, 1));
+            }
             if (isTarget)
             {
                 var hitObjs = Physics.BoxCastAll(transform.position + new Vector3(0, 0.5f, 0), new Vector3(AttackPlace, AttackPlace, AttackPlace), transform.forward, transform.rotation, Mathf.Infinity, 1 << LayerMask.NameToLayer("Enemy"));
                 foreach (var hit in hitObjs)
                 {
-                    bullet.GetComponent<PBullet>().target = hit.transform.gameObject.transform;
-                    bullet.GetComponent<PBullet>().isTarget = true;
+                    if (Raise)
+                    {
+                        p_bullet.Speed = BulletMoveSpeed + 5;
+                        p_bullet.Damage = BulletDamage + 5;
+                        p_bullet.isRaise = true;
+                    }
+                    p_bullet.target = hit.transform.gameObject.transform;
+                    p_bullet.isTarget = true;
                 }
             }
+
             yield return new WaitForSeconds(BulletAttackSpeed);
         }
     }
@@ -281,8 +305,12 @@ public class AirPlaneController : MonoBehaviour
                     break;
                 case 4:
                     StopCoroutine(AttackCorou);
+                    AttackCorou = FireBullet(true, true);
+                    StartCoroutine(AttackCorou);
                     break;
                 case 5:
+                    if (AttackCorou != null)
+                        StopCoroutine(AttackCorou);
                     break;
             }
         }

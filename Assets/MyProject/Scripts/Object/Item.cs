@@ -7,6 +7,7 @@ public class Item : MonoBehaviour
     [SerializeField] float Speed;
     [SerializeField] int HPP;
     [SerializeField] int GPM;
+    private bool isDie = false;
     public enum ItemType
     {
         UpgradeWeapon,
@@ -23,7 +24,7 @@ public class Item : MonoBehaviour
     {
         int randomType = Random.Range(0, 6);
 
-        switch(randomType)
+        switch (randomType)
         {
             case 0:
                 Type = ItemType.UpgradeWeapon;
@@ -48,7 +49,7 @@ public class Item : MonoBehaviour
 
     void Update()
     {
-        transform.Rotate(new Vector3(0,5,0) * Time.deltaTime * 10);
+        transform.Rotate(new Vector3(0, 5, 0) * Time.deltaTime * 10);
 
         transform.position += Vector3.back * Time.deltaTime * Speed;
 
@@ -58,31 +59,43 @@ public class Item : MonoBehaviour
         }
     }
 
+    private IEnumerator EffectActive(GameObject effect)
+    {
+        GameObject effectobj = Instantiate(effect, GameManager.Instance.Player.transform);
+        yield return new WaitForSeconds(2);
+        Destroy(effectobj);
+    }
+
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player")
+        if (other.tag == "Player" && !isDie)
         {
-            Destroy(gameObject);
+            isDie = true;
 
+            AirPlaneController player = GameManager.Instance.Player.GetComponent<AirPlaneController>();
             switch (Type)
             {
                 case ItemType.UpgradeWeapon:
-                    other.GetComponent<AirPlaneController>().WeaponUpgrade();
+                    player.WeaponUpgrade();
+                    StartCoroutine(EffectActive(player.WeaponUpEffect));
                     break;
                 case ItemType.HideChar:
-                    GameManager.Instance.Player.GetComponent<AirPlaneController>().InvinActive(0, 2.5f, true);
+                    player.InvinActive(0, 2.5f, true);
+                    StartCoroutine(EffectActive(player.InvinEffect));
                     break;
                 case ItemType.HpUp:
                     GameManager.Instance.Hp += HPP;
+                    StartCoroutine(EffectActive(player.HpUpEffect));
                     break;
                 case ItemType.PainDown:
                     GameManager.Instance.Gp -= GPM;
+                    StartCoroutine(EffectActive(player.PPDownEffect));
                     break;
                 case ItemType.AllKill:
                     var enemys = FindObjectsOfType<Enemy>();
-                    foreach(var enes in enemys)
+                    foreach (var enes in enemys)
                     {
-                        if(!enes.isTarget && enes.EnemyType != ObjectPool.PoolType.RedBlood_Cells)
+                        if (!enes.isTarget && enes.EnemyType != ObjectPool.PoolType.RedBlood_Cells)
                         {
                             GameObject rocket = ObjectPool.Instance.GetObject(ObjectPool.Instance.PRockets, transform.position + new Vector3(Random.Range(-10, 10), 5, -10));
                             rocket.GetComponent<Rocket>().Target = enes.transform;
@@ -96,9 +109,11 @@ public class Item : MonoBehaviour
                     }
                     break;
                 case ItemType.LevelUp:
-                    GameManager.Instance.Player.GetComponent<AirPlaneController>()._Level++;
+                    player._Level++;
                     break;
             }
+
+            Destroy(gameObject);
         }
     }
 }
