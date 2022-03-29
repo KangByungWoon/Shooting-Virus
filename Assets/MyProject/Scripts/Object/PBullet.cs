@@ -20,7 +20,7 @@ public class PBullet : MonoBehaviour
     {
         if (!isTarget)
         {
-            transform.position += Vector3.forward * Time.deltaTime * Speed;
+            transform.position += Vector3.forward * Time.deltaTime * Speed * 3;
 
             if (transform.position.z > 200)
             {

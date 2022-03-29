@@ -208,12 +208,11 @@ public class AirPlaneController : MonoBehaviour
         while (true)
         {
             GameObject bullet = null;
-            var p_bullet = bullet.GetComponent<PBullet>();
             if (!Raise)
             {
                 bullet = ObjectPool.Instance.GetObject(ObjectPool.Instance.PBullets, transform.position + new Vector3(0, 0.1f, 1));
-                p_bullet.Speed = BulletMoveSpeed;
-                p_bullet.Damage = BulletDamage;
+                bullet.GetComponent<PBullet>().Speed = BulletMoveSpeed;
+                bullet.GetComponent<PBullet>().Damage = BulletDamage;
             }
             else
             {
@@ -226,12 +225,12 @@ public class AirPlaneController : MonoBehaviour
                 {
                     if (Raise)
                     {
-                        p_bullet.Speed = BulletMoveSpeed + 5;
-                        p_bullet.Damage = BulletDamage + 5;
-                        p_bullet.isRaise = true;
+                        bullet.GetComponent<PBullet>().Speed = BulletMoveSpeed + 5;
+                        bullet.GetComponent<PBullet>().Damage = BulletDamage + 5;
+                        bullet.GetComponent<PBullet>().isRaise = true;
                     }
-                    p_bullet.target = hit.transform.gameObject.transform;
-                    p_bullet.isTarget = true;
+                    bullet.GetComponent<PBullet>().target = hit.transform.gameObject.transform;
+                    bullet.GetComponent<PBullet>().isTarget = true;
                 }
             }
 
