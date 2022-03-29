@@ -223,14 +223,17 @@ public class AirPlaneController : MonoBehaviour
                 var hitObjs = Physics.BoxCastAll(transform.position + new Vector3(0, 0.5f, 0), new Vector3(AttackPlace, AttackPlace, AttackPlace), transform.forward, transform.rotation, Mathf.Infinity, 1 << LayerMask.NameToLayer("Enemy"));
                 foreach (var hit in hitObjs)
                 {
-                    if (Raise)
+                    if (hit.transform.gameObject.GetComponent<Enemy>().EnemyType != ObjectPool.PoolType.RedBlood_Cells)
                     {
-                        bullet.GetComponent<PBullet>().Speed = BulletMoveSpeed + 5;
-                        bullet.GetComponent<PBullet>().Damage = BulletDamage + 5;
-                        bullet.GetComponent<PBullet>().isRaise = true;
+                        if (Raise)
+                        {
+                            bullet.GetComponent<PBullet>().Speed = BulletMoveSpeed + 5;
+                            bullet.GetComponent<PBullet>().Damage = BulletDamage + 5;
+                            bullet.GetComponent<PBullet>().isRaise = true;
+                        }
+                        bullet.GetComponent<PBullet>().target = hit.transform.gameObject.transform;
+                        bullet.GetComponent<PBullet>().isTarget = true;
                     }
-                    bullet.GetComponent<PBullet>().target = hit.transform.gameObject.transform;
-                    bullet.GetComponent<PBullet>().isTarget = true;
                 }
             }
 
@@ -243,7 +246,7 @@ public class AirPlaneController : MonoBehaviour
         var hitObjs = Physics.BoxCastAll(transform.position + new Vector3(0, 0.5f, 0), new Vector3(AttackPlace, AttackPlace, AttackPlace), transform.forward, transform.rotation, Mathf.Infinity, 1 << LayerMask.NameToLayer("Enemy"));
         foreach (var hit in hitObjs)
         {
-            if (!hit.transform.gameObject.GetComponent<Enemy>().isTarget)
+            if (!hit.transform.gameObject.GetComponent<Enemy>().isTarget && hit.transform.gameObject.GetComponent<Enemy>().EnemyType != ObjectPool.PoolType.RedBlood_Cells)
             {
                 GameObject rocket = ObjectPool.Instance.GetObject(ObjectPool.Instance.PRockets, transform.position + new Vector3(Random.Range(-10, 10), 5, -10));
                 rocket.GetComponent<Rocket>().Target = hit.transform.gameObject.transform;

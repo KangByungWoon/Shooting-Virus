@@ -75,7 +75,7 @@ public class Enemy : MonoBehaviour
         bezier.Value = 0f;
     }
 
-    public void Shooting()
+    public void Shooting(bool isRed = false)
     {
         GameObject rocket = null;
         switch (EnemyType)
@@ -94,7 +94,18 @@ public class Enemy : MonoBehaviour
                 break;
         }
 
-        rocket.GetComponent<ERocket>().Target = GameManager.Instance.Player.transform;
+        if (!isRed)
+        {
+            rocket.GetComponent<ERocket>().Target = GameManager.Instance.Player.transform;
+        }
+        else
+        {
+            var red = FindObjectOfType<RedBlood_Cells>();
+            if (red != null)
+                rocket.GetComponent<ERocket>().Target = red.transform;
+            else
+                rocket.GetComponent<ERocket>().Target = GameManager.Instance.Player.transform;
+        }
     }
 
     public IEnumerator MoveBezier(bool Exit)
@@ -189,10 +200,10 @@ public class Enemy : MonoBehaviour
                 }
             }
 
-            if(other.gameObject.tag == "PBullet")
+            if (other.gameObject.tag == "PBullet")
             {
                 Hp -= other.gameObject.GetComponent<PBullet>().Damage;
-                if(Hp <= 0)
+                if (Hp <= 0)
                 {
                     Die();
                     GameManager.Instance.Score += GiveScore;
@@ -260,7 +271,15 @@ public class AttackState : IState
         }
         else
         {
-            enemy.Shooting();
+            int random = Random.Range(0, 100);
+            if (random <= 100)
+            {
+                enemy.Shooting(true);
+            }
+            else
+            {
+                enemy.Shooting();
+            }
 
             yield return new WaitForSeconds(Random.Range(5f, 8f));
         }

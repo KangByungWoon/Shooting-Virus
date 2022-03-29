@@ -25,6 +25,13 @@ public class RedBlood_Cells : Enemy
                     GameManager.Instance.Gp += GPDamage;
                 }
             }
+            if(other.gameObject.tag == "ERocket")
+            {
+                if(other.GetComponent<ERocket>().Target == gameObject.transform)
+                {
+                    GameManager.Instance.Gp += GPDamage;
+                }
+            }
 
             if (other.gameObject.tag == "Player" || other.gameObject.tag == "PBullet")
             {

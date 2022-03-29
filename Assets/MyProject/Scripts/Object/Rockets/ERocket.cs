@@ -57,6 +57,14 @@ public class ERocket : MonoBehaviour
             ObjectPool.Instance.ReleaseObject(ObjectPool.Instance.Particles, ex, 2f);
             Camera.main.GetComponent<CameraSystem>().CameraShake(0.25f, 0.3f);
         }
+
+        if(other.tag=="Enemy" && other.gameObject.transform == Target)
+        {
+            isAttack = true;
+            RocketRelease();
+            GameObject ex = ObjectPool.Instance.GetObject(ObjectPool.Instance.Particles, gameObject.transform.position);
+            ObjectPool.Instance.ReleaseObject(ObjectPool.Instance.Particles, ex, 2f);
+        }
     }
 
     private void RocketRelease()

@@ -94,16 +94,16 @@ public class ObjectPool : MonoBehaviour
         AddObject(Leukocyte, Leukocytes, LeukocytePool, 25);
         AddObject(RedBlood_Cells, RedBlood_Cellses, RedBlood_CellsPool, 25);
 
-        AddObject(PBullet, PBullets, PBulletPool);
+        AddObject(PBullet, PBullets, PBulletPool, 500);
         AddObject(Raise, Raises, RaisePool);
 
         AddObject(BacteriaRocket, BacteriaRockets, BacteriaRocketPool);
         AddObject(GermRocket, GermRockets, GermRocketPool);
         AddObject(VirusRocket, VirusRockets, VirusRocketPool);
         AddObject(Cancer_CellsRocket, Cancer_CellsRockets, Cancer_CellsRocketPool);
-        AddObject(PRocket, PRockets, PRocketPool, 1000);
+        AddObject(PRocket, PRockets, PRocketPool, 500);
 
-        AddObject(Particle, Particles, ParticlePool, 1000);
+        AddObject(Particle, Particles, ParticlePool, 500);
     }
 
     private void AddObject(GameObject obj, Queue<GameObject> objectPool, Transform pool_parent, int addValue = 200)

@@ -6,12 +6,11 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
+    public StageManager StageMgr;
     public GameObject Player;
-    public GagueManager GagueMgr;
     [SerializeField] Text HpTxt;
     [SerializeField] Text GpTxt;
     [SerializeField] Text ScoreTxt;
-    [SerializeField] Text StageTxt;
     [SerializeField] Image HpGague;
     [SerializeField] Image GpGague;
 
