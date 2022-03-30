@@ -2,11 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Cinemachine;
+using UnityEngine.Timeline;
+using UnityEngine.Playables;
 
 public class StageManager : MonoBehaviour
 {
     [SerializeField] float Stage1ProgressTime;
     [SerializeField] float Stage2ProgressTime;
+
+    [SerializeField] GameObject Stage1BossEffect;
+    [SerializeField] GameObject Stage2BossEffect;
 
     [SerializeField] GameObject Stage1Boss;
     [SerializeField] GameObject Stage2Boss;
@@ -22,12 +28,17 @@ public class StageManager : MonoBehaviour
     [SerializeField] Sprite CovidBoss;
     [SerializeField] Sprite CovidChangeBoss;
 
+    [SerializeField] GameObject GameUI;
+    [SerializeField] GameObject LockOn;
+    [SerializeField] GameObject CMCam;
+
     private int Stage = 1;
     private IEnumerator Spawn;
 
     private void Start()
     {
-        StartCoroutine(StageProgress(Stage1ProgressTime, 1));
+        //StartCoroutine(StageProgress(Stage1ProgressTime, 1));
+        Stage1BossEffect.GetComponent<PlayableDirector>().Play();
     }
 
     private IEnumerator StageProgress(float progressTime, int Stage)
@@ -51,7 +62,10 @@ public class StageManager : MonoBehaviour
                 StageProgressUI.SetActive(false);
                 BossProgressUI.SetActive(true);
                 StopCoroutine(Spawn);
-                Instantiate(Stage == 1 ? Stage1Boss : Stage2Boss);
+                if (Stage == 1)
+                    Stage1BossEffect.GetComponent<PlayableDirector>().Play();
+                else
+                    Stage2BossEffect.GetComponent<PlayableDirector>().Play();
                 break;
             }
         }
@@ -84,6 +98,37 @@ public class StageManager : MonoBehaviour
             }
             yield return new WaitForSeconds(Random.Range(0.4f / Stage, 2f / Stage));
         }
+    }
+
+    public void BossArrive()
+    {
+        GameUI.SetActive(false);
+        LockOn.SetActive(false);
+
+        if (Stage == 1)
+        {
+            Stage1Boss.SetActive(true);
+            Stage1BossEffect.SetActive(false);
+            Stage1Boss.GetComponent<PlayableDirector>().Play();
+            CMCam.GetComponent<CinemachineVirtualCamera>().LookAt = Stage1Boss.gameObject.transform;
+        }
+        else
+        {
+            Stage2Boss.SetActive(true);
+            Stage2BossEffect.SetActive(false);
+            Stage2Boss.GetComponent<PlayableDirector>().Play();
+            CMCam.GetComponent<CinemachineVirtualCamera>().LookAt = Stage2Boss.gameObject.transform;
+        }
+
+        CMCam.SetActive(true);
+    }
+
+    public void BossStart()
+    {
+        GameUI.SetActive(true);
+        LockOn.SetActive(true);
+        CMCam.SetActive(false);
+
     }
 
     public void ClearCallBack()

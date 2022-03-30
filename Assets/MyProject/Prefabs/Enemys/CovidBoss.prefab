@@ -875,16 +875,18 @@ GameObject:
   - component: {fileID: 1890193951498900601}
   - component: {fileID: 1890193951498900600}
   - component: {fileID: 1890193951498900603}
-  - component: {fileID: 1890193951498900602}
   - component: {fileID: 1890193951498900597}
-  - component: {fileID: 3545782802925971827}
+  - component: {fileID: 73494644}
+  - component: {fileID: 73494643}
+  - component: {fileID: 590334978}
+  - component: {fileID: 590334972}
   m_Layer: 0
   m_Name: CovidBoss
   m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1890193951498900601
 Transform:
   m_ObjectHideFlags: 0
@@ -957,19 +959,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &1890193951498900602
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1890193951498900596}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.6
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &1890193951498900597
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -986,7 +975,38 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 4
   m_CollisionDetection: 0
---- !u!114 &3545782802925971827
+--- !u!320 &73494644
+PlayableDirector:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1890193951498900596}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_PlayableAsset: {fileID: 11400000, guid: 53c8a231261d97542b7b025db9864404, type: 2}
+  m_InitialState: 0
+  m_WrapMode: 2
+  m_DirectorUpdateMode: 1
+  m_InitialTime: 0
+  m_SceneBindings:
+  - key: {fileID: 7647463273423913665, guid: 53c8a231261d97542b7b025db9864404, type: 2}
+    value: {fileID: 73494642, guid: ee4001d3dd99b0e4b933d8e2d4bf12eb, type: 3}
+  - key: {fileID: 1974006546132182027, guid: 53c8a231261d97542b7b025db9864404, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: 7888985400567800627, guid: 53c8a231261d97542b7b025db9864404, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: 1583190294556311939, guid: 53c8a231261d97542b7b025db9864404, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: 8044305932102069034, guid: 53c8a231261d97542b7b025db9864404, type: 2}
+    value: {fileID: 73494643}
+  m_ExposedReferences:
+    m_References:
+    - fb9c7c3d2c87aab4c9d538ba887eb409: {fileID: 1890193951498900596}
+    - c9b0916955fe4794f828bd5c71e0dddb: {fileID: 1890193951498900596}
+    - a821babca89e4274fa2f2264ae8ce072: {fileID: 1890193951498900596}
+    - 07e83f61463255a4eaba136ae7d8d76b: {fileID: 1890193951498900596}
+--- !u!114 &73494643
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -995,6 +1015,73 @@ MonoBehaviour:
   m_GameObject: {fileID: 1890193951498900596}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c28e97b8138db164e97ecf229a1aa56a, type: 3}
+  m_Script: {fileID: 11500000, guid: e52de21a22b6dd44c9cc19f810c65059, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Events:
+    m_Signals:
+    - {fileID: 11400000, guid: 4c6d38cf6abc5db4d92199606c16f5fa, type: 2}
+    m_Events:
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 0}
+          m_TargetAssemblyTypeName: StageManager, Assembly-CSharp
+          m_MethodName: BossArrive
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!95 &590334978
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1890193951498900596}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &590334972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1890193951498900596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e52de21a22b6dd44c9cc19f810c65059, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Events:
+    m_Signals:
+    - {fileID: 11400000, guid: 37981bfaec2cad84fa14dcd335a8f26b, type: 2}
+    m_Events:
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 0}
+          m_TargetAssemblyTypeName: StageManager, Assembly-CSharp
+          m_MethodName: BossStart
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2

@@ -64,8 +64,11 @@ public class GameManager : MonoBehaviour
         get { return _Score; }
         set
         {
-            _Score = value;
-            ScoreTxt.text = value.ToString();
+            if (ScoreTxt.gameObject.activeSelf == true)
+            {
+                _Score = value;
+                ScoreTxt.text = value.ToString();
+            }
         }
     }
 
