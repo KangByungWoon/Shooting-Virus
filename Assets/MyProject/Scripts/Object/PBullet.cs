@@ -20,7 +20,7 @@ public class PBullet : MonoBehaviour
     {
         if (!isTarget)
         {
-            transform.position += Vector3.forward * Time.deltaTime * Speed * 3;
+            transform.position += Vector3.forward * Time.deltaTime * Speed * 7;
 
             if (transform.position.z > 200)
             {
@@ -68,11 +68,7 @@ public class PBullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Enemy")
-        {
-            Die();
-        }
-        if (other.gameObject.tag == "SEnemy")
+        if (other.gameObject.tag == "Enemy" || other.gameObject.tag == "SEnemy" || other.gameObject.tag =="Boss")
         {
             Die();
         }

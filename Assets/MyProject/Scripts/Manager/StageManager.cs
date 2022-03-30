@@ -32,6 +32,11 @@ public class StageManager : MonoBehaviour
     [SerializeField] GameObject LockOn;
     [SerializeField] GameObject CMCam;
 
+    [SerializeField] GameObject FireWorks;
+    [SerializeField] GameObject DustStorm;
+
+    [SerializeField] GameObject StageResult;
+
     private int Stage = 1;
     private IEnumerator Spawn;
 
@@ -76,7 +81,7 @@ public class StageManager : MonoBehaviour
         while (true)
         {
             int randomspawn = Random.Range(0, Stage * 2);
-            for (int i = 0; i < randomspawn; i++)
+            for (int i = 0; i <= randomspawn; i++)
             {
                 int random = Random.Range(0, 4);
                 switch (random)
@@ -131,9 +136,23 @@ public class StageManager : MonoBehaviour
 
     }
 
-    public void ClearCallBack()
+    public IEnumerator ClearCallBack()
     {
-        //¿¬Ãâ
+        var enemys = FindObjectsOfType<Enemy>();
+        foreach(Enemy enemy in enemys)
+        {
+            enemy.Die();
+        }
+
+        FireWorks.GetComponent<ParticleSystem>().Play();
+        yield return new WaitForSeconds(4f);
+        FireWorks.GetComponent<ParticleSystem>().Stop();
+        DustStorm.GetComponent<ParticleSystem>().Play();
+        yield return new WaitForSeconds(2f);
+        StageResult.SetActive(true);
+        yield return new WaitForSeconds(5f);
+        DustStorm.GetComponent<ParticleSystem>().Stop();
+        yield return new WaitForSeconds(2f);
         StartCoroutine(StageProgress(Stage2ProgressTime, 2));
     }
 }

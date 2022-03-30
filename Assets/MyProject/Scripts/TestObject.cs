@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class TestObject : MonoBehaviour
 {
+    public Transform Target;
+
     void Start()
     {
-        ObjectPool.Instance.ReleaseObject(ObjectPool.Instance.TestQueue, gameObject, 2f);
     }
 
     void Update()
     {
-        
+        transform.position = Vector3.Slerp(transform.position, Target.position, Time.deltaTime * 0.5f);
     }
 }

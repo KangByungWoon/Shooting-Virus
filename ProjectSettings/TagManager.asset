@@ -11,6 +11,7 @@ TagManager:
   - SEnemy
   - PBullet
   - Boss
+  - Obstacle
   layers:
   - Default
   - TransparentFX

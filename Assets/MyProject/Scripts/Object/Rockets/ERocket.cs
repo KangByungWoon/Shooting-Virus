@@ -7,7 +7,7 @@ public class ERocket : MonoBehaviour
     public Transform Target;
     public Vector3 TargetPosition;
     [SerializeField] protected GameObject Explosion;
-    [SerializeField] protected float Speed;
+    [SerializeField] public float Speed;
     private bool isComplete = false;
     public ObjectPool.PoolType rocketType;
     public int Damage;
