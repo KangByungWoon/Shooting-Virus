@@ -71,6 +71,7 @@ public class Item : MonoBehaviour
         if (other.tag == "Player" && !isDie)
         {
             isDie = true;
+            GameManager.Instance.GetItem++;
 
             if (GameManager.Instance.Player.GetComponent<AirPlaneController>().WeaponLevel == 1)
             {

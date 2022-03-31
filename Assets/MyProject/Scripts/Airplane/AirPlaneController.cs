@@ -207,9 +207,9 @@ public class AirPlaneController : MonoBehaviour
 
     IEnumerator FireBullet(bool isTarget, bool Raise = false)
     {
-        if (!NOSHOTTING)
+        while (true)
         {
-            while (true)
+            if (!NOSHOTTING)
             {
                 GameObject bullet = null;
                 if (!Raise)
@@ -244,8 +244,8 @@ public class AirPlaneController : MonoBehaviour
                 {
                     bullet.GetComponent<PBullet>().isTarget = false;
                 }
-                yield return new WaitForSeconds(BulletAttackSpeed);
             }
+            yield return new WaitForSeconds(BulletAttackSpeed);
         }
     }
 
@@ -274,15 +274,15 @@ public class AirPlaneController : MonoBehaviour
     }
     private IEnumerator RocketFire()
     {
-        if (!NOSHOTTING)
+        while (true)
         {
-            while (true)
+            if (!NOSHOTTING)
             {
                 GameObject rocket = ObjectPool.Instance.GetObject(ObjectPool.Instance.PRockets, transform.position + new Vector3(0, 0.1f, 2f));
                 rocket.GetComponent<Rocket>().NoTarget = true;
-                
-                yield return new WaitForSeconds(BulletAttackSpeed * 2);
+
             }
+            yield return new WaitForSeconds(BulletAttackSpeed * 2);
         }
     }
 

@@ -35,11 +35,6 @@ public class StageManager : MonoBehaviour
     [SerializeField] GameObject FireWorks;
     [SerializeField] GameObject DustStorm;
 
-    [SerializeField] GameObject StageResult;
-    [SerializeField] Text Score;
-    [SerializeField] Text KillEnemy;
-    [SerializeField] Text Timer;
-
     private int Stage = 1;
     private IEnumerator Spawn;
 
@@ -52,6 +47,9 @@ public class StageManager : MonoBehaviour
     private IEnumerator StageProgress(float progressTime, int Stage)
     {
         Spawn = SpawnCoroutine();
+        StageProgressUI.SetActive(true);
+        BossProgressUI.SetActive(false);
+
         StartCoroutine(Spawn);
         StageText.text = "Stage" + Stage.ToString();
         BossIcon.sprite = Stage == 1 ? CovidBoss : CovidChangeBoss;
@@ -67,8 +65,6 @@ public class StageManager : MonoBehaviour
 
             if (now_progressTime >= progressTime)
             {
-                StageProgressUI.SetActive(false);
-                BossProgressUI.SetActive(true);
                 StopCoroutine(Spawn);
                 if (Stage == 1)
                     Stage1BossEffect.GetComponent<PlayableDirector>().Play();
@@ -118,6 +114,8 @@ public class StageManager : MonoBehaviour
 
         GameUI.SetActive(false);
         LockOn.SetActive(false);
+        StageProgressUI.SetActive(false);
+        BossProgressUI.SetActive(true);
 
         if (Stage == 1)
         {
@@ -148,7 +146,7 @@ public class StageManager : MonoBehaviour
     public IEnumerator ClearCallBack()
     {
         var enemys = FindObjectsOfType<Enemy>();
-        foreach(Enemy enemy in enemys)
+        foreach (Enemy enemy in enemys)
         {
             enemy.Die();
         }
@@ -159,16 +157,29 @@ public class StageManager : MonoBehaviour
         FireWorks.GetComponent<ParticleSystem>().Play();
         yield return new WaitForSeconds(4f);
         FireWorks.GetComponent<ParticleSystem>().Stop();
+
         DustStorm.GetComponent<ParticleSystem>().Play();
         yield return new WaitForSeconds(2f);
-        Score.text = "Score : " + GameManager.Instance.Score.ToString();
-        KillEnemy.text = "KillEnemy : " + GameManager.Instance.KillEnemy.ToString();
-        StageResult.GetComponent<PlayableDirector>().Play();
-        yield return new WaitForSeconds(5f);
-        DustStorm.GetComponent<ParticleSystem>().Stop();
-        yield return new WaitForSeconds(2f);
-        StartCoroutine(StageProgress(Stage2ProgressTime, 2));
-        GameManager.Instance.Player.GetComponent<AirPlaneController>().NOSHOTTING = false;
-        GameManager.Instance.ScorePlus = true;
+
+        if (Stage == 1)
+        {
+            GameManager.Instance.StartCoroutine(GameManager.Instance.StageClear());
+            yield return new WaitForSeconds(5f);
+
+            DustStorm.GetComponent<ParticleSystem>().Stop();
+            yield return new WaitForSeconds(2f);
+
+            StartCoroutine(StageProgress(Stage2ProgressTime, 2));
+            GameManager.Instance.Player.GetComponent<AirPlaneController>().NOSHOTTING = false;
+            GameManager.Instance.ScorePlus = true;
+            GameManager.Instance.Hp = 100;
+            GameManager.Instance.Gp = 30;
+            Stage++;
+        }
+        else
+        {
+            //결과창 띄우기
+        }
     }
+
 }

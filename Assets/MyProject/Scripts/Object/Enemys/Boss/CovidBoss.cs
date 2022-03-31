@@ -74,6 +74,8 @@ public class CovidBoss : MonoBehaviour
     {
         State.Setting(this);
         State.Process();
+        _Hp = 100;
+        _HpGague = 50;
     }
 
     void Update()

@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Playables;
+using UnityEngine.Timeline;
 
 public class GameManager : MonoBehaviour
 {
@@ -13,8 +15,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] Text ScoreTxt;
     [SerializeField] Image HpGague;
     [SerializeField] Image GpGague;
+    [SerializeField] GameObject StageResult;
+    [SerializeField] Text ScoreText;
+    [SerializeField] Text KillEnemyText;
 
     public int KillEnemy;
+    public int GetItem;
 
     public float _Hp;
     public float Hp
@@ -89,6 +95,7 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             Time.timeScale = 1.4f;
+            StartCoroutine(StageClear());
         }
         if (Input.GetKeyUp(KeyCode.LeftShift))
         {
@@ -104,5 +111,34 @@ public class GameManager : MonoBehaviour
     public void GameClear()
     {
 
+    }
+    public IEnumerator StageClear()
+    {
+        StageResult.GetComponent<PlayableDirector>().Play();
+
+        ScoreText.text = "SCORE : 0";
+        KillEnemyText.text = "KILL ENEMY : 0";
+
+        yield return new WaitForSeconds(0.2f);
+        float Temp = Score * (1 + (Hp / 100) - (Gp / 100) + GetItem/100);
+        Score = (int)Temp;
+        Camera.main.GetComponent<CameraSystem>().CameraShake(5f, 0.35f);
+        ScoreText.text = "SCORE : " + Score.ToString();
+        KillEnemyText.text = "KILL ENEMY : " + KillEnemy.ToString();
+
+        //StartCoroutine(TextScroll("Score : ", ScoreText, Score, Score + (int)(Score * Hp) + (int)(Score / Gp)));
+    }
+
+    private IEnumerator TextScroll(string insterText, Text text, float current, float target)
+    {
+        float textValue = current;
+        while (true)
+        {
+            textValue = Mathf.MoveTowards(current, target, Time.deltaTime * 10);
+            text.text = insterText + (textValue).ToString();
+            if (textValue == target)
+                break;
+            yield return new WaitForSeconds(0.01f);
+        }
     }
 }

@@ -25,19 +25,22 @@ public class Mini : MonoBehaviour
     {
         while (true)
         {
-            if (WeaponLevel == 1)
+            if (!Player.GetComponent<AirPlaneController>().NOSHOTTING)
             {
-                GameObject bullet = ObjectPool.Instance.GetObject(ObjectPool.Instance.PBullets, transform.position + new Vector3(0, 0.1f, 1));
-                bullet.GetComponent<PBullet>().Speed = 40;
-                bullet.GetComponent<PBullet>().Damage = 10;
-            }
-            else
-            {
-                GameObject bullet = ObjectPool.Instance.GetObject(ObjectPool.Instance.Raises, transform.position + new Vector3(0, 0.1f, 1));
-                bullet.GetComponent<PBullet>().Speed = 60;
-                bullet.GetComponent<PBullet>().Damage = 20;
-            }
+                if (WeaponLevel == 1)
+                {
+                    GameObject bullet = ObjectPool.Instance.GetObject(ObjectPool.Instance.PBullets, transform.position + new Vector3(0, 0.1f, 1));
+                    bullet.GetComponent<PBullet>().Speed = 40;
+                    bullet.GetComponent<PBullet>().Damage = 10;
+                }
+                else
+                {
+                    GameObject bullet = ObjectPool.Instance.GetObject(ObjectPool.Instance.Raises, transform.position + new Vector3(0, 0.1f, 1));
+                    bullet.GetComponent<PBullet>().Speed = 60;
+                    bullet.GetComponent<PBullet>().Damage = 20;
+                }
 
+            }
             yield return new WaitForSeconds(0.5f);
         }
     }
