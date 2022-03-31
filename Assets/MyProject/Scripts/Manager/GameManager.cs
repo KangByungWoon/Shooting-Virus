@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] Image HpGague;
     [SerializeField] Image GpGague;
 
+    public int KillEnemy;
+
     public float _Hp;
     public float Hp
     {
@@ -72,6 +74,8 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public bool ScorePlus = true;
+
     void Awake()
     {
         Instance = this;
@@ -79,7 +83,8 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        Score += 100;
+        if (ScorePlus)
+            Score += 100;
 
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {

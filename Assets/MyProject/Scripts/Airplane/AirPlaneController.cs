@@ -34,6 +34,8 @@ public class AirPlaneController : MonoBehaviour
     public GameObject WeaponUpEffect;
     public GameObject InvinEffect;
 
+    public bool NOSHOTTING = false;
+
     public int Level;
     public int _Level
     {
@@ -45,7 +47,7 @@ public class AirPlaneController : MonoBehaviour
                 Level++;
                 BulletDamage += 1;
                 BulletMoveSpeed += 1;
-                BulletAttackSpeed -= 0.03f;
+                BulletAttackSpeed -= 0.015f;
 
                 if (Level == 3)
                 {
@@ -131,7 +133,7 @@ public class AirPlaneController : MonoBehaviour
         }
     }
 
-    private int WeaponLevel = 1;
+    public int WeaponLevel = 1;
 
     void Start()
     {
@@ -205,58 +207,81 @@ public class AirPlaneController : MonoBehaviour
 
     IEnumerator FireBullet(bool isTarget, bool Raise = false)
     {
-        while (true)
+        if (!NOSHOTTING)
         {
-            GameObject bullet = null;
-            if (!Raise)
+            while (true)
             {
-                bullet = ObjectPool.Instance.GetObject(ObjectPool.Instance.PBullets, transform.position + new Vector3(0, 0.1f, 1));
-                bullet.GetComponent<PBullet>().Speed = BulletMoveSpeed;
-                bullet.GetComponent<PBullet>().Damage = BulletDamage;
-            }
-            else
-            {
-                bullet = ObjectPool.Instance.GetObject(ObjectPool.Instance.Raises, transform.position + new Vector3(0, 0.1f, 1));
-            }
-            if (isTarget)
-            {
-                var hitObjs = Physics.BoxCastAll(transform.position + new Vector3(0, 0.5f, 0), new Vector3(AttackPlace, AttackPlace, AttackPlace), transform.forward, transform.rotation, Mathf.Infinity, 1 << LayerMask.NameToLayer("Enemy"));
-                foreach (var hit in hitObjs)
+                GameObject bullet = null;
+                if (!Raise)
                 {
-                    if (hit.transform.gameObject.GetComponent<Enemy>().EnemyType != ObjectPool.PoolType.RedBlood_Cells)
+                    bullet = ObjectPool.Instance.GetObject(ObjectPool.Instance.PBullets, transform.position + new Vector3(0, 0.1f, 1));
+                    bullet.GetComponent<PBullet>().Speed = BulletMoveSpeed;
+                    bullet.GetComponent<PBullet>().Damage = BulletDamage;
+                }
+                else
+                {
+                    bullet = ObjectPool.Instance.GetObject(ObjectPool.Instance.Raises, transform.position + new Vector3(0, 0.1f, 1));
+                }
+                if (isTarget)
+                {
+                    var hitObjs = Physics.BoxCastAll(transform.position + new Vector3(0, 0.5f, 0), new Vector3(AttackPlace, AttackPlace, AttackPlace), transform.forward, transform.rotation, Mathf.Infinity, 1 << LayerMask.NameToLayer("Enemy"));
+                    foreach (var hit in hitObjs)
                     {
-                        if (Raise)
+                        if (hit.transform.gameObject.GetComponent<Enemy>().EnemyType != ObjectPool.PoolType.RedBlood_Cells)
                         {
-                            bullet.GetComponent<PBullet>().Speed = BulletMoveSpeed + 5;
-                            bullet.GetComponent<PBullet>().Damage = BulletDamage + 5;
-                            bullet.GetComponent<PBullet>().isRaise = true;
+                            if (Raise)
+                            {
+                                bullet.GetComponent<PBullet>().Speed = BulletMoveSpeed + 5;
+                                bullet.GetComponent<PBullet>().Damage = BulletDamage + 5;
+                                bullet.GetComponent<PBullet>().isRaise = true;
+                            }
+                            bullet.GetComponent<PBullet>().target = hit.transform.gameObject.transform;
+                            bullet.GetComponent<PBullet>().isTarget = true;
                         }
-                        bullet.GetComponent<PBullet>().target = hit.transform.gameObject.transform;
-                        bullet.GetComponent<PBullet>().isTarget = true;
                     }
                 }
+                else
+                {
+                    bullet.GetComponent<PBullet>().isTarget = false;
+                }
+                yield return new WaitForSeconds(BulletAttackSpeed);
             }
-
-            yield return new WaitForSeconds(BulletAttackSpeed);
         }
     }
 
     private void LockOnSystem()
     {
-        var hitObjs = Physics.BoxCastAll(transform.position + new Vector3(0, 0.5f, 0), new Vector3(AttackPlace, AttackPlace, AttackPlace), transform.forward, transform.rotation, Mathf.Infinity, 1 << LayerMask.NameToLayer("Enemy"));
-        foreach (var hit in hitObjs)
+        if (!NOSHOTTING)
         {
-            if (!hit.transform.gameObject.GetComponent<Enemy>().isTarget && hit.transform.gameObject.GetComponent<Enemy>().EnemyType != ObjectPool.PoolType.RedBlood_Cells)
+            var hitObjs = Physics.BoxCastAll(transform.position + new Vector3(0, 0.5f, 0), new Vector3(AttackPlace, AttackPlace, AttackPlace), transform.forward, transform.rotation, Mathf.Infinity, 1 << LayerMask.NameToLayer("Enemy"));
+            foreach (var hit in hitObjs)
             {
-                GameObject rocket = ObjectPool.Instance.GetObject(ObjectPool.Instance.PRockets, transform.position + new Vector3(Random.Range(-10, 10), 5, -10));
-                rocket.GetComponent<Rocket>().Target = hit.transform.gameObject.transform;
+                if (!hit.transform.gameObject.GetComponent<Enemy>().isTarget && hit.transform.gameObject.GetComponent<Enemy>().EnemyType != ObjectPool.PoolType.RedBlood_Cells)
+                {
+                    GameObject rocket = ObjectPool.Instance.GetObject(ObjectPool.Instance.PRockets, transform.position + new Vector3(Random.Range(-10, 10), 5, -10));
+                    rocket.GetComponent<Rocket>().Target = hit.transform.gameObject.transform;
+                    rocket.GetComponent<Rocket>().NoTarget = false;
 
-                Enemy enemy = hit.transform.gameObject.GetComponent<Enemy>();
-                enemy.isTarget = true;
-                enemy.RocketObj = rocket;
-                enemy.OnMark();
+                    Enemy enemy = hit.transform.gameObject.GetComponent<Enemy>();
+                    enemy.isTarget = true;
+                    enemy.RocketObj = rocket;
+                    enemy.OnMark();
 
-                enemy.TargetSetting();
+                    enemy.TargetSetting();
+                }
+            }
+        }
+    }
+    private IEnumerator RocketFire()
+    {
+        if (!NOSHOTTING)
+        {
+            while (true)
+            {
+                GameObject rocket = ObjectPool.Instance.GetObject(ObjectPool.Instance.PRockets, transform.position + new Vector3(0, 0.1f, 2f));
+                rocket.GetComponent<Rocket>().NoTarget = true;
+
+                yield return new WaitForSeconds(BulletAttackSpeed * 2);
             }
         }
     }
@@ -313,6 +338,7 @@ public class AirPlaneController : MonoBehaviour
                 case 5:
                     if (AttackCorou != null)
                         StopCoroutine(AttackCorou);
+                    StartCoroutine(RocketFire());
                     break;
             }
         }

@@ -434,10 +434,7 @@ public class CovidBoss : MonoBehaviour
     {
         if (other.gameObject.tag == "PRocket")
         {
-            if (other.GetComponent<Rocket>().Target == gameObject.transform)
-            {
-                _Hp -= other.gameObject.GetComponent<PBullet>().Damage;
-            }
+            _Hp -= other.gameObject.GetComponent<Rocket>().Damage;
         }
 
         if (other.gameObject.tag == "PBullet")

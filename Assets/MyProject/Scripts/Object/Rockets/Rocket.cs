@@ -7,19 +7,34 @@ public class Rocket : MonoBehaviour
     public Transform Target;
     [SerializeField] private float Speed;
     bool isDie = false;
+    public bool NoTarget = false;
+    public int Damage;
 
     void OnEnable()
     {
         isDie = false;
+        NoTarget = false;
     }
 
     void Update()
     {
-        transform.position = Vector3.Slerp(transform.position, Target.position, Time.deltaTime * Speed);
-        transform.LookAt(Target.position);
-        if (Target.gameObject.activeSelf == false)
+        if (NoTarget)
         {
-            Die();
+            transform.position += Vector3.forward * Time.deltaTime * Speed * 7;
+
+            if (transform.position.z > 200)
+            {
+                ObjectPool.Instance.ReleaseObject(ObjectPool.Instance.PRockets, gameObject);
+            }
+        }
+        else
+        {
+            transform.position = Vector3.Slerp(transform.position, Target.position, Time.deltaTime * Speed);
+            transform.LookAt(Target.position);
+            if (Target.gameObject.activeSelf == false)
+            {
+                Die();
+            }
         }
     }
 
@@ -49,6 +64,10 @@ public class Rocket : MonoBehaviour
             {
                 Die();
             }
+        }
+        if (other.gameObject.tag == "Boss")
+        {
+            Die();
         }
     }
 }

@@ -36,14 +36,17 @@ public class StageManager : MonoBehaviour
     [SerializeField] GameObject DustStorm;
 
     [SerializeField] GameObject StageResult;
+    [SerializeField] Text Score;
+    [SerializeField] Text KillEnemy;
+    [SerializeField] Text Timer;
 
     private int Stage = 1;
     private IEnumerator Spawn;
 
     private void Start()
     {
-        //StartCoroutine(StageProgress(Stage1ProgressTime, 1));
-        Stage1BossEffect.GetComponent<PlayableDirector>().Play();
+        StartCoroutine(StageProgress(Stage1ProgressTime, 1));
+        //Stage1BossEffect.GetComponent<PlayableDirector>().Play();
     }
 
     private IEnumerator StageProgress(float progressTime, int Stage)
@@ -107,6 +110,12 @@ public class StageManager : MonoBehaviour
 
     public void BossArrive()
     {
+        var enemys = FindObjectsOfType<Enemy>();
+        foreach (Enemy enemy in enemys)
+        {
+            enemy.Die();
+        }
+
         GameUI.SetActive(false);
         LockOn.SetActive(false);
 
@@ -144,15 +153,22 @@ public class StageManager : MonoBehaviour
             enemy.Die();
         }
 
+        GameManager.Instance.Player.GetComponent<AirPlaneController>().NOSHOTTING = true;
+        GameManager.Instance.ScorePlus = false;
+
         FireWorks.GetComponent<ParticleSystem>().Play();
         yield return new WaitForSeconds(4f);
         FireWorks.GetComponent<ParticleSystem>().Stop();
         DustStorm.GetComponent<ParticleSystem>().Play();
         yield return new WaitForSeconds(2f);
-        StageResult.SetActive(true);
+        Score.text = "Score : " + GameManager.Instance.Score.ToString();
+        KillEnemy.text = "KillEnemy : " + GameManager.Instance.KillEnemy.ToString();
+        StageResult.GetComponent<PlayableDirector>().Play();
         yield return new WaitForSeconds(5f);
         DustStorm.GetComponent<ParticleSystem>().Stop();
         yield return new WaitForSeconds(2f);
         StartCoroutine(StageProgress(Stage2ProgressTime, 2));
+        GameManager.Instance.Player.GetComponent<AirPlaneController>().NOSHOTTING = false;
+        GameManager.Instance.ScorePlus = true;
     }
 }

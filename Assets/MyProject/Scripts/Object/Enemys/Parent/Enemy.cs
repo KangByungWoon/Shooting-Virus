@@ -37,6 +37,18 @@ public class Enemy : MonoBehaviour
     private void StartActivity()
     {
         context.Activity();
+        StartCoroutine(TargetRelease());
+    }
+
+    private IEnumerator TargetRelease()
+    {
+        while(true)
+        {
+            isTarget = false;
+            XMark.SetActive(false);
+            RocketObj = null;
+            yield return new WaitForSeconds(0.5f);
+        }
     }
 
     public void Move(bool Exit)
@@ -134,6 +146,7 @@ public class Enemy : MonoBehaviour
 
     public virtual void Die()
     {
+        GameManager.Instance.KillEnemy++;
         if (EnemyType != ObjectPool.PoolType.Leukocyte && EnemyType != ObjectPool.PoolType.RedBlood_Cells)
         {
             int random = Random.Range(0, 100);
@@ -193,10 +206,14 @@ public class Enemy : MonoBehaviour
             {
                 if (other.GetComponent<Rocket>().Target == gameObject.transform)
                 {
-                    Die();
-                    GameManager.Instance.Score += GiveScore;
-                    GameManager.Instance.Player.GetComponent<AirPlaneController>()._Exp += GiveExp;
-                    isDie = true;
+                    Hp -= other.GetComponent<Rocket>().Damage;
+                    if (Hp <= 0)
+                    {
+                        Die();
+                        GameManager.Instance.Score += GiveScore;
+                        GameManager.Instance.Player.GetComponent<AirPlaneController>()._Exp += GiveExp;
+                        isDie = true;
+                    }
                 }
             }
 
@@ -268,11 +285,12 @@ public class AttackState : IState
             {
                 ctx.State = new MoveState();
             }
+            ctx.Activity();
         }
         else
         {
             int random = Random.Range(0, 100);
-            if (random <= 100)
+            if (random <= 20)
             {
                 enemy.Shooting(true);
             }
@@ -282,9 +300,17 @@ public class AttackState : IState
             }
 
             yield return new WaitForSeconds(Random.Range(5f, 8f));
+            int random2 = Random.Range(0, 100);
+            if (random2 <= 75)
+            {
+                ctx.State = new ExitState();
+            }
+            else
+            {
+                ctx.State = new MoveState();
+            }
+            ctx.Activity();
         }
-
-        ctx.Activity();
     }
 }
 

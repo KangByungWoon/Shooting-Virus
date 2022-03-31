@@ -72,6 +72,11 @@ public class Item : MonoBehaviour
         {
             isDie = true;
 
+            if (GameManager.Instance.Player.GetComponent<AirPlaneController>().WeaponLevel == 1)
+            {
+                Type = ItemType.UpgradeWeapon;
+            }
+
             AirPlaneController player = GameManager.Instance.Player.GetComponent<AirPlaneController>();
             switch (Type)
             {

@@ -5072,6 +5072,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Target: {fileID: 0}
   Speed: 10
+  NoTarget: 0
+  Damage: 30
 --- !u!54 &5581707760691121941
 Rigidbody:
   m_ObjectHideFlags: 0
