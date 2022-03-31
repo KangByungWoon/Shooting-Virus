@@ -280,7 +280,7 @@ public class AirPlaneController : MonoBehaviour
             {
                 GameObject rocket = ObjectPool.Instance.GetObject(ObjectPool.Instance.PRockets, transform.position + new Vector3(0, 0.1f, 2f));
                 rocket.GetComponent<Rocket>().NoTarget = true;
-
+                
                 yield return new WaitForSeconds(BulletAttackSpeed * 2);
             }
         }
