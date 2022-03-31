@@ -45,8 +45,8 @@ public class StageManager : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(StageProgress(Stage1ProgressTime, 1));
-        //Stage1BossEffect.GetComponent<PlayableDirector>().Play();
+        //StartCoroutine(StageProgress(Stage1ProgressTime, 1));
+        Stage1BossEffect.GetComponent<PlayableDirector>().Play();
     }
 
     private IEnumerator StageProgress(float progressTime, int Stage)

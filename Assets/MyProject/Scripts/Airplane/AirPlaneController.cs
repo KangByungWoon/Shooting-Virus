@@ -346,10 +346,6 @@ public class AirPlaneController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Item")
-        {
-            Debug.Log("IteGet");
-        }
     }
 
 
