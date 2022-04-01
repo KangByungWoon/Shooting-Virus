@@ -83,18 +83,22 @@ public class Item : MonoBehaviour
             {
                 case ItemType.UpgradeWeapon:
                     player.WeaponUpgrade();
+                    GameManager.Instance.GetItemTxtOutput("WEAPON UPGRADE");
                     StartCoroutine(EffectActive(player.WeaponUpEffect));
                     break;
                 case ItemType.HideChar:
                     player.InvinActive(0, 2.5f, true);
+                    GameManager.Instance.GetItemTxtOutput("INVINCIBILITY");
                     StartCoroutine(EffectActive(player.InvinEffect));
                     break;
                 case ItemType.HpUp:
                     GameManager.Instance.Hp += HPP;
+                    GameManager.Instance.GetItemTxtOutput("HP UP");
                     StartCoroutine(EffectActive(player.HpUpEffect));
                     break;
                 case ItemType.PainDown:
                     GameManager.Instance.Gp -= GPM;
+                    GameManager.Instance.GetItemTxtOutput("PP DOWN");
                     StartCoroutine(EffectActive(player.PPDownEffect));
                     break;
                 case ItemType.AllKill:
@@ -113,9 +117,11 @@ public class Item : MonoBehaviour
                             enes.TargetSetting();
                         }
                     }
+                    GameManager.Instance.GetItemTxtOutput("ALL KILL");
                     break;
                 case ItemType.LevelUp:
                     player._Level++;
+                    GameManager.Instance.GetItemTxtOutput("LEVEL UP");
                     break;
             }
 

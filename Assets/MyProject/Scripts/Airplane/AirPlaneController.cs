@@ -86,6 +86,7 @@ public class AirPlaneController : MonoBehaviour
                 Exp = 0;
                 MaxExp += 100;
                 _Level++;
+                GameManager.Instance.GetItemTxtOutput("", true);
                 Destroy(GameObject.Instantiate(LevelUpEffect, gameObject.transform), 2f);
             }
             else if (value < MaxExp && Level < MaxLevel)
@@ -103,6 +104,7 @@ public class AirPlaneController : MonoBehaviour
 
     private Vector3 StartPosition;
 
+    private float MoveSpeed;
     private float HorizontalInput = 0;
     private float VerticalInput = 0;
 
@@ -138,15 +140,20 @@ public class AirPlaneController : MonoBehaviour
     void Start()
     {
         invinmat.material.mainTextureScale = new Vector2(0, 1);
+        Setting();
         AttackCorou = FireBullet(false);
         StartCoroutine(AttackCorou);
-        Setting();
     }
 
     private void Setting()
     {
         StartPosition = transform.position;
         TargetPoint = transform.position;
+
+        MoveSpeed = JsonSystem.Instance.Information.PlayerMoveSpeed;
+        BulletAttackSpeed = JsonSystem.Instance.Information.PlayerBulletAttackSpeed;
+        BulletMoveSpeed = JsonSystem.Instance.Information.PlayerBulletMoveSpeed;
+        BulletDamage = JsonSystem.Instance.Information.PlayerDamage;
     }
 
     void Update()
@@ -169,11 +176,11 @@ public class AirPlaneController : MonoBehaviour
     private void transformRotate()
     {
         transform.rotation = Quaternion.Slerp(transform.rotation,
-        Quaternion.Euler(xAngel, yAngel, zAngle), Time.deltaTime * 5);
+        Quaternion.Euler(xAngel, yAngel, zAngle), Time.deltaTime * MoveSpeed);
     }
     private void Move()
     {
-        transform.position = Vector3.Lerp(transform.position, TargetPoint, Time.deltaTime * 5);
+        transform.position = Vector3.Lerp(transform.position, TargetPoint, Time.deltaTime * MoveSpeed);
 
     }
     private void HorizontalEvent()
@@ -280,6 +287,7 @@ public class AirPlaneController : MonoBehaviour
             {
                 GameObject rocket = ObjectPool.Instance.GetObject(ObjectPool.Instance.PRockets, transform.position + new Vector3(0, 0.1f, 2f));
                 rocket.GetComponent<Rocket>().NoTarget = true;
+                rocket.GetComponent<Rocket>().Damage = BulletDamage * 10;
 
             }
             yield return new WaitForSeconds(BulletAttackSpeed * 2);

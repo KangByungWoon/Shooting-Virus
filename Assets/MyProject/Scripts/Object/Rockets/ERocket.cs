@@ -13,6 +13,30 @@ public class ERocket : MonoBehaviour
     public int Damage;
     bool isAttack = false;
 
+    private void Start()
+    {
+        JsonSystem json = JsonSystem.Instance;
+        switch (rocketType)
+        {
+            case ObjectPool.PoolType.Bacteria:
+                Damage = json.Information.Bacteria_Damage;
+                Speed = json.Information.Bacteria_BulletSpeed;
+                break;
+            case ObjectPool.PoolType.Germ:
+                Damage = json.Information.Germ_Damage;
+                Speed = json.Information.Germ_BulletSpeed;
+                break;
+            case ObjectPool.PoolType.Cancer_Cells:
+                Damage = json.Information.Cancer_Cells_Damage;
+                Speed = json.Information.Cancer_Cells_BulletSpeed;
+                break;
+            case ObjectPool.PoolType.Virus:
+                Damage = json.Information.Virus_Damage;
+                Speed = json.Information.Virus_BulletSpeed;
+                break;
+        }
+    }
+
     private void OnEnable()
     {
         isComplete = false;

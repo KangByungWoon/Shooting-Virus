@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject StageResult;
     [SerializeField] Text ScoreText;
     [SerializeField] Text KillEnemyText;
+    [SerializeField] Text GetItemTxt;
 
     public int KillEnemy;
     public int GetItem;
@@ -57,6 +58,10 @@ public class GameManager : MonoBehaviour
                 _Gp = 100;
                 GameOver();
             }
+            else if(value <=0)
+            {
+                _Gp = 0;
+            }
             else
             {
                 _Gp = value;
@@ -90,12 +95,11 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         if (ScorePlus)
-            Score += 100;
+            Score += 123;
 
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             Time.timeScale = 1.4f;
-            StartCoroutine(StageClear());
         }
         if (Input.GetKeyUp(KeyCode.LeftShift))
         {
@@ -103,15 +107,19 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void GameOver()
+    private void Start()
     {
-        Debug.Log("게임오버");
+        _Hp = JsonSystem.Instance.Information.PlayerHp;
     }
 
-    public void GameClear()
+    public void GetItemTxtOutput(string typeName, bool isSpecial = false)
     {
-
+        GetItemTxt.text = "ITEM GET!\n" + typeName;
+        if (isSpecial)
+            GetItemTxt.text = "LEVEL UP!";
+        GetItemTxt.GetComponent<PlayableDirector>().Play();
     }
+
     public IEnumerator StageClear()
     {
         StageResult.GetComponent<PlayableDirector>().Play();
@@ -125,20 +133,15 @@ public class GameManager : MonoBehaviour
         Camera.main.GetComponent<CameraSystem>().CameraShake(5f, 0.35f);
         ScoreText.text = "SCORE : " + Score.ToString();
         KillEnemyText.text = "KILL ENEMY : " + KillEnemy.ToString();
-
-        //StartCoroutine(TextScroll("Score : ", ScoreText, Score, Score + (int)(Score * Hp) + (int)(Score / Gp)));
     }
 
-    private IEnumerator TextScroll(string insterText, Text text, float current, float target)
+    public void GameOver()
     {
-        float textValue = current;
-        while (true)
-        {
-            textValue = Mathf.MoveTowards(current, target, Time.deltaTime * 10);
-            text.text = insterText + (textValue).ToString();
-            if (textValue == target)
-                break;
-            yield return new WaitForSeconds(0.01f);
-        }
+        Debug.Log("게임오버");
+    }
+
+    public void GameClear()
+    {
+
     }
 }

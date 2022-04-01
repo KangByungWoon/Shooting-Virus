@@ -7,23 +7,26 @@ public class CameraSystem : MonoBehaviour
     [SerializeField] private AirPlaneController Player;
     [SerializeField] private Vector3 Offset;
     private Vector3 ShakePosition;
+
+    private float MoveSpeed;
     private IEnumerator cameraShake_Coroutine;
 
     void Start()
     {
+        MoveSpeed = JsonSystem.Instance.Information.PlayerMoveSpeed;
     }
 
     void Update()
     {
         transform.rotation = Quaternion.Slerp(transform.rotation,
-        Quaternion.Euler(Player.xAngel, Player.yAngel, Player.zAngle), Time.deltaTime * 5);
+        Quaternion.Euler(Player.xAngel, Player.yAngel, Player.zAngle), Time.deltaTime * MoveSpeed);
 
-        transform.position = Vector3.Lerp(transform.position, Player.transform.position + Offset + ShakePosition, Time.deltaTime * 15);
+        transform.position = Vector3.Lerp(transform.position, Player.transform.position + Offset + ShakePosition, Time.deltaTime * MoveSpeed * 3);
     }
 
     public void CameraShake(float duration, float ShakePower = 1)
     {
-        if(cameraShake_Coroutine!=null)
+        if (cameraShake_Coroutine != null)
         {
             StopCoroutine(cameraShake_Coroutine);
         }

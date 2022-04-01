@@ -35,13 +35,15 @@ public class StageManager : MonoBehaviour
     [SerializeField] GameObject FireWorks;
     [SerializeField] GameObject DustStorm;
 
+    [SerializeField] GameObject OverWindow;
+
     private int Stage = 1;
     private IEnumerator Spawn;
 
     private void Start()
     {
-        //StartCoroutine(StageProgress(Stage1ProgressTime, 1));
-        Stage1BossEffect.GetComponent<PlayableDirector>().Play();
+        StartCoroutine(StageProgress(Stage1ProgressTime, 1));
+        //Stage1BossEffect.GetComponent<PlayableDirector>().Play();
     }
 
     private IEnumerator StageProgress(float progressTime, int Stage)
@@ -178,7 +180,7 @@ public class StageManager : MonoBehaviour
         }
         else
         {
-            //결과창 띄우기
+            OverWindow.GetComponent<PlayableDirector>().Play();
         }
     }
 

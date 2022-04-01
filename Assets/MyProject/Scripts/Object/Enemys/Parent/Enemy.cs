@@ -20,6 +20,46 @@ public class Enemy : MonoBehaviour
 
     Context context;
 
+    private void Start()
+    {
+        StartSetting();
+    }
+
+    private void StartSetting()
+    {
+        JsonSystem json = JsonSystem.Instance;
+
+        switch (EnemyType)
+        {
+            case ObjectPool.PoolType.Bacteria:
+                Damage = json.Information.Bacteria_Damage / 2;
+                Hp = json.Information.Bacteria_Hp;
+                MoveSpeed = json.Information.Bacteria_Speed;
+                break;
+            case ObjectPool.PoolType.Germ:
+                Damage = json.Information.Germ_Damage / 2;
+                Hp = json.Information.Germ_Hp;
+                MoveSpeed = json.Information.Germ_Speed;
+                break;
+            case ObjectPool.PoolType.Cancer_Cells:
+                Damage = json.Information.Cancer_Cells_Damage / 2;
+                Hp = json.Information.Cancer_Cells_Hp;
+                MoveSpeed = json.Information.Cancer_Cells_Speed;
+                break;
+            case ObjectPool.PoolType.Virus:
+                Damage = json.Information.Virus_Damage / 2;
+                Hp = json.Information.Virus_Hp;
+                MoveSpeed = json.Information.Virus_Speed;
+                break;
+            case ObjectPool.PoolType.Leukocyte:
+                MoveSpeed = json.Information.Leukocyte_Speed;
+                break;
+            case ObjectPool.PoolType.RedBlood_Cells:
+                MoveSpeed = json.Information.RedBlood_Cells_Speed;
+                break;
+        }
+    }
+
     public void Setting()
     {
         isDie = false;
@@ -42,7 +82,7 @@ public class Enemy : MonoBehaviour
 
     private IEnumerator TargetRelease()
     {
-        while(true)
+        while (true)
         {
             isTarget = false;
             XMark.SetActive(false);
@@ -150,10 +190,10 @@ public class Enemy : MonoBehaviour
         if (EnemyType != ObjectPool.PoolType.Leukocyte && EnemyType != ObjectPool.PoolType.RedBlood_Cells)
         {
             int random = Random.Range(0, 100);
-            if (random < 50)
+            if (random < JsonSystem.Instance.Information.Leukocyte_SpawnTimer)
             {
                 random = Random.Range(0, 100);
-                if (random < 50)
+                if (random < JsonSystem.Instance.Information.Leukocyte_SpawnPer)
                 {
                     ObjectPool.Instance.GetObject(ObjectPool.Instance.Leukocytes, gameObject.transform.position);
                 }
