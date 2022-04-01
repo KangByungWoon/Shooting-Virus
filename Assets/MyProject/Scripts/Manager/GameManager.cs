@@ -86,7 +86,7 @@ public class GameManager : MonoBehaviour
     }
 
     public bool ScorePlus = true;
-
+    [SerializeField] GameObject OverWindow;
     void Awake()
     {
         Instance = this;
@@ -135,13 +135,16 @@ public class GameManager : MonoBehaviour
         KillEnemyText.text = "KILL ENEMY : " + KillEnemy.ToString();
     }
 
-    public void GameOver()
+    public IEnumerator GameOver()
     {
-        Debug.Log("게임오버");
+        OverWindow.GetComponent<PlayableDirector>().Play();
+        yield return null;
     }
 
-    public void GameClear()
+    public IEnumerator GameClear()
     {
-
+        OverWindow.GetComponent<PlayableDirector>().Play();
+        Camera.main.GetComponent<CameraSystem>().CameraShake(100f, 0.35f);
+        yield return null;
     }
 }

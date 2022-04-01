@@ -91,7 +91,7 @@ public class ERocket : MonoBehaviour
         }
     }
 
-    private void RocketRelease()
+    public void RocketRelease()
     {
         switch (rocketType)
         {

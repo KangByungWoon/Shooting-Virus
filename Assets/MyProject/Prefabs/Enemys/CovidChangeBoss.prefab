@@ -687,13 +687,15 @@ GameObject:
   - component: {fileID: 2141714414}
   - component: {fileID: 66279279}
   - component: {fileID: 66279278}
+  - component: {fileID: 5841323747773249847}
+  - component: {fileID: 5385351529702069470}
   m_Layer: 0
   m_Name: CovidChangeBoss
   m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2921448030217723181
 Transform:
   m_ObjectHideFlags: 0
@@ -821,12 +823,18 @@ PlayableDirector:
   m_GameObject: {fileID: 2921448030217723186}
   m_Enabled: 1
   serializedVersion: 3
-  m_PlayableAsset: {fileID: 0}
+  m_PlayableAsset: {fileID: 11400000, guid: f4b0c9cb0cca05344b2501de32c2226c, type: 2}
   m_InitialState: 0
   m_WrapMode: 2
   m_DirectorUpdateMode: 1
   m_InitialTime: 0
-  m_SceneBindings: []
+  m_SceneBindings:
+  - key: {fileID: -1925341932796399177, guid: f4b0c9cb0cca05344b2501de32c2226c, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: 8806256391095470233, guid: f4b0c9cb0cca05344b2501de32c2226c, type: 2}
+    value: {fileID: 5841323747773249847}
+  - key: {fileID: -4068074124906515908, guid: f4b0c9cb0cca05344b2501de32c2226c, type: 2}
+    value: {fileID: 2141714414}
   m_ExposedReferences:
     m_References: []
 --- !u!114 &66279278
@@ -859,6 +867,49 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!95 &5841323747773249847
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2921448030217723186}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &5385351529702069470
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2921448030217723186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c28e97b8138db164e97ecf229a1aa56a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Hp: 100
+  HpGague: 50
+  RotSpeed: 50
+  MinPos: {x: -10, y: 10, z: 30}
+  MaxPos: {x: 10, y: 30, z: 100}
+  Effect: {fileID: 1787512167464064561, guid: b366b614c34496c4dbeb9deb9ac3751e, type: 3}
+  Obstacle: {fileID: 7707405460662046784, guid: bb309b3e8aca59c4fabe246946b660b0, type: 3}
+  HpText: {fileID: 0}
+  HpGagueText: {fileID: 0}
+  HpGagueImage: {fileID: 0}
+  DeathEffect: {fileID: 100010, guid: 031d08f52af1daa4f929b85221519426, type: 3}
+  bossType: 1
 --- !u!1 &2921448030722381124
 GameObject:
   m_ObjectHideFlags: 0

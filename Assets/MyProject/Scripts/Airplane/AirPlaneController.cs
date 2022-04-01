@@ -16,16 +16,16 @@ public class AirPlaneController : MonoBehaviour
     [SerializeField] Image LvBar;
 
     [SerializeField] RectTransform LockOn;
-
-    [SerializeField] Vector3 TargetPoint;
     [SerializeField] MeshRenderer invinmat;
 
-    public bool isInvin;
+    Vector3 TargetPoint;
 
-    public float BulletAttackSpeed = 0.5f;
-    public float BulletMoveSpeed;
-    public int BulletDamage;
-    public int AttackPlace;
+    [HideInInspector] public bool isInvin;
+
+    float BulletAttackSpeed = 0.5f;
+    float BulletMoveSpeed;
+    int BulletDamage;
+    [SerializeField] int AttackPlace;
 
     public GameObject LevelUpEffect;
     public GameObject ShiledEffect;
@@ -354,6 +354,7 @@ public class AirPlaneController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        float x = Random.Range(0f, 1024012401f);
     }
 
 

@@ -53,8 +53,9 @@ public class CovidBoss : MonoBehaviour
         }
     }
 
-    [SerializeField] float MoveSpeed;
     [SerializeField] float RotSpeed;
+    float MoveSpeed;
+    float BulletSpeed;
 
     [SerializeField] Vector3 MinPos;
     [SerializeField] Vector3 MaxPos;
@@ -70,12 +71,32 @@ public class CovidBoss : MonoBehaviour
 
     BossState State = new BossState();
 
+    public enum BossType
+    {
+        Covid,
+        CovidChange
+    }
+
+    public BossType bossType;
+
     public void StartPattern()
     {
         State.Setting(this);
         State.Process();
         _Hp = 100;
-        _HpGague = 50;
+        JsonSystem json = JsonSystem.Instance;
+        if (bossType == BossType.Covid)
+        {
+            _HpGague = json.Information.Stage1Boss_HP;
+            MoveSpeed = json.Information.Stage1Boss_Speed;
+            BulletSpeed = json.Information.Stage1Boss_BulletSpeed;
+        }
+        else
+        {
+            _HpGague = json.Information.Stage2Boss_HP;
+            MoveSpeed = json.Information.Stage2Boss_Speed;
+            BulletSpeed = json.Information.Stage2Boss_BulletSpeed;
+        }
     }
 
     void Update()

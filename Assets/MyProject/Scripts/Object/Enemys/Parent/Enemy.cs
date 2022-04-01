@@ -8,11 +8,11 @@ public class Enemy : MonoBehaviour
     public GameObject RocketObj;
     [SerializeField] protected GameObject Explosion;
     [SerializeField] protected BezierCurve bezier;
-    [SerializeField] protected float MoveSpeed;
+    float MoveSpeed;
     [SerializeField] protected GameObject ERocket;
     [SerializeField] protected GameObject XMark;
-    public int Damage;
-    public int Hp;
+    int Damage;
+    int Hp;
     public ObjectPool.PoolType EnemyType;
     public int GiveScore;
     protected bool isDie = false;

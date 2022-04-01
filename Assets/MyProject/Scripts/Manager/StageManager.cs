@@ -35,15 +35,12 @@ public class StageManager : MonoBehaviour
     [SerializeField] GameObject FireWorks;
     [SerializeField] GameObject DustStorm;
 
-    [SerializeField] GameObject OverWindow;
-
     private int Stage = 1;
     private IEnumerator Spawn;
 
     private void Start()
     {
         StartCoroutine(StageProgress(Stage1ProgressTime, 1));
-        //Stage1BossEffect.GetComponent<PlayableDirector>().Play();
     }
 
     private IEnumerator StageProgress(float progressTime, int Stage)
@@ -113,6 +110,11 @@ public class StageManager : MonoBehaviour
         {
             enemy.Die();
         }
+        var erockets = FindObjectsOfType<ERocket>();
+        foreach (ERocket erocket in erockets)
+        {
+            erocket.RocketRelease();
+        }
 
         GameUI.SetActive(false);
         LockOn.SetActive(false);
@@ -142,7 +144,6 @@ public class StageManager : MonoBehaviour
         GameUI.SetActive(true);
         LockOn.SetActive(true);
         CMCam.SetActive(false);
-
     }
 
     public IEnumerator ClearCallBack()
@@ -151,6 +152,11 @@ public class StageManager : MonoBehaviour
         foreach (Enemy enemy in enemys)
         {
             enemy.Die();
+        }
+        var erockets = FindObjectsOfType<ERocket>();
+        foreach (ERocket erocket in erockets)
+        {
+            erocket.RocketRelease();
         }
 
         GameManager.Instance.Player.GetComponent<AirPlaneController>().NOSHOTTING = true;
@@ -180,7 +186,7 @@ public class StageManager : MonoBehaviour
         }
         else
         {
-            OverWindow.GetComponent<PlayableDirector>().Play();
+            GameManager.Instance.StartCoroutine(GameManager.Instance.GameClear());
         }
     }
 
