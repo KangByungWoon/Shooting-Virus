@@ -74,6 +74,14 @@ public class Enemy : MonoBehaviour
         context = new Context(this);
     }
 
+    public void EixtEnemy()
+    {
+        StopAllCoroutines();
+
+        context.State = new ExitState();
+        context.Activity();
+    }
+
     private void StartActivity()
     {
         context.Activity();

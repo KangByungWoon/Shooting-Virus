@@ -8,7 +8,7 @@ public class ScrollMap : MonoBehaviour
     [SerializeField] private GameObject[] ScrollMapObj = new GameObject[2];
 
     [Header("Move Information")]
-    [SerializeField] private float Map_MoveSpeed;
+    [SerializeField] public float Map_MoveSpeed;
     [SerializeField] private float ResetPosition;
     [SerializeField] private float EndPosition;
 

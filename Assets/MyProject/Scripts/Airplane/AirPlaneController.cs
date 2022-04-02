@@ -104,7 +104,7 @@ public class AirPlaneController : MonoBehaviour
 
     private Vector3 StartPosition;
 
-    private float MoveSpeed;
+    [HideInInspector] public float MoveSpeed;
     private float HorizontalInput = 0;
     private float VerticalInput = 0;
 

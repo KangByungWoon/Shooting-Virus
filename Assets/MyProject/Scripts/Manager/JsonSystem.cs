@@ -11,13 +11,14 @@ public class JsonSystem : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-    }
-    void Start()
-    {
         Information = new GameInformation();
 
-        //DataSaveText(Information, "Test.text");
         Information = DataLoadText<GameInformation>("Test.text");
+    }
+
+    public void Save()
+    {
+        DataSaveText(Information, "Test.text");
     }
 
     public void DataSaveText<T>(T data, string fileName)
@@ -55,7 +56,7 @@ public class JsonSystem : MonoBehaviour
         try
         {
             string path = Application.dataPath + "/" + fileName;
-            if(File.Exists(path))
+            if (File.Exists(path))
             {
                 string json = File.ReadAllText(path);
                 Debug.Log(json);
@@ -63,15 +64,15 @@ public class JsonSystem : MonoBehaviour
                 return t;
             }
         }
-        catch(FileNotFoundException e)
+        catch (FileNotFoundException e)
         {
             Debug.Log("file not found" + e.Message);
         }
-        catch(DirectoryNotFoundException e)
+        catch (DirectoryNotFoundException e)
         {
             Debug.Log("file nt directory" + e.Message);
         }
-        catch(IOException e)
+        catch (IOException e)
         {
             Debug.Log("file not IO" + e.Message);
         }

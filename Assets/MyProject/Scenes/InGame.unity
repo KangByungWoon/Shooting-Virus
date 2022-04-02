@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.67407036, g: 0.3554718, b: 0.36917317, a: 1}
+  m_IndirectSpecularColor: {r: 0.67406905, g: 0.35547101, b: 0.36917245, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: 8a0629420db73fe4392e1aee53c69721, type: 2}
   m_LightingSettings: {fileID: 4890085278179872738, guid: e3f1f53749119694cb5624448b8283be, type: 2}
 --- !u!196 &4
 NavMeshSettings:
@@ -367,6 +367,11 @@ RectTransform:
   m_AnchoredPosition: {x: -910, y: -490}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &119082127 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100028, guid: ec8c96245e485ce4fb0b9a1e3e787f4a, type: 3}
+  m_PrefabInstance: {fileID: 2096233619}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &122301010
 GameObject:
   m_ObjectHideFlags: 0
@@ -489,6 +494,8 @@ MonoBehaviour:
   ScoreText: {fileID: 1701893812}
   KillEnemyText: {fileID: 1726976575}
   GetItemTxt: {fileID: 934954972}
+  Smoke: {fileID: 100000, guid: 921a3ff88856fe04ebc86b196fd8cc59, type: 3}
+  Pack: {fileID: 119082127}
   KillEnemy: 0
   GetItem: 0
   _Hp: 100
@@ -572,11 +579,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42548991e1987c148b92dc1529cfbcd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Score: {fileID: 1154341986}
+  KillEnemy: {fileID: 1840026511}
   Ranknames: []
   Rankscores: 
+  NameTexts:
+  - {fileID: 899190706}
+  - {fileID: 2067710023}
+  - {fileID: 1529372277}
+  - {fileID: 1406363520}
+  - {fileID: 1758760181}
+  ScoreTexts:
+  - {fileID: 911579965}
+  - {fileID: 1917125385}
+  - {fileID: 276615240}
+  - {fileID: 1646883038}
+  - {fileID: 1341685293}
+  Join: {fileID: 1136741202}
   ResultWindow: {fileID: 1285256095}
   RankJoinWindow: {fileID: 554523876}
   ResultCloseWindow: {fileID: 11400000, guid: 68802a9d48157f24689a5bf4c5474d91, type: 2}
+  ResultOpenWindow: {fileID: 0}
   CloseRankJoinWindow: {fileID: 11400000, guid: 1ddac8753551d934ca332321e823c42c, type: 2}
   OpenRankJoinWindow: {fileID: 11400000, guid: 7c4d31433a6e8224d8dbc701a03cf82d, type: 2}
 --- !u!114 &133741870
@@ -1136,7 +1159,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\u2605 SCORE : 12412412414"
+  m_Text: 
 --- !u!222 &276615241
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2829,7 +2852,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 133741869}
         m_TargetAssemblyTypeName: RankingSystem, Assembly-CSharp
-        m_MethodName: RankJoinCancel
+        m_MethodName: RankJoinConfirm
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3052,7 +3075,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: '| Kang Byungwoon'
+  m_Text: 
 --- !u!222 &899190707
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3242,7 +3265,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\u2605 SCORE : 12412412414"
+  m_Text: 
 --- !u!222 &911579966
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4399,6 +4422,7 @@ GameObject:
   - component: {fileID: 971750667}
   - component: {fileID: 971750666}
   - component: {fileID: 971750668}
+  - component: {fileID: 971750669}
   m_Layer: 5
   m_Name: Fade
   m_TagString: Untagged
@@ -4482,6 +4506,25 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!320 &971750669
+PlayableDirector:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 971750664}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_PlayableAsset: {fileID: 11400000, guid: 262055c115706784aacef84b679359ed, type: 2}
+  m_InitialState: 1
+  m_WrapMode: 2
+  m_DirectorUpdateMode: 1
+  m_InitialTime: 0
+  m_SceneBindings:
+  - key: {fileID: -2349348587076598479, guid: 262055c115706784aacef84b679359ed, type: 2}
+    value: {fileID: 971750668}
+  m_ExposedReferences:
+    m_References: []
 --- !u!1 &1001923956
 GameObject:
   m_ObjectHideFlags: 0
@@ -6256,7 +6299,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Events:
     m_Signals:
-    - {fileID: 0}
+    - {fileID: 11400000, guid: 63b8381e54be43642ad6460a903e3406, type: 2}
     m_Events:
     - m_PersistentCalls:
         m_Calls:
@@ -6561,7 +6604,7 @@ Transform:
   m_Children:
   - {fileID: 363178193}
   m_Father: {fileID: 0}
-  m_RootOrder: 18
+  m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1341685291
 GameObject:
@@ -6633,7 +6676,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\u2605 SCORE : 12412412414"
+  m_Text: 
 --- !u!222 &1341685294
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6876,7 +6919,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: '| Kang Byungwoon'
+  m_Text: 
 --- !u!222 &1406363521
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7522,7 +7565,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: '| Kang Byungwoon'
+  m_Text: 
 --- !u!222 &1529372278
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7755,7 +7798,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\u2605 SCORE : 12412412414"
+  m_Text: 
 --- !u!222 &1646883039
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -8322,7 +8365,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: '| Kang Byungwoon'
+  m_Text: 
 --- !u!222 &1758760182
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -9064,7 +9107,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\u2605 SCORE : 12412412414"
+  m_Text: 
 --- !u!222 &1917125386
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -9596,7 +9639,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: '| Kang Byungwoon'
+  m_Text: 
 --- !u!222 &2067710024
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -9720,6 +9763,14 @@ PrefabInstance:
     - target: {fileID: 100010, guid: ec8c96245e485ce4fb0b9a1e3e787f4a, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 100086, guid: ec8c96245e485ce4fb0b9a1e3e787f4a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 100100, guid: ec8c96245e485ce4fb0b9a1e3e787f4a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 400010, guid: ec8c96245e485ce4fb0b9a1e3e787f4a, type: 3}
       propertyPath: m_RootOrder
@@ -10313,7 +10364,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 180149b1a35449044a27b451e816d2de, type: 3}
       propertyPath: m_RootOrder
-      value: 19
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 180149b1a35449044a27b451e816d2de, type: 3}
       propertyPath: m_LocalPosition.x

@@ -20,8 +20,13 @@ public class GameManager : MonoBehaviour
     [SerializeField] Text KillEnemyText;
     [SerializeField] Text GetItemTxt;
 
+    [SerializeField] GameObject Smoke;
+    [SerializeField] GameObject Pack;
+
     public int KillEnemy;
     public int GetItem;
+
+    bool isEnd = false;
 
     public float _Hp;
     public float Hp
@@ -32,7 +37,11 @@ public class GameManager : MonoBehaviour
             if (value <= 0)
             {
                 _Hp = 0;
-                GameOver();
+                if (!isEnd)
+                {
+                    StartCoroutine(GameOver());
+                    isEnd = true;
+                }
             }
             else if (value >= 100)
             {
@@ -56,9 +65,13 @@ public class GameManager : MonoBehaviour
             if (value >= 100)
             {
                 _Gp = 100;
-                GameOver();
+                if (!isEnd)
+                {
+                    StartCoroutine(GameOver());
+                    isEnd = true;
+                }
             }
-            else if(value <=0)
+            else if (value <= 0)
             {
                 _Gp = 0;
             }
@@ -128,7 +141,7 @@ public class GameManager : MonoBehaviour
         KillEnemyText.text = "KILL ENEMY : 0";
 
         yield return new WaitForSeconds(0.2f);
-        float Temp = Score * (1 + (Hp / 100) - (Gp / 100) + GetItem/100);
+        float Temp = Score * (1 + (Hp / 100) - (Gp / 100) + GetItem / 100);
         Score = (int)Temp;
         Camera.main.GetComponent<CameraSystem>().CameraShake(5f, 0.35f);
         ScoreText.text = "SCORE : " + Score.ToString();
@@ -137,8 +150,31 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator GameOver()
     {
+        Player.GetComponent<AirPlaneController>().MoveSpeed = 0;
+        Pack.SetActive(false);
+        GameObject smoke = Instantiate(Smoke); 
+        smoke.transform.position = Player.GetComponent<AirPlaneController>().transform.position + new Vector3(0,0,-0.5f);
+
+        Player.GetComponent<AirPlaneController>().NOSHOTTING = true;
+        ScorePlus = false;
+
+        StageMgr.StopAllCoroutines();
+        var enemys = FindObjectsOfType<Enemy>();
+
+        foreach (Enemy enemy in enemys)
+        {
+            enemy.EixtEnemy();
+        }
+
+        ScrollMap map = FindObjectOfType<ScrollMap>();
+        float tempSpeed = map.Map_MoveSpeed;
+        for (int i = 0; i < 100; i++)
+        {
+            map.Map_MoveSpeed -= tempSpeed * 0.01f;
+            yield return new WaitForSeconds(0.01f);
+        }
+        yield return new WaitForSeconds(3f);
         OverWindow.GetComponent<PlayableDirector>().Play();
-        yield return null;
     }
 
     public IEnumerator GameClear()
