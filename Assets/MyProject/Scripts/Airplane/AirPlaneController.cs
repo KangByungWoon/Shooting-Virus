@@ -145,6 +145,7 @@ public class AirPlaneController : MonoBehaviour
         StartCoroutine(AttackCorou);
     }
 
+    // 변수들에 미리 할당해야하는 값을 할당 해줍니다.
     private void Setting()
     {
         StartPosition = transform.position;
@@ -173,16 +174,21 @@ public class AirPlaneController : MonoBehaviour
         }
     }
 
+    // 플레이어가 목표 각도로 부드럽게 회전합니다.
     private void transformRotate()
     {
         transform.rotation = Quaternion.Slerp(transform.rotation,
         Quaternion.Euler(xAngel, yAngel, zAngle), Time.deltaTime * MoveSpeed);
     }
+
+    // 플레이어가 목표 지점으로 부드럽게 이동합니다.
     private void Move()
     {
         transform.position = Vector3.Lerp(transform.position, TargetPoint, Time.deltaTime * MoveSpeed);
 
     }
+    
+    // 좌우 방향키를 눌렀을 때 받는 이벤트입니다. x축을 증감시키고 각도를 지정합니다.
     private void HorizontalEvent()
     {
         if (HorizontalInput != 0)
@@ -198,6 +204,8 @@ public class AirPlaneController : MonoBehaviour
             yAngel = 0;
         }
     }
+
+    // 상하 방향키를 눌렀을 때 받는 이벤트입니다. y축을 증감시키고 각도를 지정합니다.
     private void VerticalEvent()
     {
         if (VerticalInput != 0)
@@ -212,6 +220,7 @@ public class AirPlaneController : MonoBehaviour
         }
     }
 
+    // 코루틴으로 총알을 발사합니다. 총알의 단계에 따라 지정해주고 유도탄이라면 레이케스트를 발사하여 오브젝트를 판별합니다.
     IEnumerator FireBullet(bool isTarget, bool Raise = false)
     {
         while (true)
@@ -256,6 +265,7 @@ public class AirPlaneController : MonoBehaviour
         }
     }
 
+    // 미사일 락온 시스템입니다. 특정 사거리 안에 박스 레이케스트를 발사하고 Enemy Layer을 가지고 있는 오브젝트가 판별된다면 지정하고 발사합니다.
     private void LockOnSystem()
     {
         if (!NOSHOTTING)
@@ -279,6 +289,8 @@ public class AirPlaneController : MonoBehaviour
             }
         }
     }
+
+    // 락온 없이 발사되는 미사일입니다. 할당되고 앞으로 나아갑니다.
     private IEnumerator RocketFire()
     {
         while (true)
@@ -294,6 +306,7 @@ public class AirPlaneController : MonoBehaviour
         }
     }
 
+    // 무적 함수입니다. 무적 이펙트 코루틴을 실행시킵니다.
     public void InvinActive(int damage, float waitTime = 1f, bool isItem = false)
     {
         if (isInvin == false || isItem == true)
@@ -309,6 +322,7 @@ public class AirPlaneController : MonoBehaviour
         }
     }
 
+    // 무적 이펙트 코루틴 입니다. 메테리얼로 이펙트를 구현했습니다.
     private IEnumerator InvinCoroutine(float waitTime)
     {
         invinmat.material.mainTextureScale = new Vector2(20, 1);
@@ -354,7 +368,6 @@ public class AirPlaneController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        float x = Random.Range(0f, 1024012401f);
     }
 
 

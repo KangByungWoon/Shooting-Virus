@@ -10,6 +10,7 @@ public class Obstacle : MonoBehaviour
         
     }
 
+    // 앞으로 직진이동합니다.
     void Update()
     {
         transform.position += Vector3.back * Time.deltaTime * Speed;

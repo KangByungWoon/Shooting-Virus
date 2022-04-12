@@ -62,6 +62,7 @@ public class RankingSystem : MonoBehaviour
         }
     }
 
+    //버블 정렬을 사용해서 랭킹을 정렬합니다.
     private void SortRanking()
     {
         for (int i = 0; i < Rankscores.Count - 1; i++)

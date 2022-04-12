@@ -20,6 +20,7 @@ public class Item : MonoBehaviour
 
     public ItemType Type;
 
+    // 아이템의 종류를 랜덤으로 정해줍니다.
     void Start()
     {
         int randomType = Random.Range(0, 6);
@@ -66,6 +67,7 @@ public class Item : MonoBehaviour
         Destroy(effectobj);
     }
 
+    // 아이템의 타입에 따라 이펙트와 효과 이벤트를 실행합니다.
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player" && !isDie)

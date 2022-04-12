@@ -79,6 +79,7 @@ public class CovidBoss : MonoBehaviour
 
     public BossType bossType;
 
+    // 패턴을 시작하는 초기 셋팅입니다. 연출이 끝나면 불립니다.
     public void StartPattern()
     {
         State.Setting(this);
@@ -101,13 +102,10 @@ public class CovidBoss : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            StartCoroutine(Death());
-        }
         gameObject.transform.Rotate(new Vector3(1, 1, 1) * Time.deltaTime * RotSpeed);
     }
 
+    // 이동 패턴입니다. 랜덤 지점을 정해서 움직입니다.
     public IEnumerator MovePattern()
     {
         Vector3 RandomPos = RandomVector3(MinPos, MaxPos);
@@ -126,6 +124,7 @@ public class CovidBoss : MonoBehaviour
 
     }
 
+    // HP에 따라 패턴을 선택합니다.
     public IEnumerator SelectAttackPattern()
     {
         int randomPattern = 0;
@@ -149,7 +148,8 @@ public class CovidBoss : MonoBehaviour
         {
             randomPattern = Random.Range(0, 7);
         }
-        //randomPattern = 5;
+
+        // 지정된 패턴을 실행합니다.
         IEnumerator WaitAttackCoroutine = null;
         switch (randomPattern)
         {
@@ -180,6 +180,7 @@ public class CovidBoss : MonoBehaviour
         yield return StartCoroutine(WaitAttackCoroutine);
     }
 
+    // 적을 소환하는 패턴입니다.
     public IEnumerator SpawnEnemy(int maxValue)
     {
         int randomspawn = Random.Range(2, maxValue);
@@ -212,6 +213,7 @@ public class CovidBoss : MonoBehaviour
         yield return new WaitForSeconds(2f);
     }
 
+    // 지정된 위치에서 로켓을 생성합니다.
     private void RocketShot()
     {
         if (HpGague <= 40)
@@ -234,6 +236,8 @@ public class CovidBoss : MonoBehaviour
             ReturnRandomRocket(transform.position + new Vector3(-10, 0, 15));
         }
     }
+
+    // 랜덤 종류의 로켓을 지정해서 반환합니다.
     private void ReturnRandomRocket(Vector3 position)
     {
         int random = Random.Range(0, 4);
@@ -257,6 +261,7 @@ public class CovidBoss : MonoBehaviour
         rocket.GetComponent<ERocket>().Speed *= 3;
     }
 
+    // 장애물 소환 패턴입니다.
     public IEnumerator RandomObtcle()
     {
         IEnumerator ObstacleCorou = ObstacleCreate();
@@ -269,6 +274,8 @@ public class CovidBoss : MonoBehaviour
 
         StopCoroutine(ObstacleCorou);
     }
+    
+    // 지속적으로 증가하는 angle 변수에 따라 삼각함수로 이동을 합니다.
     private IEnumerator ObstacleCreate()
     {
         float angle = 0;
@@ -281,6 +288,7 @@ public class CovidBoss : MonoBehaviour
         }
     }
 
+    // 보스가 위로 올라가서 적을 스폰하는 패턴입니다.
     public IEnumerator UpAndSpawn()
     {
         Vector3 targetPos = new Vector3(transform.position.x, 50, transform.position.z);
@@ -321,6 +329,7 @@ public class CovidBoss : MonoBehaviour
         yield return new WaitForSeconds(10f);
     }
 
+    // 보스가 미사일을 점사하는 패턴입니다. 코루틴으로 기다리며 미사일을 여러번 발사합니다.
     public IEnumerator BurstFire()
     {
         StartCoroutine(BurstFireCorou(new Vector3(0, 10, 0)));
@@ -365,6 +374,7 @@ public class CovidBoss : MonoBehaviour
         }
     }
 
+    // 장애물을 소환할 때 움직이는 패턴입니다. 왼쪽, 오른쪽을 번갈아가며 이동합니다.
     private IEnumerator MathMove()
     {
         Vector3 targetPos = new Vector3(MinPos.x, MaxPos.y - MinPos.y, MaxPos.z - MinPos.z);
@@ -428,6 +438,7 @@ public class CovidBoss : MonoBehaviour
         }
     }
 
+    // 보스의 HP가 0이되면 실행됩니다. 이펙트를 생성시키고 게임매니저의 ClearCallBack를 실행시켜 보스가 처치되었다는 것을 알립니다.
     private IEnumerator Death()
     {
         for (int i = 0; i < 10; i++)
@@ -467,6 +478,7 @@ public class CovidBoss : MonoBehaviour
     }
 }
 
+// 보스의 상태 구조를 만들기 위해 State Pattern을 사용했습니다.
 public class BossState
 {
     public IBoss State { get; set; }

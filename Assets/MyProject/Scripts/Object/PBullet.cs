@@ -16,6 +16,7 @@ public class PBullet : MonoBehaviour
         isDie = false;
     }
 
+    // 유도, 총알 단계에 따라 외형과 이동 방법을 설정합니다. 유도라면 지정된 타겟을 향해 유도 이동을합니다.
     void Update()
     {
         if (!isTarget)

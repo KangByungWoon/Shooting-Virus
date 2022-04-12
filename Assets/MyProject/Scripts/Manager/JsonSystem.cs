@@ -5,6 +5,7 @@ using System.IO;
 
 public class JsonSystem : MonoBehaviour
 {
+    // Json을 사용하여 파일 입출력을 구현했습니다.
     public static JsonSystem Instance;
     public GameInformation Information;
 
@@ -21,6 +22,7 @@ public class JsonSystem : MonoBehaviour
         DataSaveText(Information, "Test.text");
     }
 
+    // 경로를 지정해서 데이터를 저장합니다.
     public void DataSaveText<T>(T data, string fileName)
     {
         try
@@ -51,6 +53,7 @@ public class JsonSystem : MonoBehaviour
         }
     }
 
+    // 경로를 지정해서 데이터를 불러옵니다.
     public T DataLoadText<T>(string fileName)
     {
         try

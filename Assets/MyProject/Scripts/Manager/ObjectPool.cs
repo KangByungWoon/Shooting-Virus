@@ -106,6 +106,7 @@ public class ObjectPool : MonoBehaviour
         AddObject(Particle, Particles, ParticlePool, 500);
     }
 
+    //Queue 자료구조에 오브젝트를 생성해서 할당합니다.
     private void AddObject(GameObject obj, Queue<GameObject> objectPool, Transform pool_parent, int addValue = 200)
     {
         for (int i = 0; i < addValue; i++)
@@ -116,6 +117,7 @@ public class ObjectPool : MonoBehaviour
         }
     }
 
+    //Queue 자료구조에서 오브젝트를 꺼내옵니다.
     public GameObject GetObject(Queue<GameObject> objectPool, Vector3 pos)
     {
         GameObject obj = objectPool.Dequeue();
@@ -126,6 +128,7 @@ public class ObjectPool : MonoBehaviour
     }
 
 
+    //지정된 Queue 자료구조에 오브젝트를 할당합니다.
     public void ReleaseObject(Queue<GameObject> objectPool, GameObject m_go, float waitsecond = 0)
     {
         StartCoroutine(ReleaseObject_Coroutine(objectPool, m_go, waitsecond));

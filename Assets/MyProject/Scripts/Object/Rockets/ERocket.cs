@@ -13,6 +13,7 @@ public class ERocket : MonoBehaviour
     public int Damage;
     bool isAttack = false;
 
+    // 미사일의 타입에 따라 변수 값을 설정해줍니다.
     private void Start()
     {
         JsonSystem json = JsonSystem.Instance;
@@ -43,6 +44,7 @@ public class ERocket : MonoBehaviour
         isAttack = false;
     }
 
+    // 플레이어를 타겟으로 설정하여 유도 이동을 하다가 근접하면 유도 이동을 해제하고 직선이동을 합니다.
     void Update()
     {
         try

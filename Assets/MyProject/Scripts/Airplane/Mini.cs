@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// 플레이어 옆에서 작게 생성되어 총알을 쏴주는 오브젝트입니다. 기본 기능은 플레이어의 무기와 유사합니다.
 public class Mini : MonoBehaviour
 {
     public int WeaponLevel = 1;

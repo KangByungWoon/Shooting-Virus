@@ -25,6 +25,7 @@ public class Enemy : MonoBehaviour
         StartSetting();
     }
 
+    // 적의 타입에 따라 초기 변수값을 설정해줍니다.
     private void StartSetting()
     {
         JsonSystem json = JsonSystem.Instance;
@@ -168,6 +169,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    // 적의 이동을 베지어곡선으로 구현했습니다. Lerp / Slerp 등 다른 벡터기반 이동보다 자유로운 이동이가능합니다.
     public IEnumerator MoveBezier(bool Exit)
     {
         while (true)
@@ -287,6 +289,7 @@ public class Enemy : MonoBehaviour
     }
 }
 
+// 적의 상태 구조를 만들기 위해 State Pattern을 사용했습니다.
 public class Context
 {
     public IState State { get; set; }

@@ -16,6 +16,7 @@ public class Rocket : MonoBehaviour
         NoTarget = false;
     }
 
+    // 유도 미사일이라면 할당된 타겟을 향해서 유도이동을하며, 그렇지 않다면 앞으로 직진이동을합니다.
     void Update()
     {
         if (NoTarget)

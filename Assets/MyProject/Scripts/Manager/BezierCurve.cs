@@ -19,6 +19,7 @@ public class BezierCurve : MonoBehaviour
         Object.transform.position = BezierCurveFunc(P1, P2, P3, P4, Value);
     }
 
+    // 베지어 곡선 공식을 사용했습니다.
     public Vector3 BezierCurveFunc(Vector3 p1, Vector3 p2, Vector3 p3, Vector3 p4, float value)
     {
         Vector3 A = Vector3.Lerp(p1, p2, value);
@@ -33,32 +34,36 @@ public class BezierCurve : MonoBehaviour
         return F;
     }
 }
-//[CanEditMultipleObjects]
-//[CustomEditor(typeof(BezierCurve))]
-//public class BezierCurveEditor : Editor
-//{
-//    private void OnSceneGUI()
-//    {
-//        BezierCurve Generator = (BezierCurve)target;
 
-//        Generator.P1 = Handles.PositionHandle(Generator.P1, Quaternion.identity);
-//        Generator.P2 = Handles.PositionHandle(Generator.P2, Quaternion.identity);
-//        Generator.P3 = Handles.PositionHandle(Generator.P3, Quaternion.identity);
-//        Generator.P4 = Handles.PositionHandle(Generator.P4, Quaternion.identity);
+// 에디터 코드입니다. 에디터에서 포인트를 원하는대로 움직일 수 있습니다.
+/*
+[CanEditMultipleObjects]
+[CustomEditor(typeof(BezierCurve))]
+public class BezierCurveEditor : Editor
+{
+    private void OnSceneGUI()
+    {
+        BezierCurve Generator = (BezierCurve)target;
 
-//        Handles.DrawLine(Generator.P1, Generator.P2);
-//        Handles.DrawLine(Generator.P3, Generator.P4);
+        Generator.P1 = Handles.PositionHandle(Generator.P1, Quaternion.identity);
+        Generator.P2 = Handles.PositionHandle(Generator.P2, Quaternion.identity);
+        Generator.P3 = Handles.PositionHandle(Generator.P3, Quaternion.identity);
+        Generator.P4 = Handles.PositionHandle(Generator.P4, Quaternion.identity);
 
-//        int Count = 50;
-//        for (float i = 0; i < Count; i++)
-//        {
-//            float value_Before = i / Count;
-//            Vector3 Before = Generator.BezierCurveFunc(Generator.P1, Generator.P2, Generator.P3, Generator.P4, value_Before);
+        Handles.DrawLine(Generator.P1, Generator.P2);
+        Handles.DrawLine(Generator.P3, Generator.P4);
 
-//            float value_After = (i + 1) / Count;
-//            Vector3 After = Generator.BezierCurveFunc(Generator.P1, Generator.P2, Generator.P3, Generator.P4, value_After);
+        int Count = 50;
+        for (float i = 0; i < Count; i++)
+        {
+            float value_Before = i / Count;
+            Vector3 Before = Generator.BezierCurveFunc(Generator.P1, Generator.P2, Generator.P3, Generator.P4, value_Before);
 
-//            Handles.DrawLine(Before, After);
-//        }
-//    }
-//}
+            float value_After = (i + 1) / Count;
+            Vector3 After = Generator.BezierCurveFunc(Generator.P1, Generator.P2, Generator.P3, Generator.P4, value_After);
+
+            Handles.DrawLine(Before, After);
+        }
+    }
+}
+*/
