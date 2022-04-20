@@ -3,15 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 
-public class JsonSystem : MonoBehaviour
+public class JsonSystem : Singleton<JsonSystem>
 {
     // Json을 사용하여 파일 입출력을 구현했습니다.
-    public static JsonSystem Instance;
     public GameInformation Information;
 
     private void Awake()
     {
-        Instance = this;
         Information = new GameInformation();
 
         Information = DataLoadText<GameInformation>("Test.text");

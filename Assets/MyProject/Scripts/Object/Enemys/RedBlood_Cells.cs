@@ -10,8 +10,10 @@ public class RedBlood_Cells : Enemy
         base.Setting();
     }
 
-    void Update()
+    protected override void StartSetting()
     {
+        base.StartSetting();
+        MoveSpeed = json.Information.RedBlood_Cells_Speed;
     }
 
     public override void OnTriggerEnter(Collider other)

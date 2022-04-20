@@ -10,8 +10,10 @@ public class Leukocyte : Enemy
         base.Setting();
     }
 
-    void Update()
+    protected override void StartSetting()
     {
+        base.StartSetting();
+        MoveSpeed = json.Information.Leukocyte_Speed;
     }
 
     public override void OnTriggerEnter(Collider other)

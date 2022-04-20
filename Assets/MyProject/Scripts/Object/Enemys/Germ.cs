@@ -9,8 +9,12 @@ public class Germ : Enemy
         base.Setting();
     }
 
-    void Update()
+    protected override void StartSetting()
     {
+        base.StartSetting();
+        Damage = json.Information.Germ_Damage / 2;
+        Hp = json.Information.Germ_Hp;
+        MoveSpeed = json.Information.Germ_Speed;
     }
 
     public override void OnTriggerEnter(Collider other)

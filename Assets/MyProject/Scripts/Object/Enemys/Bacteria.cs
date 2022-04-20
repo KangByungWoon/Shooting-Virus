@@ -9,8 +9,12 @@ public class Bacteria : Enemy
         base.Setting();
     }
 
-    void Update()
+    protected override void StartSetting()
     {
+        base.StartSetting();
+        Damage = json.Information.Bacteria_Damage / 2;
+        Hp = json.Information.Bacteria_Hp;
+        MoveSpeed = json.Information.Bacteria_Speed;
     }
 
     public override void OnTriggerEnter(Collider other)

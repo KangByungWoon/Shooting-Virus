@@ -9,8 +9,12 @@ public class Virus : Enemy
         base.Setting();
     }
 
-    void Update()
+    protected override void StartSetting()
     {
+        base.StartSetting();
+        Damage = json.Information.Virus_Damage / 2;
+        Hp = json.Information.Virus_Hp;
+        MoveSpeed = json.Information.Virus_Speed;
     }
 
     public override void OnTriggerEnter(Collider other)

@@ -227,16 +227,16 @@ public class AirPlaneController : MonoBehaviour
         {
             if (!NOSHOTTING)
             {
-                GameObject bullet = null;
+                PBullet bullet = null;
                 if (!Raise)
                 {
-                    bullet = ObjectPool.Instance.GetObject(ObjectPool.Instance.PBullets, transform.position + new Vector3(0, 0.1f, 1));
-                    bullet.GetComponent<PBullet>().Speed = BulletMoveSpeed;
-                    bullet.GetComponent<PBullet>().Damage = BulletDamage;
+                    bullet = ObjectPool.Instance.GetObject(ObjectPool.Instance.PBullets, transform.position + new Vector3(0, 0.1f, 1)).GetComponent<PBullet>();
+                    bullet.Speed = BulletMoveSpeed;
+                    bullet.Damage = BulletDamage;
                 }
                 else
                 {
-                    bullet = ObjectPool.Instance.GetObject(ObjectPool.Instance.Raises, transform.position + new Vector3(0, 0.1f, 1));
+                    bullet = ObjectPool.Instance.GetObject(ObjectPool.Instance.Raises, transform.position + new Vector3(0, 0.1f, 1)).GetComponent<PBullet>();
                 }
                 if (isTarget)
                 {
@@ -247,18 +247,18 @@ public class AirPlaneController : MonoBehaviour
                         {
                             if (Raise)
                             {
-                                bullet.GetComponent<PBullet>().Speed = BulletMoveSpeed + 5;
-                                bullet.GetComponent<PBullet>().Damage = BulletDamage + 5;
-                                bullet.GetComponent<PBullet>().isRaise = true;
+                                bullet.Speed = BulletMoveSpeed + 5;
+                                bullet.Damage = BulletDamage + 5;
+                                bullet.isRaise = true;
                             }
-                            bullet.GetComponent<PBullet>().target = hit.transform.gameObject.transform;
-                            bullet.GetComponent<PBullet>().isTarget = true;
+                            bullet.target = hit.transform.gameObject.transform;
+                            bullet.isTarget = true;
                         }
                     }
                 }
                 else
                 {
-                    bullet.GetComponent<PBullet>().isTarget = false;
+                    bullet.isTarget = false;
                 }
             }
             yield return new WaitForSeconds(BulletAttackSpeed);
@@ -275,13 +275,13 @@ public class AirPlaneController : MonoBehaviour
             {
                 if (!hit.transform.gameObject.GetComponent<Enemy>().isTarget && hit.transform.gameObject.GetComponent<Enemy>().EnemyType != ObjectPool.PoolType.RedBlood_Cells)
                 {
-                    GameObject rocket = ObjectPool.Instance.GetObject(ObjectPool.Instance.PRockets, transform.position + new Vector3(Random.Range(-10, 10), 5, -10));
-                    rocket.GetComponent<Rocket>().Target = hit.transform.gameObject.transform;
-                    rocket.GetComponent<Rocket>().NoTarget = false;
+                    Rocket rocket = ObjectPool.Instance.GetObject(ObjectPool.Instance.PRockets, transform.position + new Vector3(Random.Range(-10, 10), 5, -10)).GetComponent<Rocket>();
+                    rocket.Target = hit.transform.gameObject.transform;
+                    rocket.NoTarget = false;
 
                     Enemy enemy = hit.transform.gameObject.GetComponent<Enemy>();
                     enemy.isTarget = true;
-                    enemy.RocketObj = rocket;
+                    enemy.RocketObj = rocket.gameObject;
                     enemy.OnMark();
 
                     enemy.TargetSetting();
@@ -297,9 +297,9 @@ public class AirPlaneController : MonoBehaviour
         {
             if (!NOSHOTTING)
             {
-                GameObject rocket = ObjectPool.Instance.GetObject(ObjectPool.Instance.PRockets, transform.position + new Vector3(0, 0.1f, 2f));
-                rocket.GetComponent<Rocket>().NoTarget = true;
-                rocket.GetComponent<Rocket>().Damage = BulletDamage * 10;
+                Rocket rocket = ObjectPool.Instance.GetObject(ObjectPool.Instance.PRockets, transform.position + new Vector3(0, 0.1f, 2f)).GetComponent<Rocket>();
+                rocket.NoTarget = true;
+                rocket.Damage = BulletDamage * 10;
 
             }
             yield return new WaitForSeconds(BulletAttackSpeed * 2);
@@ -365,11 +365,6 @@ public class AirPlaneController : MonoBehaviour
             }
         }
     }
-
-    private void OnTriggerEnter(Collider other)
-    {
-    }
-
 
     private void FixedUpdate()
     {

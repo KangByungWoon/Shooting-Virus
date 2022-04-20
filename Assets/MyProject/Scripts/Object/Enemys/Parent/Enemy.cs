@@ -6,18 +6,22 @@ public class Enemy : MonoBehaviour
 {
     public bool isTarget;
     public GameObject RocketObj;
+
     [SerializeField] protected GameObject Explosion;
     [SerializeField] protected BezierCurve bezier;
-    float MoveSpeed;
     [SerializeField] protected GameObject ERocket;
     [SerializeField] protected GameObject XMark;
-    int Damage;
-    int Hp;
+
     public ObjectPool.PoolType EnemyType;
     public int GiveScore;
-    protected bool isDie = false;
     public float GiveExp;
 
+    protected int Hp;
+    protected int Damage;
+    protected float MoveSpeed;
+    protected bool isDie = false;
+
+    protected JsonSystem json;
     Context context;
 
     private void Start()
@@ -26,39 +30,10 @@ public class Enemy : MonoBehaviour
     }
 
     // 적의 타입에 따라 초기 변수값을 설정해줍니다.
-    private void StartSetting()
+    protected virtual void StartSetting()
     {
-        JsonSystem json = JsonSystem.Instance;
-
-        switch (EnemyType)
-        {
-            case ObjectPool.PoolType.Bacteria:
-                Damage = json.Information.Bacteria_Damage / 2;
-                Hp = json.Information.Bacteria_Hp;
-                MoveSpeed = json.Information.Bacteria_Speed;
-                break;
-            case ObjectPool.PoolType.Germ:
-                Damage = json.Information.Germ_Damage / 2;
-                Hp = json.Information.Germ_Hp;
-                MoveSpeed = json.Information.Germ_Speed;
-                break;
-            case ObjectPool.PoolType.Cancer_Cells:
-                Damage = json.Information.Cancer_Cells_Damage / 2;
-                Hp = json.Information.Cancer_Cells_Hp;
-                MoveSpeed = json.Information.Cancer_Cells_Speed;
-                break;
-            case ObjectPool.PoolType.Virus:
-                Damage = json.Information.Virus_Damage / 2;
-                Hp = json.Information.Virus_Hp;
-                MoveSpeed = json.Information.Virus_Speed;
-                break;
-            case ObjectPool.PoolType.Leukocyte:
-                MoveSpeed = json.Information.Leukocyte_Speed;
-                break;
-            case ObjectPool.PoolType.RedBlood_Cells:
-                MoveSpeed = json.Information.RedBlood_Cells_Speed;
-                break;
-        }
+        if (json == null)
+            json = JsonSystem.Instance;
     }
 
     public void Setting()
@@ -235,8 +210,6 @@ public class Enemy : MonoBehaviour
                 ObjectPool.Instance.ReleaseObject(ObjectPool.Instance.RedBlood_Cellses, gameObject);
                 break;
         }
-
-        Debug.Log("Die Callback");
     }
 
     public void TargetSetting()

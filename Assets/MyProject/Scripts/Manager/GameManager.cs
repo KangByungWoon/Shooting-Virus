@@ -5,9 +5,10 @@ using UnityEngine.UI;
 using UnityEngine.Playables;
 using UnityEngine.Timeline;
 
-public class GameManager : MonoBehaviour
+public class GameManager : Singleton<GameManager>
 {
-    public static GameManager Instance;
+    protected GameManager() { }
+
     public StageManager StageMgr;
     public GameObject Player;
     [SerializeField] Text HpTxt;
@@ -100,11 +101,6 @@ public class GameManager : MonoBehaviour
 
     public bool ScorePlus = true;
     [SerializeField] GameObject OverWindow;
-    void Awake()
-    {
-        Instance = this;
-    }
-
     void Update()
     {
         if (ScorePlus)
@@ -135,46 +131,103 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator StageClear()
     {
-        StageResult.GetComponent<PlayableDirector>().Play();
+        StageResultTimelineStart();
 
-        ScoreText.text = "SCORE : 0";
-        KillEnemyText.text = "KILL ENEMY : 0";
+        StageResultTextInit();
 
         yield return new WaitForSeconds(0.2f);
+
+        PlusScoreEvent();
+
+        CameraEvent();
+
+        StageResultTextSetting();
+    }
+
+    private void StageResultTimelineStart()
+    {
+        StageResult.GetComponent<PlayableDirector>().Play();
+    }
+
+    private void StageResultTextInit()
+    {
+        ScoreText.text = "SCORE : 0";
+        KillEnemyText.text = "KILL ENEMY : 0";
+    }
+
+    private void PlusScoreEvent()
+    {
         float Temp = Score * (1 + (Hp / 100) - (Gp / 100) + GetItem / 100);
         Score = (int)Temp;
+    }
+
+    private void CameraEvent()
+    {
         Camera.main.GetComponent<CameraSystem>().CameraShake(5f, 0.35f);
+    }
+
+    private void StageResultTextSetting()
+    {
         ScoreText.text = "SCORE : " + Score.ToString();
         KillEnemyText.text = "KILL ENEMY : " + KillEnemy.ToString();
     }
 
     public IEnumerator GameOver()
     {
-        Player.GetComponent<AirPlaneController>().MoveSpeed = 0;
-        Pack.SetActive(false);
-        GameObject smoke = Instantiate(Smoke); 
-        smoke.transform.position = Player.GetComponent<AirPlaneController>().transform.position + new Vector3(0,0,-0.5f);
+        StopEvent();
 
+        EnemyExit();
+
+        ScrollMap map = FindObjectOfType<ScrollMap>();
+        float tempSpeed = map.Map_MoveSpeed;
+
+        for (int i = 0; i < 100; i++)
+        {
+            map.Map_MoveSpeed -= tempSpeed * 0.01f;
+            yield return new WaitForSeconds(0.01f);
+        }
+
+        yield return new WaitForSeconds(3f);
+
+        OverWindow.GetComponent<PlayableDirector>().Play();
+    }
+
+    private void StopEvent()
+    {
+        StopInit();
+
+        StopEffect();
+
+        StopStage();
+    }
+
+    private void StopInit()
+    {
+        Player.GetComponent<AirPlaneController>().MoveSpeed = 0;
         Player.GetComponent<AirPlaneController>().NOSHOTTING = true;
         ScorePlus = false;
+    }
 
+    private void StopEffect()
+    {
+        Pack.SetActive(false);
+        GameObject smoke = Instantiate(Smoke);
+        smoke.transform.position = Player.GetComponent<AirPlaneController>().transform.position + new Vector3(0, 0, -0.5f);
+    }
+
+    private void StopStage()
+    {
         StageMgr.StopAllCoroutines();
+    }
+
+    private void EnemyExit()
+    {
         var enemys = FindObjectsOfType<Enemy>();
 
         foreach (Enemy enemy in enemys)
         {
             enemy.EixtEnemy();
         }
-
-        ScrollMap map = FindObjectOfType<ScrollMap>();
-        float tempSpeed = map.Map_MoveSpeed;
-        for (int i = 0; i < 100; i++)
-        {
-            map.Map_MoveSpeed -= tempSpeed * 0.01f;
-            yield return new WaitForSeconds(0.01f);
-        }
-        yield return new WaitForSeconds(3f);
-        OverWindow.GetComponent<PlayableDirector>().Play();
     }
 
     public IEnumerator GameClear()
