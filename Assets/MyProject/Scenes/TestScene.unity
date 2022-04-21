@@ -309,6 +309,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1282344486}
   - component: {fileID: 1282344487}
+  - component: {fileID: 1282344488}
   m_Layer: 0
   m_Name: ObjectPool
   m_TagString: Untagged
@@ -347,3 +348,19 @@ MonoBehaviour:
     prefab: {fileID: 100010, guid: 147d826ca4c5a834a9dfe5db390c47f4, type: 3}
     InitCreateCount: 10
     MaxCreateCount: 50
+  - key: Germ
+    prefab: {fileID: 100010, guid: ac59fcf10e7753e46acc85b3a923510e, type: 3}
+    InitCreateCount: 10
+    MaxCreateCount: 50
+--- !u!114 &1282344488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1282344485}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62ac68c1246404d4c951872517fb1ba2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
