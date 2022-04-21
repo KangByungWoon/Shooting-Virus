@@ -117,7 +117,7 @@ MonoBehaviour:
   target: {fileID: 0}
   isRaise: 0
   isDie: 0
-  m_Object: {fileID: 5879953377195193086, guid: 067d109da0d680a49ab1352db0c49737, type: 3}
+  m_Object: {fileID: 477096527530741278}
 --- !u!114 &477096527530741278
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -5075,7 +5075,7 @@ MonoBehaviour:
   Explosion: {fileID: 100010, guid: 645413a00f7bd0242bbd6d0e5eb6f439, type: 3}
   Speed: 40
   Damage: 6
-  m_Object: {fileID: 4854308519764245732, guid: 1a7e191c088fb1d428cdc97a82e0376c, type: 3}
+  m_Object: {fileID: 8269713860456287371}
 --- !u!114 &8269713860456287371
 MonoBehaviour:
   m_ObjectHideFlags: 0

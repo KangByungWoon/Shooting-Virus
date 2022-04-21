@@ -4880,7 +4880,7 @@ MonoBehaviour:
   XMark: {fileID: 3422486042054269982}
   GiveScore: 100000
   GiveExp: 20
-  m_Object: {fileID: 2262048078445346402, guid: 147d826ca4c5a834a9dfe5db390c47f4, type: 3}
+  m_Object: {fileID: -3689934590308136299}
 --- !u!114 &1427322705
 MonoBehaviour:
   m_ObjectHideFlags: 0
