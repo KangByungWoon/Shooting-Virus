@@ -12,12 +12,12 @@ public class JsonSystem : Singleton<JsonSystem>
     {
         Information = new GameInformation();
 
-        Information = DataLoadText<GameInformation>("Test.text");
+        Information = DataLoadText<GameInformation>("Info.text");
     }
 
     public void Save()
     {
-        DataSaveText(Information, "Test.text");
+        DataSaveText(Information, "Info.text");
     }
 
     // 경로를 지정해서 데이터를 저장합니다.

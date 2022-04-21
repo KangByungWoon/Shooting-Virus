@@ -19,6 +19,8 @@ public class ObjectPool : MonoBehaviour
         Particle
     };
 
+    public Dictionary<string, Stack<GameObject>> ObjPool = new Dictionary<string,Stack<GameObject>>();
+
     [Header("Pools")]
     public Queue<GameObject> TestQueue = new Queue<GameObject>();
     public Queue<GameObject> Bacterias = new Queue<GameObject>();
