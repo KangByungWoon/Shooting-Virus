@@ -187,6 +187,7 @@ GameObject:
   - component: {fileID: 8665521612848751668}
   - component: {fileID: 2278056423997853196}
   - component: {fileID: 2192963805662754866}
+  - component: {fileID: -6944145462808085934}
   m_Layer: 6
   m_Name: Leukocyte
   m_TagString: SEnemy
@@ -275,11 +276,11 @@ MonoBehaviour:
   RocketObj: {fileID: 0}
   Explosion: {fileID: 100010, guid: 031d08f52af1daa4f929b85221519426, type: 3}
   bezier: {fileID: 8665521612848751668}
-  MoveSpeed: 0.0015
   ERocket: {fileID: 7484472348557045696, guid: 1a7e191c088fb1d428cdc97a82e0376c, type: 3}
   XMark: {fileID: 1284812262125529594}
-  Damage: 0
-  EnemyType: 4
+  GiveScore: 0
+  GiveExp: 0
+  m_Object: {fileID: -6944145462808085934}
   Item: {fileID: 4956553164252854811, guid: bbc172ab8f13bbe4daea85cdecdbd4a8, type: 3}
 --- !u!114 &8665521612848751668
 MonoBehaviour:
@@ -328,6 +329,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &-6944145462808085934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2937242537375160855}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1351001641b6c494c9599986ab6802ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: Leukocyte
 --- !u!1 &5820135116876322794
 GameObject:
   m_ObjectHideFlags: 0

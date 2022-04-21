@@ -5012,6 +5012,7 @@ GameObject:
   - component: {fileID: 7484472348557045699}
   - component: {fileID: -2472039311604303702}
   - component: {fileID: 5581707760691121941}
+  - component: {fileID: -8372466479631074563}
   m_Layer: 0
   m_Name: PRocket
   m_TagString: PRocket
@@ -5074,6 +5075,7 @@ MonoBehaviour:
   Speed: 10
   NoTarget: 0
   Damage: 30
+  m_Object: {fileID: -8372466479631074563}
 --- !u!54 &5581707760691121941
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5090,6 +5092,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &-8372466479631074563
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7484472348557045696}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1351001641b6c494c9599986ab6802ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: PRocket
 --- !u!1001 &7484472347975176843
 PrefabInstance:
   m_ObjectHideFlags: 0

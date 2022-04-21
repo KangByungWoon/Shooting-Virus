@@ -1867,36 +1867,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1890193951498900601, guid: ee4001d3dd99b0e4b933d8e2d4bf12eb, type: 3}
   m_PrefabInstance: {fileID: 1890193950054034498}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &602505575
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 602505576}
-  m_Layer: 0
-  m_Name: BacteriaPool
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &602505576
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 602505575}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 630721968}
-  m_RootOrder: 8
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &625188267
 GameObject:
   m_ObjectHideFlags: 0
@@ -1972,36 +1942,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 625188267}
   m_CullTransparentMesh: 1
---- !u!1 &629251580
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 629251581}
-  m_Layer: 0
-  m_Name: RedBlood_CellsPool
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &629251581
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 629251580}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 630721968}
-  m_RootOrder: 13
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &630721966
 GameObject:
   m_ObjectHideFlags: 0
@@ -2028,39 +1968,66 @@ MonoBehaviour:
   m_GameObject: {fileID: 630721966}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd890e7e651d9be4f9ed6ca4fe6f760f, type: 3}
+  m_Script: {fileID: 11500000, guid: 485caaecfb4e4e2418ede3a62245ad1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TestObj: {fileID: 0}
-  Bacteria: {fileID: 100010, guid: 147d826ca4c5a834a9dfe5db390c47f4, type: 3}
-  Germ: {fileID: 100010, guid: ac59fcf10e7753e46acc85b3a923510e, type: 3}
-  Virus: {fileID: 100010, guid: 1c3923f4a5810f04f8923637574e9c3d, type: 3}
-  Cancer_Cells: {fileID: 100010, guid: ba6a6301fcf73b648a0d8d38ad343d82, type: 3}
-  Leukocyte: {fileID: 2937242537375160855, guid: 76c8c10f7baccdc499fd648079aec426, type: 3}
-  RedBlood_Cells: {fileID: 3992247870915969020, guid: 619514c68b76454449a6c84cd1103755, type: 3}
-  PBullet: {fileID: 491198721500749947, guid: 067d109da0d680a49ab1352db0c49737, type: 3}
-  Raise: {fileID: 491198721500749947, guid: 468b9ad6d75be144c90bb610c1c4a5d8, type: 3}
-  BacteriaRocket: {fileID: 7484472348557045696, guid: 1a7e191c088fb1d428cdc97a82e0376c, type: 3}
-  GermRocket: {fileID: 7484472348557045696, guid: 6709e9e21c131b7458380c2d8d277ce3, type: 3}
-  VirusRocket: {fileID: 7484472348557045696, guid: 7ace0c8f5c1f243489b090b47be7bd8f, type: 3}
-  Cancer_CellsRocket: {fileID: 7484472348557045696, guid: 8e8b4555679f0714180aa0ea2716e3ab, type: 3}
-  PRocket: {fileID: 7484472348557045696, guid: d441c2460528c794eb2a3704a80caa3a, type: 3}
-  Particle: {fileID: 100010, guid: 645413a00f7bd0242bbd6d0e5eb6f439, type: 3}
-  TestPool: {fileID: 0}
-  BacteriaPool: {fileID: 602505576}
-  GermPool: {fileID: 1885234031}
-  VirusPool: {fileID: 2140813398}
-  Cancer_CellsPool: {fileID: 2036601735}
-  LeukocytePool: {fileID: 1462880687}
-  RedBlood_CellsPool: {fileID: 629251581}
-  PBulletPool: {fileID: 1740562668}
-  RaisePool: {fileID: 1612410659}
-  BacteriaRocketPool: {fileID: 1884928320}
-  GermRocketPool: {fileID: 1503129137}
-  VirusRocketPool: {fileID: 1366997365}
-  Cancer_CellsRocketPool: {fileID: 1578820698}
-  PRocketPool: {fileID: 1681228975}
-  ParticlePool: {fileID: 774552029}
+  poolObjectDataList:
+  - key: Bacteria
+    prefab: {fileID: 100010, guid: 147d826ca4c5a834a9dfe5db390c47f4, type: 3}
+    InitCreateCount: 50
+    MaxCreateCount: 100
+  - key: Germ
+    prefab: {fileID: 100010, guid: ac59fcf10e7753e46acc85b3a923510e, type: 3}
+    InitCreateCount: 50
+    MaxCreateCount: 100
+  - key: Cancer_Cells
+    prefab: {fileID: 100010, guid: ba6a6301fcf73b648a0d8d38ad343d82, type: 3}
+    InitCreateCount: 50
+    MaxCreateCount: 100
+  - key: Virus
+    prefab: {fileID: 100010, guid: 1c3923f4a5810f04f8923637574e9c3d, type: 3}
+    InitCreateCount: 50
+    MaxCreateCount: 100
+  - key: Leukocyte
+    prefab: {fileID: 2937242537375160855, guid: 76c8c10f7baccdc499fd648079aec426, type: 3}
+    InitCreateCount: 30
+    MaxCreateCount: 50
+  - key: RedBlood_Cells
+    prefab: {fileID: 3992247870915969020, guid: 619514c68b76454449a6c84cd1103755, type: 3}
+    InitCreateCount: 30
+    MaxCreateCount: 50
+  - key: Particle
+    prefab: {fileID: 100010, guid: 645413a00f7bd0242bbd6d0e5eb6f439, type: 3}
+    InitCreateCount: 200
+    MaxCreateCount: 250
+  - key: PBullet
+    prefab: {fileID: 491198721500749947, guid: 067d109da0d680a49ab1352db0c49737, type: 3}
+    InitCreateCount: 100
+    MaxCreateCount: 150
+  - key: PRaise
+    prefab: {fileID: 491198721500749947, guid: 468b9ad6d75be144c90bb610c1c4a5d8, type: 3}
+    InitCreateCount: 100
+    MaxCreateCount: 150
+  - key: PRocket
+    prefab: {fileID: 7484472348557045696, guid: d441c2460528c794eb2a3704a80caa3a, type: 3}
+    InitCreateCount: 100
+    MaxCreateCount: 150
+  - key: BacteriaRocket
+    prefab: {fileID: 7484472348557045696, guid: 1a7e191c088fb1d428cdc97a82e0376c, type: 3}
+    InitCreateCount: 30
+    MaxCreateCount: 50
+  - key: GermRocket
+    prefab: {fileID: 7484472348557045696, guid: 6709e9e21c131b7458380c2d8d277ce3, type: 3}
+    InitCreateCount: 30
+    MaxCreateCount: 50
+  - key: Cancer_CellsRocket
+    prefab: {fileID: 7484472348557045696, guid: 8e8b4555679f0714180aa0ea2716e3ab, type: 3}
+    InitCreateCount: 30
+    MaxCreateCount: 50
+  - key: VirusRocket
+    prefab: {fileID: 7484472348557045696, guid: 7ace0c8f5c1f243489b090b47be7bd8f, type: 3}
+    InitCreateCount: 30
+    MaxCreateCount: 50
 --- !u!4 &630721968
 Transform:
   m_ObjectHideFlags: 0
@@ -2071,21 +2038,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1740562668}
-  - {fileID: 1612410659}
-  - {fileID: 1681228975}
-  - {fileID: 1884928320}
-  - {fileID: 1503129137}
-  - {fileID: 1366997365}
-  - {fileID: 1578820698}
-  - {fileID: 774552029}
-  - {fileID: 602505576}
-  - {fileID: 1885234031}
-  - {fileID: 2140813398}
-  - {fileID: 2036601735}
-  - {fileID: 1462880687}
-  - {fileID: 629251581}
+  m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2357,36 +2310,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 6.8, y: 0, z: 0}
---- !u!1 &774552028
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 774552029}
-  m_Layer: 0
-  m_Name: ParticlePool
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &774552029
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 774552028}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 630721968}
-  m_RootOrder: 7
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &845081757
 GameObject:
   m_ObjectHideFlags: 0
@@ -6685,36 +6608,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1341685291}
   m_CullTransparentMesh: 1
---- !u!1 &1366997364
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1366997365}
-  m_Layer: 0
-  m_Name: VirusRocketPool
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1366997365
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1366997364}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 630721968}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1375500511
 GameObject:
   m_ObjectHideFlags: 0
@@ -7097,36 +6990,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1445769854}
   m_CullTransparentMesh: 1
---- !u!1 &1462880686
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1462880687}
-  m_Layer: 0
-  m_Name: LeukocytePool
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1462880687
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1462880686}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 630721968}
-  m_RootOrder: 12
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1474278291
 GameObject:
   m_ObjectHideFlags: 0
@@ -7221,36 +7084,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1474278291}
   m_CullTransparentMesh: 1
---- !u!1 &1503129136
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1503129137}
-  m_Layer: 0
-  m_Name: GermRocketPool
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1503129137
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1503129136}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 630721968}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1510700866
 GameObject:
   m_ObjectHideFlags: 0
@@ -7574,66 +7407,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1529372275}
   m_CullTransparentMesh: 1
---- !u!1 &1578820697
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1578820698}
-  m_Layer: 0
-  m_Name: Cancer_CellsRocketPool
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1578820698
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1578820697}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 630721968}
-  m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1612410658
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1612410659}
-  m_Layer: 0
-  m_Name: RaisePool
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1612410659
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1612410658}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 630721968}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1612846564
 GameObject:
   m_ObjectHideFlags: 0
@@ -7956,36 +7729,6 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
   m_EffectDistance: {x: 2, y: -2}
   m_UseGraphicAlpha: 1
---- !u!1 &1681228974
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1681228975}
-  m_Layer: 0
-  m_Name: PRocketPool
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1681228975
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1681228974}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 630721968}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1701893809
 GameObject:
   m_ObjectHideFlags: 0
@@ -8265,36 +8008,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1726976572}
   m_CullTransparentMesh: 1
---- !u!1 &1740562667
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1740562668}
-  m_Layer: 0
-  m_Name: PBulletPool
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1740562668
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1740562667}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 630721968}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1758760179
 GameObject:
   m_ObjectHideFlags: 0
@@ -8886,66 +8599,6 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
   m_EffectDistance: {x: 3, y: -3}
   m_UseGraphicAlpha: 1
---- !u!1 &1884928319
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1884928320}
-  m_Layer: 0
-  m_Name: BacterialRocketPool
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1884928320
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1884928319}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 630721968}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1885234030
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1885234031}
-  m_Layer: 0
-  m_Name: GermPool
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1885234031
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1885234030}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 630721968}
-  m_RootOrder: 9
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1915829033
 GameObject:
   m_ObjectHideFlags: 0
@@ -9500,36 +9153,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2010131737}
   m_CullTransparentMesh: 1
---- !u!1 &2036601734
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2036601735}
-  m_Layer: 0
-  m_Name: Cancer_CellsPool
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2036601735
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2036601734}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 630721968}
-  m_RootOrder: 11
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2046845108
 GameObject:
   m_ObjectHideFlags: 0
@@ -10209,36 +9832,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2128289906}
   m_CullTransparentMesh: 1
---- !u!1 &2140813397
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2140813398}
-  m_Layer: 0
-  m_Name: VirusPool
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2140813398
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2140813397}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 630721968}
-  m_RootOrder: 10
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2141714412 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2921448030217723186, guid: f61d5eb094611674689d0c68b370a437, type: 3}

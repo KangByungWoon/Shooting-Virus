@@ -12,7 +12,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] protected GameObject ERocket;
     [SerializeField] protected GameObject XMark;
 
-    public ObjectPool.PoolType EnemyType;
+    //public ObjectPool.PoolType EnemyType;
     public int GiveScore;
     public float GiveExp;
 
@@ -22,6 +22,7 @@ public class Enemy : MonoBehaviour
     protected bool isDie = false;
 
     protected JsonSystem json;
+    [SerializeField] PoolObject m_Object;
     Context context;
 
     private void Start()
@@ -113,34 +114,22 @@ public class Enemy : MonoBehaviour
 
     public void Shooting(bool isRed = false)
     {
-        GameObject rocket = null;
-        switch (EnemyType)
-        {
-            case ObjectPool.PoolType.Bacteria:
-                rocket = ObjectPool.Instance.GetObject(ObjectPool.Instance.BacteriaRockets, transform.position);
-                break;
-            case ObjectPool.PoolType.Germ:
-                rocket = ObjectPool.Instance.GetObject(ObjectPool.Instance.GermRockets, transform.position);
-                break;
-            case ObjectPool.PoolType.Virus:
-                rocket = ObjectPool.Instance.GetObject(ObjectPool.Instance.VirusRockets, transform.position);
-                break;
-            case ObjectPool.PoolType.Cancer_Cells:
-                rocket = ObjectPool.Instance.GetObject(ObjectPool.Instance.Cancer_CellsRockets, transform.position);
-                break;
-        }
+        if (m_Object.key == "Bacteria" || m_Object.key == "Leukocyte" || m_Object.key == "RedBlood_Cells")
+            return;
+
+        ERocket rocket = ObjectPoolMgr.Instance.GetObject(m_Object.key + "Rocket", transform.position).GetComponent<ERocket>();
 
         if (!isRed)
         {
-            rocket.GetComponent<ERocket>().Target = GameManager.Instance.Player.transform;
+            rocket.Target = GameManager.Instance.Player.transform;
         }
         else
         {
             var red = FindObjectOfType<RedBlood_Cells>();
             if (red != null)
-                rocket.GetComponent<ERocket>().Target = red.transform;
+                rocket.Target = red.transform;
             else
-                rocket.GetComponent<ERocket>().Target = GameManager.Instance.Player.transform;
+                rocket.Target = GameManager.Instance.Player.transform;
         }
     }
 
@@ -172,7 +161,7 @@ public class Enemy : MonoBehaviour
     public virtual void Die()
     {
         GameManager.Instance.KillEnemy++;
-        if (EnemyType != ObjectPool.PoolType.Leukocyte && EnemyType != ObjectPool.PoolType.RedBlood_Cells)
+        if (m_Object.key != "Leukocyte" && m_Object.key != "RedBlood_Cells")
         {
             int random = Random.Range(0, 100);
             if (random < JsonSystem.Instance.Information.Leukocyte_SpawnTimer)
@@ -180,36 +169,16 @@ public class Enemy : MonoBehaviour
                 random = Random.Range(0, 100);
                 if (random < JsonSystem.Instance.Information.Leukocyte_SpawnPer)
                 {
-                    ObjectPool.Instance.GetObject(ObjectPool.Instance.Leukocytes, gameObject.transform.position);
+                    ObjectPoolMgr.Instance.GetObject("Leukocyte", gameObject.transform.position);
                 }
                 else
                 {
-                    ObjectPool.Instance.GetObject(ObjectPool.Instance.RedBlood_Cellses, gameObject.transform.position);
+                    ObjectPoolMgr.Instance.GetObject("RedBlood_Cells", gameObject.transform.position);
                 }
             }
         }
 
-        switch (EnemyType)
-        {
-            case ObjectPool.PoolType.Bacteria:
-                ObjectPool.Instance.ReleaseObject(ObjectPool.Instance.Bacterias, gameObject);
-                break;
-            case ObjectPool.PoolType.Germ:
-                ObjectPool.Instance.ReleaseObject(ObjectPool.Instance.Germs, gameObject);
-                break;
-            case ObjectPool.PoolType.Virus:
-                ObjectPool.Instance.ReleaseObject(ObjectPool.Instance.Viruses, gameObject);
-                break;
-            case ObjectPool.PoolType.Cancer_Cells:
-                ObjectPool.Instance.ReleaseObject(ObjectPool.Instance.Cancer_Cellses, gameObject);
-                break;
-            case ObjectPool.PoolType.Leukocyte:
-                ObjectPool.Instance.ReleaseObject(ObjectPool.Instance.Leukocytes, gameObject);
-                break;
-            case ObjectPool.PoolType.RedBlood_Cells:
-                ObjectPool.Instance.ReleaseObject(ObjectPool.Instance.RedBlood_Cellses, gameObject);
-                break;
-        }
+        ObjectPoolMgr.Instance.ReleaseObject(m_Object);
     }
 
     public void TargetSetting()
@@ -297,44 +266,27 @@ public class AttackState : IState
 {
     public IEnumerator Activity(Context ctx, Enemy enemy)
     {
-        if (enemy.EnemyType == ObjectPool.PoolType.Leukocyte || enemy.EnemyType == ObjectPool.PoolType.RedBlood_Cells ||
-            enemy.EnemyType == ObjectPool.PoolType.Bacteria)
+        int random = Random.Range(0, 100);
+        if (random <= 20)
         {
-            int random = Random.Range(0, 100);
-            if (random <= 75)
-            {
-                ctx.State = new ExitState();
-            }
-            else
-            {
-                ctx.State = new MoveState();
-            }
-            ctx.Activity();
+            enemy.Shooting(true);
         }
         else
         {
-            int random = Random.Range(0, 100);
-            if (random <= 20)
-            {
-                enemy.Shooting(true);
-            }
-            else
-            {
-                enemy.Shooting();
-            }
-
-            yield return new WaitForSeconds(Random.Range(5f, 8f));
-            int random2 = Random.Range(0, 100);
-            if (random2 <= 75)
-            {
-                ctx.State = new ExitState();
-            }
-            else
-            {
-                ctx.State = new MoveState();
-            }
-            ctx.Activity();
+            enemy.Shooting();
         }
+
+        yield return new WaitForSeconds(Random.Range(5f, 8f));
+        int random2 = Random.Range(0, 100);
+        if (random2 <= 75)
+        {
+            ctx.State = new ExitState();
+        }
+        else
+        {
+            ctx.State = new MoveState();
+        }
+        ctx.Activity();
     }
 }
 

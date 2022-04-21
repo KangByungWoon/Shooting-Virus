@@ -11,6 +11,8 @@ public class PBullet : MonoBehaviour
     public bool isRaise = false;
     public bool isDie = false;
 
+    [SerializeField] PoolObject m_Object;
+
     private void OnEnable()
     {
         isDie = false;
@@ -27,11 +29,11 @@ public class PBullet : MonoBehaviour
             {
                 if (isRaise)
                 {
-                    ObjectPool.Instance.ReleaseObject(ObjectPool.Instance.Raises, gameObject);
+                    ObjectPoolMgr.Instance.ReleaseObject(m_Object);
                 }
                 else
                 {
-                    ObjectPool.Instance.ReleaseObject(ObjectPool.Instance.PBullets, gameObject);
+                    ObjectPoolMgr.Instance.ReleaseObject(m_Object);
                 }
             }
         }
@@ -51,25 +53,18 @@ public class PBullet : MonoBehaviour
         if (!isDie)
         {
             isDie = true;
-            if (isRaise)
-            {
-                ObjectPool.Instance.ReleaseObject(ObjectPool.Instance.Raises, gameObject);
-            }
-            else
-            {
-                ObjectPool.Instance.ReleaseObject(ObjectPool.Instance.PBullets, gameObject);
-            }
+            ObjectPoolMgr.Instance.ReleaseObject(m_Object);
 
             isTarget = false;
             target = null;
-            GameObject ex = ObjectPool.Instance.GetObject(ObjectPool.Instance.Particles, gameObject.transform.position);
-            ObjectPool.Instance.ReleaseObject(ObjectPool.Instance.Particles, ex, 2f);
+            PoolObject ex = ObjectPoolMgr.Instance.GetObject("Particle", gameObject.transform.position);
+            ObjectPoolMgr.Instance.ReleaseObject(ex, 2f);
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Enemy" || other.gameObject.tag == "SEnemy" || other.gameObject.tag =="Boss")
+        if (other.gameObject.tag == "Enemy" || other.gameObject.tag == "SEnemy" || other.gameObject.tag == "Boss")
         {
             Die();
         }

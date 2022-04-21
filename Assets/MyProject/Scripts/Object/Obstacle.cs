@@ -5,10 +5,6 @@ using UnityEngine;
 public class Obstacle : MonoBehaviour
 {
     [SerializeField] float Speed;
-    void Start()
-    {
-        
-    }
 
     // 앞으로 직진이동합니다.
     void Update()
@@ -26,8 +22,8 @@ public class Obstacle : MonoBehaviour
         if(other.tag=="Player")
         {
             other.GetComponentInParent<AirPlaneController>().InvinActive(10);
-            GameObject ex = ObjectPool.Instance.GetObject(ObjectPool.Instance.Particles, gameObject.transform.position);
-            ObjectPool.Instance.ReleaseObject(ObjectPool.Instance.Particles, ex, 2f);
+            PoolObject ex = ObjectPoolMgr.Instance.GetObject("Particle", gameObject.transform.position);
+            ObjectPoolMgr.Instance.ReleaseObject(ex, 2f);
             Camera.main.GetComponent<CameraSystem>().CameraShake(0.25f, 0.3f);
             Destroy(gameObject);
         }

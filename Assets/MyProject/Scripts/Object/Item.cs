@@ -14,7 +14,6 @@ public class Item : MonoBehaviour
         HideChar,
         HpUp,
         PainDown,
-        AllKill,
         LevelUp
     }
 
@@ -23,7 +22,7 @@ public class Item : MonoBehaviour
     // 아이템의 종류를 랜덤으로 정해줍니다.
     void Start()
     {
-        int randomType = Random.Range(0, 6);
+        int randomType = Random.Range(0, 5);
 
         switch (randomType)
         {
@@ -40,9 +39,6 @@ public class Item : MonoBehaviour
                 Type = ItemType.PainDown;
                 break;
             case 4:
-                Type = ItemType.AllKill;
-                break;
-            case 5:
                 Type = ItemType.LevelUp;
                 break;
         }
@@ -102,24 +98,6 @@ public class Item : MonoBehaviour
                     GameManager.Instance.Gp -= GPM;
                     GameManager.Instance.GetItemTxtOutput("PP DOWN");
                     StartCoroutine(EffectActive(player.PPDownEffect));
-                    break;
-                case ItemType.AllKill:
-                    var enemys = FindObjectsOfType<Enemy>();
-                    foreach (var enes in enemys)
-                    {
-                        if (!enes.isTarget && enes.EnemyType != ObjectPool.PoolType.RedBlood_Cells)
-                        {
-                            GameObject rocket = ObjectPool.Instance.GetObject(ObjectPool.Instance.PRockets, transform.position + new Vector3(Random.Range(-10, 10), 5, -10));
-                            rocket.GetComponent<Rocket>().Target = enes.transform;
-
-                            enes.isTarget = true;
-                            enes.RocketObj = rocket;
-                            enes.OnMark();
-
-                            enes.TargetSetting();
-                        }
-                    }
-                    GameManager.Instance.GetItemTxtOutput("ALL KILL");
                     break;
                 case ItemType.LevelUp:
                     player._Level++;

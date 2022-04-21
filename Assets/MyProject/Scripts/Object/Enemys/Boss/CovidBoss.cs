@@ -187,19 +187,20 @@ public class CovidBoss : MonoBehaviour
         for (int i = 0; i <= randomspawn; i++)
         {
             int random = Random.Range(0, 4);
+            Vector3 RandomPos = new Vector3(transform.position.x + Random.Range(-5f, 6f), transform.position.y + Random.Range(-5f, 6f), transform.position.z + Random.Range(-5f, 6f));
             switch (random)
             {
                 case 0:
-                    ObjectPool.Instance.GetObject(ObjectPool.Instance.Bacterias, new Vector3(transform.position.x + Random.Range(-5f, 6f), transform.position.y + Random.Range(-5f, 6f), transform.position.z + Random.Range(-5f, 6f)));
+                    ObjectPoolMgr.Instance.GetObject("Bacteria", RandomPos);
                     break;
                 case 1:
-                    ObjectPool.Instance.GetObject(ObjectPool.Instance.Germs, new Vector3(transform.position.x + Random.Range(-5f, 6f), transform.position.y + Random.Range(-5f, 6f), transform.position.z + Random.Range(-5f, 6f)));
+                    ObjectPoolMgr.Instance.GetObject("Germ", RandomPos);
                     break;
                 case 2:
-                    ObjectPool.Instance.GetObject(ObjectPool.Instance.Viruses, new Vector3(transform.position.x + Random.Range(-5f, 6f), transform.position.y + Random.Range(-5f, 6f), transform.position.z + Random.Range(-5f, 6f)));
+                    ObjectPoolMgr.Instance.GetObject("Cancer_Cells", RandomPos);
                     break;
                 case 3:
-                    ObjectPool.Instance.GetObject(ObjectPool.Instance.Cancer_Cellses, new Vector3(transform.position.x + Random.Range(-5f, 6f), transform.position.y + Random.Range(-5f, 6f), transform.position.z + Random.Range(-5f, 6f)));
+                    ObjectPoolMgr.Instance.GetObject("Virus", RandomPos);
                     break;
             }
         }
@@ -241,24 +242,24 @@ public class CovidBoss : MonoBehaviour
     private void ReturnRandomRocket(Vector3 position)
     {
         int random = Random.Range(0, 4);
-        GameObject rocket = null;
+        ERocket rocket = null;
         switch (random)
         {
             case 0:
-                rocket = ObjectPool.Instance.GetObject(ObjectPool.Instance.BacteriaRockets, position);
+                rocket = ObjectPoolMgr.Instance.GetObject("BacteriaRocket", position).GetComponent<ERocket>();
                 break;
             case 1:
-                rocket = ObjectPool.Instance.GetObject(ObjectPool.Instance.GermRockets, position);
+                rocket = ObjectPoolMgr.Instance.GetObject("GermRocket", position).GetComponent<ERocket>();
                 break;
             case 2:
-                rocket = ObjectPool.Instance.GetObject(ObjectPool.Instance.VirusRockets, position);
+                rocket = ObjectPoolMgr.Instance.GetObject("Cancer_Cells", position).GetComponent<ERocket>();
                 break;
             case 3:
-                rocket = ObjectPool.Instance.GetObject(ObjectPool.Instance.Cancer_CellsRockets, position);
+                rocket = ObjectPoolMgr.Instance.GetObject("VirusRocket", position).GetComponent<ERocket>();
                 break;
         }
-        rocket.GetComponent<ERocket>().Target = GameManager.Instance.Player.transform;
-        rocket.GetComponent<ERocket>().Speed *= 3;
+        rocket.Target = GameManager.Instance.Player.transform;
+        rocket.Speed *= 3;
     }
 
     // 장애물 소환 패턴입니다.
@@ -274,7 +275,7 @@ public class CovidBoss : MonoBehaviour
 
         StopCoroutine(ObstacleCorou);
     }
-    
+
     // 지속적으로 증가하는 angle 변수에 따라 삼각함수로 이동을 합니다.
     private IEnumerator ObstacleCreate()
     {
@@ -309,19 +310,20 @@ public class CovidBoss : MonoBehaviour
         for (int i = 0; i <= randomspawn; i++)
         {
             int random = Random.Range(0, 4);
+            Vector3 RandomPos = new Vector3(Random.Range(-30, 30), Random.Range(10, 30), -10);
             switch (random)
             {
                 case 0:
-                    ObjectPool.Instance.GetObject(ObjectPool.Instance.Bacterias, new Vector3(Random.Range(-30, 30), Random.Range(10, 30), -10));
+                    ObjectPoolMgr.Instance.GetObject("Bacteria", RandomPos);
                     break;
                 case 1:
-                    ObjectPool.Instance.GetObject(ObjectPool.Instance.Germs, new Vector3(Random.Range(-30, 30), Random.Range(10, 30), -10));
+                    ObjectPoolMgr.Instance.GetObject("Germ", RandomPos);
                     break;
                 case 2:
-                    ObjectPool.Instance.GetObject(ObjectPool.Instance.Viruses, new Vector3(Random.Range(-30, 30), Random.Range(10, 30), -10));
+                    ObjectPoolMgr.Instance.GetObject("Cancer_Cells", RandomPos);
                     break;
                 case 3:
-                    ObjectPool.Instance.GetObject(ObjectPool.Instance.Cancer_Cellses, new Vector3(Random.Range(-30, 30), Random.Range(10, 30), -10));
+                    ObjectPoolMgr.Instance.GetObject("Virus", RandomPos);
                     break;
             }
         }

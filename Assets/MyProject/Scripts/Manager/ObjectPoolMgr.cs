@@ -3,6 +3,7 @@ using UnityEngine;
 using System;
 
 using KeyType = System.String;
+using System.Collections;
 
 public class ObjectPoolMgr : Singleton<ObjectPoolMgr>
 {
@@ -89,7 +90,7 @@ public class ObjectPoolMgr : Singleton<ObjectPoolMgr>
     // 오브젝트 풀들을 관리하는 Dictionary에 인자로 들어온 키 값을 검색합니다.
     // 없으면 null을 반환하고 있다면 오브젝트를 활성화 하고 반환합니다.
     // 만약 오브젝트 풀 안에 오브젝트가 없다면 생성후 반환해줍니다.
-    public PoolObject GetObject(KeyType key)
+    public PoolObject GetObject(KeyType key, Vector3 position)
     {
         if (!poolDict.TryGetValue(key, out var pool))
         {
@@ -105,8 +106,11 @@ public class ObjectPoolMgr : Singleton<ObjectPoolMgr>
         else
         {
             po = sampleDict[key].Clone();
+            t_poolParent.TryGetValue(key, out var go);
+            po.transform.parent = go.transform;
         }
 
+        po.transform.position = position;
         po.Activate();
 
         return po;
@@ -133,5 +137,17 @@ public class ObjectPoolMgr : Singleton<ObjectPoolMgr>
         {
             Destroy(po.gameObject);
         }
+    }
+
+    public void ReleaseObject(PoolObject po, float waitTime)
+    {
+        StartCoroutine(waitToRelease(po, waitTime));
+    }
+
+    private IEnumerator waitToRelease(PoolObject po, float waitTime)
+    {
+
+        yield return new WaitForSeconds(waitTime);
+        ReleaseObject(po);
     }
 }

@@ -9,29 +9,30 @@ public class ERocket : MonoBehaviour
     [SerializeField] protected GameObject Explosion;
     [SerializeField] public float Speed;
     private bool isComplete = false;
-    public ObjectPool.PoolType rocketType;
     public int Damage;
     bool isAttack = false;
+
+    [SerializeField] PoolObject m_Object;
 
     // 미사일의 타입에 따라 변수 값을 설정해줍니다.
     private void Start()
     {
         JsonSystem json = JsonSystem.Instance;
-        switch (rocketType)
+        switch (m_Object.key)
         {
-            case ObjectPool.PoolType.Bacteria:
+            case "Bacteria":
                 Damage = json.Information.Bacteria_Damage;
                 Speed = json.Information.Bacteria_BulletSpeed;
                 break;
-            case ObjectPool.PoolType.Germ:
+            case "Germ":
                 Damage = json.Information.Germ_Damage;
                 Speed = json.Information.Germ_BulletSpeed;
                 break;
-            case ObjectPool.PoolType.Cancer_Cells:
+            case "Cancer_Cells":
                 Damage = json.Information.Cancer_Cells_Damage;
                 Speed = json.Information.Cancer_Cells_BulletSpeed;
                 break;
-            case ObjectPool.PoolType.Virus:
+            case "Virus":
                 Damage = json.Information.Virus_Damage;
                 Speed = json.Information.Virus_BulletSpeed;
                 break;
@@ -79,36 +80,22 @@ public class ERocket : MonoBehaviour
             isAttack = true;
             RocketRelease();
             other.GetComponentInParent<AirPlaneController>().InvinActive(Damage);
-            GameObject ex = ObjectPool.Instance.GetObject(ObjectPool.Instance.Particles, gameObject.transform.position);
-            ObjectPool.Instance.ReleaseObject(ObjectPool.Instance.Particles, ex, 2f);
+            PoolObject ex = ObjectPoolMgr.Instance.GetObject("Particle", gameObject.transform.position);
+            ObjectPoolMgr.Instance.ReleaseObject(ex, 2f);
             Camera.main.GetComponent<CameraSystem>().CameraShake(0.25f, 0.3f);
         }
 
-        if(other.tag=="Enemy" && other.gameObject.transform == Target)
+        if (other.tag == "Enemy" && other.gameObject.transform == Target)
         {
             isAttack = true;
             RocketRelease();
-            GameObject ex = ObjectPool.Instance.GetObject(ObjectPool.Instance.Particles, gameObject.transform.position);
-            ObjectPool.Instance.ReleaseObject(ObjectPool.Instance.Particles, ex, 2f);
+            PoolObject ex = ObjectPoolMgr.Instance.GetObject("Particle", gameObject.transform.position);
+            ObjectPoolMgr.Instance.ReleaseObject(ex, 2f);
         }
     }
 
     public void RocketRelease()
     {
-        switch (rocketType)
-        {
-            case ObjectPool.PoolType.Bacteria:
-                ObjectPool.Instance.ReleaseObject(ObjectPool.Instance.BacteriaRockets, gameObject);
-                break;
-            case ObjectPool.PoolType.Germ:
-                ObjectPool.Instance.ReleaseObject(ObjectPool.Instance.GermRockets, gameObject);
-                break;
-            case ObjectPool.PoolType.Virus:
-                ObjectPool.Instance.ReleaseObject(ObjectPool.Instance.VirusRockets, gameObject);
-                break;
-            case ObjectPool.PoolType.Cancer_Cells:
-                ObjectPool.Instance.ReleaseObject(ObjectPool.Instance.Cancer_CellsRockets, gameObject);
-                break;
-        }
+        ObjectPoolMgr.Instance.ReleaseObject(m_Object);
     }
 }

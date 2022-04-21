@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 859284160295305914}
   - component: {fileID: 6248192648350225377}
   - component: {fileID: -2573628583865282897}
+  - component: {fileID: 477096527530741278}
   m_Layer: 0
   m_Name: Raise
   m_TagString: PBullet
@@ -116,6 +117,20 @@ MonoBehaviour:
   target: {fileID: 0}
   isRaise: 0
   isDie: 0
+  m_Object: {fileID: 5879953377195193086, guid: 067d109da0d680a49ab1352db0c49737, type: 3}
+--- !u!114 &477096527530741278
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 491198721500749947}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1351001641b6c494c9599986ab6802ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: Raise
 --- !u!1 &3956661977395500767
 GameObject:
   m_ObjectHideFlags: 0

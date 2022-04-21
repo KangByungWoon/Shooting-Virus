@@ -87,7 +87,7 @@ public class AirPlaneController : MonoBehaviour
                 MaxExp += 100;
                 _Level++;
                 GameManager.Instance.GetItemTxtOutput("", true);
-                Destroy(GameObject.Instantiate(LevelUpEffect, gameObject.transform), 2f);
+                Destroy(Instantiate(LevelUpEffect, gameObject.transform), 2f);
             }
             else if (value < MaxExp && Level < MaxLevel)
             {
@@ -187,7 +187,7 @@ public class AirPlaneController : MonoBehaviour
         transform.position = Vector3.Lerp(transform.position, TargetPoint, Time.deltaTime * MoveSpeed);
 
     }
-    
+
     // 좌우 방향키를 눌렀을 때 받는 이벤트입니다. x축을 증감시키고 각도를 지정합니다.
     private void HorizontalEvent()
     {
@@ -230,20 +230,20 @@ public class AirPlaneController : MonoBehaviour
                 PBullet bullet = null;
                 if (!Raise)
                 {
-                    bullet = ObjectPool.Instance.GetObject(ObjectPool.Instance.PBullets, transform.position + new Vector3(0, 0.1f, 1)).GetComponent<PBullet>();
+                    bullet = ObjectPoolMgr.Instance.GetObject("PBullet", transform.position + new Vector3(0, 0.1f, 1)).GetComponent<PBullet>();
                     bullet.Speed = BulletMoveSpeed;
                     bullet.Damage = BulletDamage;
                 }
                 else
                 {
-                    bullet = ObjectPool.Instance.GetObject(ObjectPool.Instance.Raises, transform.position + new Vector3(0, 0.1f, 1)).GetComponent<PBullet>();
+                    bullet = ObjectPoolMgr.Instance.GetObject("PRaise", transform.position + new Vector3(0, 0.1f, 1)).GetComponent<PBullet>();
                 }
                 if (isTarget)
                 {
                     var hitObjs = Physics.BoxCastAll(transform.position + new Vector3(0, 0.5f, 0), new Vector3(AttackPlace, AttackPlace, AttackPlace), transform.forward, transform.rotation, Mathf.Infinity, 1 << LayerMask.NameToLayer("Enemy"));
                     foreach (var hit in hitObjs)
                     {
-                        if (hit.transform.gameObject.GetComponent<Enemy>().EnemyType != ObjectPool.PoolType.RedBlood_Cells)
+                        if (hit.transform.gameObject.GetComponent<PoolObject>().key != "RedBlood_Cells")
                         {
                             if (Raise)
                             {
@@ -273,9 +273,9 @@ public class AirPlaneController : MonoBehaviour
             var hitObjs = Physics.BoxCastAll(transform.position + new Vector3(0, 0.5f, 0), new Vector3(AttackPlace, AttackPlace, AttackPlace), transform.forward, transform.rotation, Mathf.Infinity, 1 << LayerMask.NameToLayer("Enemy"));
             foreach (var hit in hitObjs)
             {
-                if (!hit.transform.gameObject.GetComponent<Enemy>().isTarget && hit.transform.gameObject.GetComponent<Enemy>().EnemyType != ObjectPool.PoolType.RedBlood_Cells)
+                if (!hit.transform.gameObject.GetComponent<Enemy>().isTarget && hit.transform.gameObject.GetComponent<PoolObject>().key != "RedBlood_Cells")
                 {
-                    Rocket rocket = ObjectPool.Instance.GetObject(ObjectPool.Instance.PRockets, transform.position + new Vector3(Random.Range(-10, 10), 5, -10)).GetComponent<Rocket>();
+                    Rocket rocket = ObjectPoolMgr.Instance.GetObject("PRocket", transform.position + new Vector3(Random.Range(-10, 10), 5, -10)).GetComponent<Rocket>();
                     rocket.Target = hit.transform.gameObject.transform;
                     rocket.NoTarget = false;
 
@@ -297,7 +297,7 @@ public class AirPlaneController : MonoBehaviour
         {
             if (!NOSHOTTING)
             {
-                Rocket rocket = ObjectPool.Instance.GetObject(ObjectPool.Instance.PRockets, transform.position + new Vector3(0, 0.1f, 2f)).GetComponent<Rocket>();
+                Rocket rocket = ObjectPoolMgr.Instance.GetObject("PRocket", transform.position + new Vector3(0, 0.1f, 2f)).GetComponent<Rocket>();
                 rocket.NoTarget = true;
                 rocket.Damage = BulletDamage * 10;
 

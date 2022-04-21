@@ -4815,6 +4815,7 @@ GameObject:
   - component: {fileID: 5400000}
   - component: {fileID: 1427322704}
   - component: {fileID: 1427322705}
+  - component: {fileID: 3443666750129697221}
   m_Layer: 6
   m_Name: Germ
   m_TagString: Enemy
@@ -4875,14 +4876,11 @@ MonoBehaviour:
   RocketObj: {fileID: 0}
   Explosion: {fileID: 100010, guid: 645413a00f7bd0242bbd6d0e5eb6f439, type: 3}
   bezier: {fileID: 1427322705}
-  MoveSpeed: 0.0035
   ERocket: {fileID: 7484472348557045696, guid: 6709e9e21c131b7458380c2d8d277ce3, type: 3}
   XMark: {fileID: 3422486042054269982}
-  Damage: 3
-  Hp: 10
-  EnemyType: 1
   GiveScore: 50000
   GiveExp: 10
+  m_Object: {fileID: 2262048078445346402, guid: 147d826ca4c5a834a9dfe5db390c47f4, type: 3}
 --- !u!114 &1427322705
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4901,6 +4899,19 @@ MonoBehaviour:
   P3: {x: 0, y: 0, z: 0}
   P4: {x: 0, y: 0, z: 0}
   Value: 0
+--- !u!114 &3443666750129697221
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1351001641b6c494c9599986ab6802ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: Germ
 --- !u!1 &100012
 GameObject:
   m_ObjectHideFlags: 0

@@ -9,6 +9,7 @@ public class Rocket : MonoBehaviour
     bool isDie = false;
     public bool NoTarget = false;
     public int Damage;
+    [SerializeField] PoolObject m_Object;
 
     void OnEnable()
     {
@@ -25,7 +26,7 @@ public class Rocket : MonoBehaviour
 
             if (transform.position.z > 200)
             {
-                ObjectPool.Instance.ReleaseObject(ObjectPool.Instance.PRockets, gameObject);
+                ObjectPoolMgr.Instance.ReleaseObject(m_Object);
             }
         }
         else
@@ -44,9 +45,9 @@ public class Rocket : MonoBehaviour
         if (!isDie)
         {
             isDie = true;
-            ObjectPool.Instance.ReleaseObject(ObjectPool.Instance.PRockets, gameObject);
-            GameObject ex = ObjectPool.Instance.GetObject(ObjectPool.Instance.Particles, gameObject.transform.position);
-            ObjectPool.Instance.ReleaseObject(ObjectPool.Instance.Particles, ex, 2f);
+            ObjectPoolMgr.Instance.ReleaseObject(m_Object);
+            PoolObject ex = ObjectPoolMgr.Instance.GetObject("Particle", gameObject.transform.position);
+            ObjectPoolMgr.Instance.ReleaseObject(ex, 2f);
         }
     }
 

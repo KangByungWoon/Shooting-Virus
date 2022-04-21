@@ -30,13 +30,13 @@ public class Mini : MonoBehaviour
             {
                 if (WeaponLevel == 1)
                 {
-                    PBullet bullet = ObjectPool.Instance.GetObject(ObjectPool.Instance.PBullets, transform.position + new Vector3(0, 0.1f, 1)).GetComponent<PBullet>();
+                    PBullet bullet = ObjectPoolMgr.Instance.GetObject("PBullet", transform.position + new Vector3(0, 0.1f, 1)).GetComponent<PBullet>();
                     bullet.Speed = 40;
                     bullet.Damage = 10;
                 }
                 else
                 {
-                    PBullet bullet = ObjectPool.Instance.GetObject(ObjectPool.Instance.Raises, transform.position + new Vector3(0, 0.1f, 1)).GetComponent<PBullet>();
+                    PBullet bullet = ObjectPoolMgr.Instance.GetObject("Raise", transform.position + new Vector3(0, 0.1f, 1)).GetComponent<PBullet>();
                     bullet.Speed = 60;
                     bullet.Damage = 20;
                 }

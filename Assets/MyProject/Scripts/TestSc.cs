@@ -4,13 +4,21 @@ using UnityEngine;
 
 public class TestSc : MonoBehaviour
 {
-    // Start is called before the first frame update
     void Start()
     {
     }
 
-    // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            ObjectPoolMgr.Instance.GetObject("Bacteria", Vector3.zero);
+        }
+
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            var obj = FindObjectOfType<PoolObject>();
+            ObjectPoolMgr.Instance.ReleaseObject(obj);
+        }
     }
 }
