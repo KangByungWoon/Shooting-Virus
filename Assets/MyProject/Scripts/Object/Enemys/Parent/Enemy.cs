@@ -12,7 +12,6 @@ public class Enemy : MonoBehaviour
     [SerializeField] protected GameObject ERocket;
     [SerializeField] protected GameObject XMark;
 
-    //public ObjectPool.PoolType EnemyType;
     public int GiveScore;
     public float GiveExp;
 
