@@ -5518,7 +5518,7 @@ PrefabInstance:
     - target: {fileID: 4077199838547630232, guid: 2645f438bf5a60c47b16a920ab963cba, type: 3}
       propertyPath: Player
       value: 
-      objectReference: {fileID: 2096233620}
+      objectReference: {fileID: 2096233621}
     - target: {fileID: 4077199838547630232, guid: 2645f438bf5a60c47b16a920ab963cba, type: 3}
       propertyPath: Offset.x
       value: -1
@@ -8408,7 +8408,7 @@ PrefabInstance:
     - target: {fileID: 4077199838547630232, guid: 2645f438bf5a60c47b16a920ab963cba, type: 3}
       propertyPath: Player
       value: 
-      objectReference: {fileID: 2096233620}
+      objectReference: {fileID: 2096233621}
     - target: {fileID: 4077199838547630232, guid: 2645f438bf5a60c47b16a920ab963cba, type: 3}
       propertyPath: Offset.x
       value: 1

@@ -152,22 +152,39 @@ public class AirPlaneController : MonoBehaviour
 
     void Start()
     {
-        invinmat.material.mainTextureScale = new Vector2(0, 1);
         Setting();
-        AttackCorou = FireBullet(false);
-        StartCoroutine(AttackCorou);
     }
 
     // 변수들에 미리 할당해야하는 값을 할당 해줍니다.
     private void Setting()
     {
+        MaterialSetting();
+        InfoSetting();
+        CoroutineSetting();
+    }
+
+    private void MaterialSetting()
+    {
+        invinmat.material.mainTextureScale = new Vector2(0, 1);
+    }
+
+    private void InfoSetting()
+    {
         StartPosition = transform.position;
         TargetPoint = transform.position;
 
-        MoveSpeed = JsonSystem.Instance.Information.PlayerMoveSpeed;
-        BulletAttackSpeed = JsonSystem.Instance.Information.PlayerBulletAttackSpeed;
-        BulletMoveSpeed = JsonSystem.Instance.Information.PlayerBulletMoveSpeed;
-        BulletDamage = JsonSystem.Instance.Information.PlayerDamage;
+        JsonSystem json = JsonSystem.Instance;
+
+        MoveSpeed = json.Information.PlayerMoveSpeed;
+        BulletAttackSpeed = json.Information.PlayerBulletAttackSpeed;
+        BulletMoveSpeed = json.Information.PlayerBulletMoveSpeed;
+        BulletDamage = json.Information.PlayerDamage;
+    }
+
+    private void CoroutineSetting()
+    {
+        AttackCorou = FireBullet(false);
+        StartCoroutine(AttackCorou);
     }
 
     void Update()
@@ -178,13 +195,15 @@ public class AirPlaneController : MonoBehaviour
         }
 
         transformRotate();
+
         Move();
+
         HorizontalEvent();
+
         VerticalEvent();
+
         if (WeaponLevel == 5)
-        {
             LockOnSystem();
-        }
     }
 
     // 플레이어가 목표 각도로 부드럽게 회전합니다.
@@ -198,39 +217,36 @@ public class AirPlaneController : MonoBehaviour
     private void Move()
     {
         transform.position = Vector3.Lerp(transform.position, TargetPoint, Time.deltaTime * MoveSpeed);
-
     }
 
     // 좌우 방향키를 눌렀을 때 받는 이벤트입니다. x축을 증감시키고 각도를 지정합니다.
     private void HorizontalEvent()
     {
-        if (HorizontalInput != 0)
-        {
-            yAngel = HorizontalInput * Horizontal_RotPower;
-            zAngle = -HorizontalInput * Horizontal_RotPower;
-            xPos += HorizontalInput * Time.deltaTime * 30;
-            TargetPoint = StartPosition + new Vector3(xPos, yPos, 0);
-        }
-        else
+        if (HorizontalInput == 0)
         {
             zAngle = 0;
             yAngel = 0;
+            return;
         }
+
+        yAngel = HorizontalInput * Horizontal_RotPower;
+        zAngle = -HorizontalInput * Horizontal_RotPower;
+        xPos += HorizontalInput * Time.deltaTime * 30;
+        TargetPoint = StartPosition + new Vector3(xPos, yPos, 0);
     }
 
     // 상하 방향키를 눌렀을 때 받는 이벤트입니다. y축을 증감시키고 각도를 지정합니다.
     private void VerticalEvent()
     {
-        if (VerticalInput != 0)
-        {
-            xAngel = -VerticalInput * Vertical_RotPower;
-            yPos += VerticalInput * 0.2f;
-            TargetPoint = StartPosition + new Vector3(xPos, yPos, 0);
-        }
-        else
+        if (VerticalInput == 0)
         {
             xAngel = 0;
+            return;
         }
+
+        xAngel = -VerticalInput * Vertical_RotPower;
+        yPos += VerticalInput * 0.2f;
+        TargetPoint = StartPosition + new Vector3(xPos, yPos, 0);
     }
 
     // 코루틴으로 총알을 발사합니다. 총알의 단계에 따라 지정해주고 유도탄이라면 레이케스트를 발사하여 오브젝트를 판별합니다.
@@ -238,67 +254,88 @@ public class AirPlaneController : MonoBehaviour
     {
         while (true)
         {
-            if (!NOSHOTTING)
-            {
-                PBullet bullet = null;
-                if (!Raise)
-                {
-                    bullet = ObjectPoolMgr.Instance.GetObject("PBullet", transform.position + new Vector3(0, 0.1f, 1)).GetComponent<PBullet>();
-                    bullet.Speed = BulletMoveSpeed;
-                    bullet.Damage = BulletDamage;
-                }
-                else
-                {
-                    bullet = ObjectPoolMgr.Instance.GetObject("PRaise", transform.position + new Vector3(0, 0.1f, 1)).GetComponent<PBullet>();
-                }
-                if (isTarget)
-                {
-                    var hitObjs = Physics.BoxCastAll(transform.position + new Vector3(0, 0.5f, 0), new Vector3(AttackPlace, AttackPlace, AttackPlace), transform.forward, transform.rotation, Mathf.Infinity, 1 << LayerMask.NameToLayer("Enemy"));
-                    foreach (var hit in hitObjs)
-                    {
-                        if (hit.transform.gameObject.GetComponent<PoolObject>().key != "RedBlood_Cells")
-                        {
-                            if (Raise)
-                            {
-                                bullet.Speed = BulletMoveSpeed + 5;
-                                bullet.Damage = BulletDamage + 5;
-                                bullet.isRaise = true;
-                            }
-                            bullet.target = hit.transform.gameObject.transform;
-                            bullet.isTarget = true;
-                        }
-                    }
-                }
-                else
-                {
-                    bullet.isTarget = false;
-                }
-            }
             yield return new WaitForSeconds(BulletAttackSpeed);
+
+            if (NOSHOTTING)
+                continue;
+
+            PBullet bullet = BulletModuleSetting(Raise);
+
+            if (isTarget)
+            {
+                EnemyCheckBoxCast(Raise, bullet);
+            }
+            else
+            {
+                bullet.isTarget = false;
+            }
+        }
+    }
+
+    private PBullet BulletModuleSetting(bool Raise)
+    {
+        PBullet bullet;
+        if (Raise)
+        {
+            bullet = ObjectPoolMgr.Instance.GetObject("PRaise", transform.position + new Vector3(0, 0.1f, 1)).GetComponent<PBullet>();
+        }
+        else
+        {
+            bullet = ObjectPoolMgr.Instance.GetObject("PBullet", transform.position + new Vector3(0, 0.1f, 1)).GetComponent<PBullet>();
+            bullet.Speed = BulletMoveSpeed;
+            bullet.Damage = BulletDamage;
+        }
+
+        return bullet;
+    }
+
+    private void EnemyCheckBoxCast(bool Raise, PBullet bullet)
+    {
+        var hitObjs = Physics.BoxCastAll(transform.position + new Vector3(0, 0.5f, 0), new Vector3(AttackPlace, AttackPlace, AttackPlace), transform.forward, transform.rotation, Mathf.Infinity, 1 << LayerMask.NameToLayer("Enemy"));
+        foreach (var hit in hitObjs)
+        {
+            if (hit.transform.gameObject.GetComponent<PoolObject>().key == "RedBlood_Cells")
+            {
+                continue;
+            }
+
+            if (Raise)
+            {
+                bullet.Speed = BulletMoveSpeed + 5;
+                bullet.Damage = BulletDamage + 5;
+                bullet.isRaise = true;
+            }
+            bullet.target = hit.transform.gameObject.transform;
+            bullet.isTarget = true;
         }
     }
 
     // 미사일 락온 시스템입니다. 특정 사거리 안에 박스 레이케스트를 발사하고 Enemy Layer을 가지고 있는 오브젝트가 판별된다면 지정하고 발사합니다.
     private void LockOnSystem()
     {
-        if (!NOSHOTTING)
+        if (NOSHOTTING)
+            return;
+
+        LockOnCheckBoxCast();
+    }
+
+    private void LockOnCheckBoxCast()
+    {
+        var hitObjs = Physics.BoxCastAll(transform.position + new Vector3(0, 0.5f, 0), new Vector3(AttackPlace, AttackPlace, AttackPlace), transform.forward, transform.rotation, Mathf.Infinity, 1 << LayerMask.NameToLayer("Enemy"));
+        foreach (var hit in hitObjs)
         {
-            var hitObjs = Physics.BoxCastAll(transform.position + new Vector3(0, 0.5f, 0), new Vector3(AttackPlace, AttackPlace, AttackPlace), transform.forward, transform.rotation, Mathf.Infinity, 1 << LayerMask.NameToLayer("Enemy"));
-            foreach (var hit in hitObjs)
+            if (!hit.transform.gameObject.GetComponent<Enemy>().isTarget && hit.transform.gameObject.GetComponent<PoolObject>().key != "RedBlood_Cells")
             {
-                if (!hit.transform.gameObject.GetComponent<Enemy>().isTarget && hit.transform.gameObject.GetComponent<PoolObject>().key != "RedBlood_Cells")
-                {
-                    Rocket rocket = ObjectPoolMgr.Instance.GetObject("PRocket", transform.position + new Vector3(Random.Range(-10, 10), 5, -10)).GetComponent<Rocket>();
-                    rocket.Target = hit.transform.gameObject.transform;
-                    rocket.NoTarget = false;
+                Rocket rocket = ObjectPoolMgr.Instance.GetObject("PRocket", transform.position + new Vector3(Random.Range(-10, 10), 5, -10)).GetComponent<Rocket>();
+                rocket.Target = hit.transform.gameObject.transform;
+                rocket.NoTarget = false;
 
-                    Enemy enemy = hit.transform.gameObject.GetComponent<Enemy>();
-                    enemy.isTarget = true;
-                    enemy.RocketObj = rocket.gameObject;
-                    enemy.OnMark();
+                Enemy enemy = hit.transform.gameObject.GetComponent<Enemy>();
+                enemy.isTarget = true;
+                enemy.RocketObj = rocket.gameObject;
+                enemy.OnMark();
 
-                    enemy.TargetSetting();
-                }
+                enemy.TargetSetting();
             }
         }
     }
@@ -308,15 +345,20 @@ public class AirPlaneController : MonoBehaviour
     {
         while (true)
         {
-            if (!NOSHOTTING)
-            {
-                Rocket rocket = ObjectPoolMgr.Instance.GetObject("PRocket", transform.position + new Vector3(0, 0.1f, 2f)).GetComponent<Rocket>();
-                rocket.NoTarget = true;
-                rocket.Damage = BulletDamage * 10;
-
-            }
             yield return new WaitForSeconds(BulletAttackSpeed * 2);
+
+            if (NOSHOTTING)
+                continue;
+
+            RocketSpawnAndSetting();
         }
+    }
+
+    private void RocketSpawnAndSetting()
+    {
+        Rocket rocket = ObjectPoolMgr.Instance.GetObject("PRocket", transform.position + new Vector3(0, 0.1f, 2f)).GetComponent<Rocket>();
+        rocket.NoTarget = true;
+        rocket.Damage = BulletDamage * 10;
     }
 
     // 무적 함수입니다. 무적 이펙트 코루틴을 실행시킵니다.
@@ -330,6 +372,7 @@ public class AirPlaneController : MonoBehaviour
             {
                 StopCoroutine(InvinCorou);
             }
+
             InvinCorou = InvinCoroutine(waitTime);
             StartCoroutine(InvinCorou);
         }
