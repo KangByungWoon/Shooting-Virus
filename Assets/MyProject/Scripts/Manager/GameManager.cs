@@ -7,8 +7,6 @@ using UnityEngine.Timeline;
 
 public class GameManager : Singleton<GameManager>
 {
-    protected GameManager() { }
-
     public StageManager StageMgr;
     public GameObject Player;
     [SerializeField] Text HpTxt;
@@ -101,6 +99,7 @@ public class GameManager : Singleton<GameManager>
 
     public bool ScorePlus = true;
     [SerializeField] GameObject OverWindow;
+
     void Update()
     {
         if (ScorePlus)

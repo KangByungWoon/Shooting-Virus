@@ -43,18 +43,18 @@ public class AirPlaneController : MonoBehaviour
 
                 if (Level == 3)
                 {
-                    Mini1.SetActive(true);
-                    Mini1.gameObject.GetComponent<Mini>().StartFire();
+                    Mini1.gameObject.SetActive(true);
+                    Mini1.StartFire();
                 }
                 else if (Level == 6)
                 {
-                    Mini2.SetActive(true);
-                    Mini2.gameObject.GetComponent<Mini>().StartFire();
+                    Mini2.gameObject.SetActive(true);
+                    Mini2.StartFire();
                 }
                 else if (Level == 10)
                 {
-                    Mini1.gameObject.GetComponent<Mini>().WeaponLevel = 2;
-                    Mini2.gameObject.GetComponent<Mini>().WeaponLevel = 2;
+                    Mini1.WeaponLevel = 2;
+                    Mini2.WeaponLevel = 2;
                 }
 
                 LvText.text = "LV." + Level.ToString();
@@ -124,8 +124,8 @@ public class AirPlaneController : MonoBehaviour
     #endregion
 
     #region DefComponent
-    [SerializeField] GameObject Mini1;
-    [SerializeField] GameObject Mini2;
+    [SerializeField] Mini Mini1;
+    [SerializeField] Mini Mini2;
 
     [SerializeField] RectTransform LockOn;
     [SerializeField] MeshRenderer invinmat;
@@ -148,7 +148,6 @@ public class AirPlaneController : MonoBehaviour
     private IEnumerator InvinCorou;
     private IEnumerator AttackCorou;
     #endregion
-
 
     void Start()
     {

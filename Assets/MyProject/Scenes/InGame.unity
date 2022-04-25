@@ -597,7 +597,7 @@ MonoBehaviour:
   ResultWindow: {fileID: 1285256095}
   RankJoinWindow: {fileID: 554523876}
   ResultCloseWindow: {fileID: 11400000, guid: 68802a9d48157f24689a5bf4c5474d91, type: 2}
-  ResultOpenWindow: {fileID: 0}
+  ResultOpenWindow: {fileID: 11400000, guid: e1fbc8dd4e8c249429641deb6fab91be, type: 2}
   CloseRankJoinWindow: {fileID: 11400000, guid: 1ddac8753551d934ca332321e823c42c, type: 2}
   OpenRankJoinWindow: {fileID: 11400000, guid: 7c4d31433a6e8224d8dbc701a03cf82d, type: 2}
 --- !u!114 &133741870
@@ -4326,11 +4326,17 @@ MonoBehaviour:
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
---- !u!1 &963964459 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 100010, guid: 2645f438bf5a60c47b16a920ab963cba, type: 3}
+--- !u!114 &963964460 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4077199838547630232, guid: 2645f438bf5a60c47b16a920ab963cba, type: 3}
   m_PrefabInstance: {fileID: 1796060486}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b371e112f39dfdc489877c1dce0da3d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &971750664
 GameObject:
   m_ObjectHideFlags: 0
@@ -5805,11 +5811,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1235614264}
   m_CullTransparentMesh: 1
---- !u!1 &1241976558 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 100010, guid: 2645f438bf5a60c47b16a920ab963cba, type: 3}
+--- !u!114 &1241976559 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4077199838547630232, guid: 2645f438bf5a60c47b16a920ab963cba, type: 3}
   m_PrefabInstance: {fileID: 1199634589}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b371e112f39dfdc489877c1dce0da3d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1253603027
 GameObject:
   m_ObjectHideFlags: 0
@@ -9038,8 +9050,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72a14ef701c20e84da3ac742db89cf38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Stage1ProgressTime: 60
-  Stage2ProgressTime: 60
+  Stage1ProgressTime: 1
+  Stage2ProgressTime: 1
   Stage1BossEffect: {fileID: 73494641}
   Stage2BossEffect: {fileID: 2141714412}
   Stage1Boss: {fileID: 590334971}
@@ -9444,11 +9456,11 @@ PrefabInstance:
     - target: {fileID: 451516096, guid: ec8c96245e485ce4fb0b9a1e3e787f4a, type: 3}
       propertyPath: Mini1
       value: 
-      objectReference: {fileID: 963964459}
+      objectReference: {fileID: 963964460}
     - target: {fileID: 451516096, guid: ec8c96245e485ce4fb0b9a1e3e787f4a, type: 3}
       propertyPath: Mini2
       value: 
-      objectReference: {fileID: 1241976558}
+      objectReference: {fileID: 1241976559}
     - target: {fileID: 451516096, guid: ec8c96245e485ce4fb0b9a1e3e787f4a, type: 3}
       propertyPath: LockOn
       value: 

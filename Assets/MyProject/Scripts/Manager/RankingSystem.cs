@@ -27,6 +27,7 @@ public class RankingSystem : MonoBehaviour
 
     [SerializeField] PlayableDirector ResultWindow;
     [SerializeField] PlayableDirector RankJoinWindow;
+
     [SerializeField] TimelineAsset ResultCloseWindow;
     [SerializeField] TimelineAsset ResultOpenWindow;
     [SerializeField] TimelineAsset CloseRankJoinWindow;
@@ -44,12 +45,6 @@ public class RankingSystem : MonoBehaviour
         Score.text = "SCORE : " + GameManager.Instance._Score.ToString();
         KillEnemy.text = "KILL ENEMY : " + GameManager.Instance.KillEnemy.ToString();
     }
-
-    public void Setdir()
-    {
-        ResultWindow.playableAsset = ResultOpenWindow;
-    }
-
     public void RankingUpdate_Title()
     {
         SortRanking();
@@ -67,6 +62,11 @@ public class RankingSystem : MonoBehaviour
         rankData.Reverse();
     }
 
+    public void SetOpenWindow()
+    {
+        ResultWindow.playableAsset = ResultOpenWindow;
+    }
+
     public void RankJoinWindowOpen()
     {
         RankJoinWindow.playableAsset = OpenRankJoinWindow;
@@ -77,6 +77,7 @@ public class RankingSystem : MonoBehaviour
     {
         JsonSystem.Instance.Information.rankData = rankData;
         JsonSystem.Instance.Save();
+
         ResultWindow.playableAsset = ResultCloseWindow;
         ResultWindow.Play();
     }
