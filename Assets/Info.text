@@ -1,25 +1,17 @@
 {
-    "rankNames": [
-        "Hello",
-        "김승현바보",
-        "응애",
-        "aaaaaaasrasrasr",
-        "aaaaaa",
-        "qqqqq",
-        "qqqq",
-        "qq",
-        "KangByungwoon"
-    ],
-    "rankScores": [
-        65844847,
-        60442858,
-        50963459,
-        143541,
-        126813,
-        101598,
-        79827,
-        49569,
-        44414
+    "rankData": [
+        {
+            "Score": 19077396,
+            "Name": "테스트"
+        },
+        {
+            "Score": 5081204,
+            "Name": "Test3"
+        },
+        {
+            "Score": 3204760,
+            "Name": "테스트2"
+        }
     ],
     "PlayerHp": 100,
     "PlayerDamage": 5,

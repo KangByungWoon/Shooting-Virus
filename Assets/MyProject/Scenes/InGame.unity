@@ -530,8 +530,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Information:
-    rankNames: []
-    rankScores: 
+    rankData: []
     PlayerHp: 0
     PlayerDamage: 0
     PlayerBulletMoveSpeed: 0
@@ -581,8 +580,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Score: {fileID: 1154341986}
   KillEnemy: {fileID: 1840026511}
-  Ranknames: []
-  Rankscores: 
+  rankData: []
   NameTexts:
   - {fileID: 899190706}
   - {fileID: 2067710023}

@@ -105,6 +105,8 @@ public class StageManager : MonoBehaviour
 
     public void BossArrive()
     {
+        GameManager.Instance.Player.GetComponent<AirPlaneController>().NOSHOTTING = true;
+
         var enemys = FindObjectsOfType<Enemy>();
         foreach (Enemy enemy in enemys)
         {
@@ -144,6 +146,7 @@ public class StageManager : MonoBehaviour
         GameUI.SetActive(true);
         LockOn.SetActive(true);
         CMCam.SetActive(false);
+        GameManager.Instance.Player.GetComponent<AirPlaneController>().NOSHOTTING = false;
     }
 
     public IEnumerator ClearCallBack()

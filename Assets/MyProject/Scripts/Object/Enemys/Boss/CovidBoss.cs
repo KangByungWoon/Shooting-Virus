@@ -252,7 +252,7 @@ public class CovidBoss : MonoBehaviour
                 rocket = ObjectPoolMgr.Instance.GetObject("GermRocket", position).GetComponent<ERocket>();
                 break;
             case 2:
-                rocket = ObjectPoolMgr.Instance.GetObject("Cancer_Cells", position).GetComponent<ERocket>();
+                rocket = ObjectPoolMgr.Instance.GetObject("Cancer_CellsRocket", position).GetComponent<ERocket>();
                 break;
             case 3:
                 rocket = ObjectPoolMgr.Instance.GetObject("VirusRocket", position).GetComponent<ERocket>();

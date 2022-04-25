@@ -84,8 +84,7 @@ public class JsonSystem : Singleton<JsonSystem>
 [System.Serializable]
 public class GameInformation
 {
-    public List<string> rankNames = new List<string>();
-    public List<int> rankScores = new List<int>();
+    public List<RankData> rankData = new List<RankData>();
 
     public int PlayerHp;
     public int PlayerDamage;

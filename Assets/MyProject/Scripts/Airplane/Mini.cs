@@ -36,11 +36,10 @@ public class Mini : MonoBehaviour
                 }
                 else
                 {
-                    PBullet bullet = ObjectPoolMgr.Instance.GetObject("Raise", transform.position + new Vector3(0, 0.1f, 1)).GetComponent<PBullet>();
+                    PBullet bullet = ObjectPoolMgr.Instance.GetObject("PRaise", transform.position + new Vector3(0, 0.1f, 1)).GetComponent<PBullet>();
                     bullet.Speed = 60;
                     bullet.Damage = 20;
                 }
-
             }
             yield return new WaitForSeconds(0.5f);
         }

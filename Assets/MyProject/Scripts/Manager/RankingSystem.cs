@@ -3,16 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.Timeline;
-using UnityEngine.SceneManagement;
+using UnityEngine.SceneManagement;  
 using UnityEngine.UI;
+
+[System.Serializable]
+public struct RankData
+{
+    public int Score;
+    public string Name;
+}
 
 public class RankingSystem : MonoBehaviour
 {
     public Text Score;
     public Text KillEnemy;
 
-    public List<string> Ranknames = new List<string>();
-    public List<int> Rankscores = new List<int>();
+    public List<RankData> rankData = new List<RankData>();
 
     public List<Text> NameTexts = new List<Text>();
     public List<Text> ScoreTexts = new List<Text>();
@@ -28,22 +34,15 @@ public class RankingSystem : MonoBehaviour
 
     private void Start()
     {
-        Ranknames = JsonSystem.Instance.Information.rankNames;
-        Rankscores = JsonSystem.Instance.Information.rankScores;
+        rankData = JsonSystem.Instance.Information.rankData;
     }
 
     public void RankingUpdate()
     {
-        SortRanking();
+        RankingUpdate_Title();
 
         Score.text = "SCORE : " + GameManager.Instance._Score.ToString();
         KillEnemy.text = "KILL ENEMY : " + GameManager.Instance.KillEnemy.ToString();
-
-        for (int i = 0; i < Rankscores.Count && i < ScoreTexts.Count; i++)
-        {
-            NameTexts[i].text = "| " + Ranknames[i];
-            ScoreTexts[i].text = "★ SCORE : " + Rankscores[i];
-        }
     }
 
     public void Setdir()
@@ -55,33 +54,17 @@ public class RankingSystem : MonoBehaviour
     {
         SortRanking();
 
-        for (int i = 0; i < Rankscores.Count && i < ScoreTexts.Count; i++)
+        for (int i = 0; i < rankData.Count && i < ScoreTexts.Count; i++)
         {
-            NameTexts[i].text = "| " + Ranknames[i];
-            ScoreTexts[i].text = "★ SCORE : " + Rankscores[i];
+            NameTexts[i].text = "| " + rankData[i].Name;
+            ScoreTexts[i].text = "★ SCORE : " + rankData[i].Score;
         }
     }
 
-    //버블 정렬을 사용해서 랭킹을 정렬합니다.
     private void SortRanking()
     {
-        for (int i = 0; i < Rankscores.Count - 1; i++)
-        {
-            for (int j = i + 1; j < Rankscores.Count; j++)
-            {
-                if (Rankscores[j] > Rankscores[i])
-                {
-                    int temp = Rankscores[j];
-                    string stemp = Ranknames[j];
-
-                    Rankscores[j] = Rankscores[i];
-                    Ranknames[j] = Ranknames[i];
-
-                    Rankscores[i] = temp;
-                    Ranknames[i] = stemp;
-                }
-            }
-        }
+        rankData.Sort((s1, s2) => s1.Score.CompareTo(s2.Score));
+        rankData.Reverse();
     }
 
     public void RankJoinWindowOpen()
@@ -92,8 +75,7 @@ public class RankingSystem : MonoBehaviour
 
     public void GoTitle()
     {
-        JsonSystem.Instance.Information.rankNames = Ranknames;
-        JsonSystem.Instance.Information.rankScores = Rankscores;
+        JsonSystem.Instance.Information.rankData = rankData;
         JsonSystem.Instance.Save();
         ResultWindow.playableAsset = ResultCloseWindow;
         ResultWindow.Play();
@@ -112,9 +94,12 @@ public class RankingSystem : MonoBehaviour
 
     public void RankJoinConfirm()
     {
-        Ranknames.Add(Join.text);
-        Rankscores.Add(GameManager.Instance.Score);
+        RankData rank = new RankData();
+        rank.Name = Join.text;
+        rank.Score = GameManager.Instance.Score;
+        rankData.Add(rank);
         RankingUpdate();
+
         RankJoinWindow.playableAsset = CloseRankJoinWindow;
         RankJoinWindow.Play();
     }
@@ -124,5 +109,4 @@ public class RankingSystem : MonoBehaviour
         RankJoinWindow.playableAsset = CloseRankJoinWindow;
         RankJoinWindow.Play();
     }
-
 }
