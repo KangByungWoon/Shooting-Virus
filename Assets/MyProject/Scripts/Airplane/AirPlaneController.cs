@@ -5,34 +5,26 @@ using UnityEngine.UI;
 
 public class AirPlaneController : MonoBehaviour
 {
+    #region PlayerStat
     [SerializeField] float Horizontal_RotPower;
     [SerializeField] float Vertical_RotPower;
-
-    [SerializeField] GameObject Mini1;
-    [SerializeField] GameObject Mini2;
-
-    [SerializeField] Text LvText;
-    [SerializeField] Text ExpText;
-    [SerializeField] Image LvBar;
-
-    [SerializeField] RectTransform LockOn;
-    [SerializeField] MeshRenderer invinmat;
-
-    Vector3 TargetPoint;
-
-    [HideInInspector] public bool isInvin;
+    [HideInInspector] public float MoveSpeed;
 
     float BulletAttackSpeed = 0.5f;
     float BulletMoveSpeed;
     int BulletDamage;
     [SerializeField] int AttackPlace;
+    #endregion
 
-    public GameObject LevelUpEffect;
-    public GameObject ShiledEffect;
-    public GameObject HpUpEffect;
-    public GameObject PPDownEffect;
-    public GameObject WeaponUpEffect;
-    public GameObject InvinEffect;
+    #region PlayerInfo
+    public int WeaponLevel = 1;
+
+    private float HorizontalInput = 0;
+    private float VerticalInput = 0;
+
+    private Vector3 StartPosition;
+    private Vector3 TargetPoint;
+    [HideInInspector] public bool isInvin;
 
     public bool NOSHOTTING = false;
 
@@ -98,20 +90,15 @@ public class AirPlaneController : MonoBehaviour
         }
     }
     public float MaxExp;
+    #endregion
 
-    private IEnumerator InvinCorou;
-    private IEnumerator AttackCorou;
-
-    private Vector3 StartPosition;
-
-    [HideInInspector] public float MoveSpeed;
-    private float HorizontalInput = 0;
-    private float VerticalInput = 0;
-
+    #region AngleValue
     public float xAngel = 0;
     public float yAngel = 0;
     public float zAngle = 0;
+    #endregion
 
+    #region PosValue
     private float xPos = 0;
 
     private float _yPos = 0;
@@ -134,8 +121,34 @@ public class AirPlaneController : MonoBehaviour
                 _yPos = value;
         }
     }
+    #endregion
 
-    public int WeaponLevel = 1;
+    #region DefComponent
+    [SerializeField] GameObject Mini1;
+    [SerializeField] GameObject Mini2;
+
+    [SerializeField] RectTransform LockOn;
+    [SerializeField] MeshRenderer invinmat;
+
+    [SerializeField] Text LvText;
+    [SerializeField] Text ExpText;
+    [SerializeField] Image LvBar;
+    #endregion
+
+    #region EffectPrefabs
+    public GameObject LevelUpEffect;
+    public GameObject ShiledEffect;
+    public GameObject HpUpEffect;
+    public GameObject PPDownEffect;
+    public GameObject WeaponUpEffect;
+    public GameObject InvinEffect;
+    #endregion
+
+    #region Coroutine
+    private IEnumerator InvinCorou;
+    private IEnumerator AttackCorou;
+    #endregion
+
 
     void Start()
     {
